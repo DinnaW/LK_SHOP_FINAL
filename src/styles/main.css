@@ -5122,3 +5122,145 @@ button {
     letter-spacing: -0.45px !important;
   }
 }
+
+/* =========================================================
+   FINAL GLOBAL FIX: All section titles same as Featured Products
+   Title left + View All right + thin underline.
+   ========================================================= */
+.section-head,
+.product-section-head,
+.feature-showcase-head,
+.home-accessories-head,
+.modern-testimonial-head,
+.shopify-banners-head {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 18px !important;
+  width: 100% !important;
+  margin: 0 0 42px !important;
+  padding: 0 0 24px !important;
+  border-bottom: 1px solid #dedede !important;
+}
+
+.section-head > div,
+.product-section-head > div,
+.feature-showcase-head > div,
+.home-accessories-head > div,
+.modern-testimonial-head > div,
+.shopify-banners-head > div {
+  min-width: 0 !important;
+}
+
+.section-title,
+.section-head .section-title,
+.product-section-head .section-title,
+.feature-showcase-head .section-title,
+.feature-showcase-head h2,
+.home-accessories-head .section-title,
+.modern-testimonial-head .section-title,
+.shopify-banners-head h2 {
+  margin: 0 !important;
+  color: #151922 !important;
+  font-family: 'Red Hat Display', sans-serif !important;
+  font-size: 35px !important;
+  line-height: 1.12 !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.6px !important;
+}
+
+/* Hide all small kicker/subtitle text inside section headers to match the reference look */
+.section-head .section-kicker,
+.product-section-head .section-kicker,
+.feature-showcase-head .section-kicker,
+.home-accessories-head .section-kicker,
+.modern-testimonial-head .section-kicker,
+.shopify-banners-head .section-kicker,
+.section-head .section-sub,
+.product-section-head .section-sub,
+.feature-showcase-head .section-sub,
+.home-accessories-head .section-sub,
+.modern-testimonial-head .section-sub,
+.shopify-banners-head .section-sub {
+  display: none !important;
+}
+
+.view-link,
+.section-head .view-link,
+.product-section-head .view-link,
+.feature-showcase-head .view-link,
+.feature-showcase-head a,
+.home-accessories-head .view-link,
+.modern-testimonial-head .view-link,
+.shopify-banners-head a {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  color: #111827 !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: 1.15px !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+/* Keep all title sections on the same content width */
+.product-grid-section .container-fluid,
+.feature-showcase-section .container-fluid,
+.home-accessories-section .container-fluid,
+.modern-testimonials-section .container-fluid,
+.shopify-banners-section .container-fluid {
+  max-width: 1420px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Keep section spacing consistent after applying the shared title style */
+.product-grid-section,
+.feature-showcase-section,
+.home-accessories-section,
+.modern-testimonials-section,
+.shopify-banners-section {
+  padding-top: 72px !important;
+  padding-bottom: 78px !important;
+}
+
+@media (max-width: 767px) {
+  .section-head,
+  .product-section-head,
+  .feature-showcase-head,
+  .home-accessories-head,
+  .modern-testimonial-head,
+  .shopify-banners-head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    margin-bottom: 24px !important;
+    padding-bottom: 16px !important;
+  }
+
+  .section-title,
+  .section-head .section-title,
+  .product-section-head .section-title,
+  .feature-showcase-head .section-title,
+  .feature-showcase-head h2,
+  .home-accessories-head .section-title,
+  .modern-testimonial-head .section-title,
+  .shopify-banners-head h2 {
+    font-size: 30px !important;
+    line-height: 1.12 !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.45px !important;
+  }
+
+  .product-grid-section,
+  .feature-showcase-section,
+  .home-accessories-section,
+  .modern-testimonials-section,
+  .shopify-banners-section {
+    padding-top: 42px !important;
+    padding-bottom: 52px !important;
+  }
+}
