@@ -5264,3 +5264,33 @@ button {
     padding-bottom: 52px !important;
   }
 }
+
+/* GLOBAL FONT LOCK - Red Hat Display only */
+html,
+body,
+#app,
+.app-shell,
+.app-shell *,
+input,
+textarea,
+select,
+button,
+a,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+small,
+strong,
+del,
+label {
+  font-family: 'Red Hat Display', sans-serif !important;
+}
+
+::placeholder {
+  font-family: 'Red Hat Display', sans-serif !important;
+}
