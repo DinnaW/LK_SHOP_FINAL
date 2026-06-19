@@ -6,7 +6,10 @@
           <h2 class="section-title">Featured Products</h2>
           <p class="section-sub">Premium collections and highlight banners selected for you.</p>
         </div>
-        <a href="#deals" class="view-link">View all <i class="fa-solid fa-arrow-right ms-1"></i></a>
+
+        <a href="#deals" class="view-link">
+          View all <i class="fa-solid fa-arrow-right ms-1"></i>
+        </a>
       </div>
 
       <div class="feature-showcase-grid">
@@ -25,6 +28,9 @@
 
 <script setup>
 defineProps({
-  banners: { type: Array, required: true },
+  banners: {
+    type: Array,
+    required: true,
+  },
 })
 </script>

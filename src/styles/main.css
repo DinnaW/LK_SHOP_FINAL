@@ -5038,3 +5038,87 @@ button {
     min-width: 166px !important;
   }
 }
+
+/* =========================================================
+   FINAL FIX: Featured Products header alignment
+   Matches the main product-section heading rhythm.
+   ========================================================= */
+.feature-showcase-section {
+  padding: 72px 0 78px !important;
+  background: #ffffff !important;
+}
+
+.feature-showcase-section .container-fluid {
+  max-width: 1420px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.feature-showcase-head {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 18px !important;
+  margin-bottom: 42px !important;
+  padding-bottom: 24px !important;
+  border-bottom: 1px solid #dedede !important;
+}
+
+.feature-showcase-head > div {
+  min-width: 0 !important;
+}
+
+.feature-showcase-head .section-title,
+.feature-showcase-head h2 {
+  margin: 0 !important;
+  color: #2d2d2f !important;
+  font-family: 'Red Hat Display', sans-serif !important;
+  font-size: 35px !important;
+  line-height: 1.12 !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.6px !important;
+}
+
+/* Hide the subtitle only in Featured Products so the heading height matches other product sections */
+.feature-showcase-head .section-sub {
+  display: none !important;
+}
+
+.feature-showcase-head .view-link,
+.feature-showcase-head a {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  color: #202124 !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  letter-spacing: 1.15px !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+.feature-showcase-grid {
+  gap: 20px !important;
+}
+
+@media (max-width: 767px) {
+  .feature-showcase-section {
+    padding: 38px 0 46px !important;
+  }
+
+  .feature-showcase-head {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-bottom: 24px !important;
+    padding-bottom: 16px !important;
+  }
+
+  .feature-showcase-head .section-title,
+  .feature-showcase-head h2 {
+    font-size: 30px !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.45px !important;
+  }
+}
