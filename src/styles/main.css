@@ -5294,3 +5294,38 @@ label {
 ::placeholder {
   font-family: 'Red Hat Display', sans-serif !important;
 }
+
+/* FONT AWESOME FIX: keep Red Hat Display for text, but restore icon font families */
+.fa,
+.fas,
+.fa-solid,
+.far,
+.fa-regular {
+  font-family: "Font Awesome 6 Free" !important;
+}
+
+.fas,
+.fa-solid {
+  font-weight: 900 !important;
+}
+
+.far,
+.fa-regular {
+  font-weight: 400 !important;
+}
+
+.fab,
+.fa-brands {
+  font-family: "Font Awesome 6 Brands" !important;
+  font-weight: 400 !important;
+}
+
+.fa::before,
+.fas::before,
+.fa-solid::before,
+.far::before,
+.fa-regular::before,
+.fab::before,
+.fa-brands::before {
+  font-family: inherit !important;
+}
