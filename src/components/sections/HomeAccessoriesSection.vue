@@ -10,47 +10,49 @@
         <a href="#home-accessories" class="view-link">View more <i class="fa-solid fa-arrow-right ms-1"></i></a>
       </div>
 
+      <div class="home-accessories-category-nav" aria-label="Home accessory categories">
+        <button
+          v-for="category in categories"
+          :key="category"
+          type="button"
+          :class="{ active: activeCategory === category }"
+          @click="$emit('update:activeCategory', category)"
+        >
+          {{ category }}
+        </button>
+      </div>
+
       <div class="home-accessories-layout">
-        <aside class="home-accessories-category-card">
-          <img class="home-accessories-bg" :src="featureImage" alt="Home accessories background" />
-          <div class="home-accessories-overlay"></div>
-
-          <div class="home-accessories-category-content premium-filter-card">
-            <div class="home-filter-topbar">
-              <span class="home-filter-brand">LK Shop</span>
-              <span class="home-filter-menu"><i class="fa-solid fa-grip-lines"></i></span>
-            </div>
-
-            <div class="home-filter-copy">
-              <span>Home Accessories</span>
-              <h3>Design Your Living Space</h3>
-              <p>Choose a category and discover refined pieces for every corner.</p>
-            </div>
-
-            <div class="home-filter-visual-wrap">
-              <img class="home-filter-visual" :src="visualImage" alt="Premium home accessories visual" />
-            </div>
-
-            <div class="home-accessories-tabs premium-filter-tabs">
-              <button
-                v-for="category in categories"
-                :key="category"
-                type="button"
-                :class="{ active: activeCategory === category }"
-                @click="$emit('update:activeCategory', category)"
-              >
-                {{ category }}
-              </button>
-            </div>
-          </div>
-        </aside>
-
         <div class="home-accessories-products product-section-grid">
           <ProductCard
-            v-for="product in products"
+            v-for="product in products.slice(0, 5)"
             :key="product.title"
             class="home-accessory-product-card"
             :product="product"
+            :wishlist-items="wishlistItems"
+            @add-to-cart="$emit('add-to-cart', $event)"
+            @quick-view="$emit('quick-view', $event)"
+            @add-wishlist="$emit('add-wishlist', $event)"
+          />
+
+          <ProductCard
+            v-if="products[5]"
+            class="home-accessory-product-card"
+            :product="products[5]"
+            :wishlist-items="wishlistItems"
+            @add-to-cart="$emit('add-to-cart', $event)"
+            @quick-view="$emit('quick-view', $event)"
+            @add-wishlist="$emit('add-wishlist', $event)"
+          />
+
+          <div class="home-accessories-middle-banner">
+            <img :src="featureImage" alt="Home accessories promotion" />
+          </div>
+
+          <ProductCard
+            v-if="products[6]"
+            class="home-accessory-product-card"
+            :product="products[6]"
             :wishlist-items="wishlistItems"
             @add-to-cart="$emit('add-to-cart', $event)"
             @quick-view="$emit('quick-view', $event)"

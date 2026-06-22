@@ -7,6 +7,7 @@ import featured1 from '@/assets/featured-1.png'
 import featured2 from '@/assets/featured-2.png'
 import featured3 from '@/assets/featured-3.png'
 import featured4 from '@/assets/featured-4.png'
+import homeAccessoriesMiddleBanner from '@/assets/home-accessories-middle-banner.png'
 
 export { product1, product2, product3, product4, product5 }
 
@@ -149,8 +150,7 @@ export const homeAccessoryCategories = [
   'Bedding & Cushions',
   'Tableware',
 ]
-export const homeAccessoriesFeatureImage =
-  'https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=1100&auto=format&fit=crop'
+export const homeAccessoriesFeatureImage = homeAccessoriesMiddleBanner
 
 export const homeAccessoryProducts = [
   {
