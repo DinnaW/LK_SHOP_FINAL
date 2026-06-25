@@ -30,7 +30,9 @@
             class="home-accessory-product-card"
             :product="product"
             :wishlist-items="wishlistItems"
+            :cart-quantity="cartQuantities[product.title] || 0"
             @add-to-cart="$emit('add-to-cart', $event)"
+            @update-cart-quantity="$emit('update-cart-quantity', $event)"
             @quick-view="$emit('quick-view', $event)"
             @add-wishlist="$emit('add-wishlist', $event)"
           />
@@ -40,7 +42,9 @@
             class="home-accessory-product-card"
             :product="products[5]"
             :wishlist-items="wishlistItems"
+            :cart-quantity="cartQuantities[products[5].title] || 0"
             @add-to-cart="$emit('add-to-cart', $event)"
+            @update-cart-quantity="$emit('update-cart-quantity', $event)"
             @quick-view="$emit('quick-view', $event)"
             @add-wishlist="$emit('add-wishlist', $event)"
           />
@@ -54,7 +58,9 @@
             class="home-accessory-product-card"
             :product="products[6]"
             :wishlist-items="wishlistItems"
+            :cart-quantity="cartQuantities[products[6].title] || 0"
             @add-to-cart="$emit('add-to-cart', $event)"
+            @update-cart-quantity="$emit('update-cart-quantity', $event)"
             @quick-view="$emit('quick-view', $event)"
             @add-wishlist="$emit('add-wishlist', $event)"
           />
@@ -72,9 +78,10 @@ defineProps({
   activeCategory: { type: String, required: true },
   products: { type: Array, required: true },
   wishlistItems: { type: Array, default: () => [] },
+  cartQuantities: { type: Object, default: () => ({}) },
   featureImage: { type: String, required: true },
   visualImage: { type: String, required: true },
 })
 
-defineEmits(['update:activeCategory', 'add-to-cart', 'quick-view', 'add-wishlist'])
+defineEmits(['update:activeCategory', 'add-to-cart', 'update-cart-quantity', 'quick-view', 'add-wishlist'])
 </script>

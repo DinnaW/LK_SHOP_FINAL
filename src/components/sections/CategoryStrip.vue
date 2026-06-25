@@ -1,14 +1,20 @@
 <template>
-  <div class="category-strip">
+  <nav class="category-strip" aria-label="Main product categories">
+    <button class="category-menu-trigger" type="button">
+      Categories <i class="fa-solid fa-chevron-down"></i>
+    </button>
+
     <div class="category-track">
-      <template v-for="round in 2" :key="round">
-        <template v-for="category in categories" :key="`${round}-${category}`">
-          <span>{{ category }}</span>
-          <span>|</span>
-        </template>
-      </template>
+      <a v-for="category in categories" :key="category.label" :href="category.href">
+        {{ category.label }}
+      </a>
     </div>
-  </div>
+
+    <div class="category-nav-arrows" aria-hidden="true">
+      <span><i class="fa-solid fa-chevron-left"></i></span>
+      <span><i class="fa-solid fa-chevron-right"></i></span>
+    </div>
+  </nav>
 </template>
 
 <script setup>

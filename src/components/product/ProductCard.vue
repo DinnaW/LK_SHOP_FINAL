@@ -1,7 +1,9 @@
 <template>
   <article class="product-card" :class="{ 'is-out-of-stock': isOutOfStock }">
     <div class="product-img">
-      <span v-if="ribbonText" class="product-ribbon" :class="{ 'out-stock': isOutOfStock }">{{ ribbonText }}</span>
+      <span v-if="ribbonText" class="product-ribbon" :class="{ 'out-stock': isOutOfStock }">
+        {{ ribbonText }}
+      </span>
 
       <div class="product-actions modern-hover-actions">
         <button
@@ -11,7 +13,16 @@
           aria-label="Add to wishlist"
           @click.stop="$emit('add-wishlist', product)"
         >
-          <i :class="isWishlisted ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+          <svg
+            class="card-action-icon wishlist-icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            :class="{ filled: isWishlisted }"
+          >
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+            />
+          </svg>
         </button>
 
         <button
@@ -20,7 +31,27 @@
           aria-label="Quick view"
           @click.stop="$emit('quick-view', product)"
         >
-          <i class="fa-regular fa-eye"></i>
+          <svg class="card-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2.06 12.35a1 1 0 0 1 0-.7C3.7 7.35 7.88 4.5 12 4.5s8.3 2.85 9.94 7.15a1 1 0 0 1 0 .7C20.3 16.65 16.12 19.5 12 19.5s-8.3-2.85-9.94-7.15Z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="hover-cart-action"
+          :disabled="isOutOfStock"
+          :title="isOutOfStock ? 'Out of stock' : 'Add to cart'"
+          :aria-label="isOutOfStock ? 'Out of stock' : 'Add to cart'"
+          @click.stop="addOneToCart"
+        >
+          <svg class="card-action-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="8" cy="21" r="1" />
+            <circle cx="19" cy="21" r="1" />
+            <path d="M2.05 2.05h2l2.65 12.42a2 2 0 0 0 2 1.58h7.72a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+            <path d="M12 8v5" />
+            <path d="M9.5 10.5h5" />
+          </svg>
         </button>
       </div>
 
@@ -41,56 +72,65 @@
         <span class="koko-label">KOKO</span>
       </p>
 
-      <div class="product-cart-controls">
-        <div class="quantity-control" :class="{ disabled: isOutOfStock }">
-          <button
-            type="button"
-            aria-label="Reduce quantity"
-            :disabled="isOutOfStock || quantity <= 1"
-            @click="decreaseQuantity"
-          >
-            <i class="fa-solid fa-minus"></i>
-          </button>
-
-          <span>{{ quantity }}</span>
-
-          <button
-            type="button"
-            aria-label="Increase quantity"
-            :disabled="isOutOfStock || quantity >= maxQuantity"
-            @click="increaseQuantity"
-          >
-            <i class="fa-solid fa-plus"></i>
-          </button>
-        </div>
-
+      <div class="product-cart-controls" :class="{ 'has-cart-quantity': cartQuantity > 0 }">
         <button
+          v-if="cartQuantity <= 0"
           class="add-btn add-cart-icon-btn"
           :class="{ disabled: isOutOfStock }"
           type="button"
           :disabled="isOutOfStock"
-          @click="addSelectedQuantity"
+          @click="addOneToCart"
         >
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span>{{ isOutOfStock ? 'Out Of Stock' : 'Add To Cart' }}</span>
+          <svg class="button-inline-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+          <span>{{ isOutOfStock ? 'Out Of Stock' : 'Add' }}</span>
         </button>
+
+        <div v-else class="quantity-control cart-quantity-control" :class="{ disabled: isOutOfStock }">
+          <button
+            type="button"
+            aria-label="Reduce quantity"
+            :disabled="isOutOfStock"
+            @click="decreaseCartQuantity"
+          >
+            <svg class="quantity-inline-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14" />
+            </svg>
+          </button>
+
+          <span>{{ cartQuantity }}</span>
+
+          <button
+            type="button"
+            aria-label="Increase quantity"
+            :disabled="isOutOfStock || cartQuantity >= maxQuantity"
+            @click="increaseCartQuantity"
+          >
+            <svg class="quantity-inline-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </article>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { formatPrice } from '@/utils/formatters'
 
 const props = defineProps({
   product: { type: Object, required: true },
   wishlistItems: { type: Array, default: () => [] },
+  cartQuantity: { type: Number, default: 0 },
 })
 
-const emit = defineEmits(['add-to-cart', 'quick-view', 'add-wishlist'])
+const emit = defineEmits(['add-to-cart', 'update-cart-quantity', 'quick-view', 'add-wishlist'])
 
-const quantity = ref(1)
 const maxQuantity = 99
 
 const isWishlisted = computed(() => props.wishlistItems.includes(props.product.title))
@@ -102,20 +142,30 @@ const isOutOfStock = computed(() =>
 )
 const ribbonText = computed(() => (isOutOfStock.value ? 'OUT OF STOCK' : props.product.badge))
 
-const decreaseQuantity = () => {
-  if (quantity.value > 1) quantity.value -= 1
-}
-
-const increaseQuantity = () => {
-  if (quantity.value < maxQuantity) quantity.value += 1
-}
-
-const addSelectedQuantity = () => {
+const addOneToCart = () => {
   if (isOutOfStock.value) return
 
   emit('add-to-cart', {
     product: props.product,
-    quantity: quantity.value,
+    quantity: 1,
+  })
+}
+
+const decreaseCartQuantity = () => {
+  if (isOutOfStock.value) return
+
+  emit('update-cart-quantity', {
+    product: props.product,
+    quantity: props.cartQuantity - 1,
+  })
+}
+
+const increaseCartQuantity = () => {
+  if (isOutOfStock.value) return
+
+  emit('update-cart-quantity', {
+    product: props.product,
+    quantity: Math.min(props.cartQuantity + 1, maxQuantity),
   })
 }
 </script>

@@ -17,8 +17,9 @@
         @open-cart="openCart"
       />
 
-      <HeroSection :image="heroBg" />
-      <CategoryStrip :categories="scrollingCategories" />
+      <CategoryStrip :categories="categorySidebarItems" />
+      <HeroSection :images="heroImages" />
+      <MarqueeStrip :categories="scrollingCategories" />
 
       <ProductSection
         id="deals"
@@ -27,7 +28,9 @@
         :chips="['New Products', 'Featured Products', 'Top Deals', 'Best Sellers']"
         :products="filteredRecommendedProducts"
         :wishlist-items="wishlistTitles"
+        :cart-quantities="cartQuantities"
         @add-to-cart="addToCart"
+        @update-cart-quantity="updateCartQuantity"
         @quick-view="openQuickView"
         @add-wishlist="addToWishlist"
       />
@@ -41,7 +44,9 @@
         :chips="['Gaming', 'Audio Devices', 'Computer Accessories', 'Cameras', 'Home Appliances']"
         :products="filteredElectronicsProducts"
         :wishlist-items="wishlistTitles"
+        :cart-quantities="cartQuantities"
         @add-to-cart="addToCart"
+        @update-cart-quantity="updateCartQuantity"
         @quick-view="openQuickView"
         @add-wishlist="addToWishlist"
       />
@@ -53,9 +58,11 @@
         :categories="homeAccessoryCategories"
         :products="filteredHomeAccessoryProducts"
         :wishlist-items="wishlistTitles"
+        :cart-quantities="cartQuantities"
         :feature-image="homeAccessoriesFeatureImage"
         :visual-image="product4"
         @add-to-cart="addToCart"
+        @update-cart-quantity="updateCartQuantity"
         @quick-view="openQuickView"
         @add-wishlist="addToWishlist"
       />
@@ -73,7 +80,9 @@
         :chips="['Personal Care Gadget', 'Office Equipment', 'Gaming', 'Top Deals']"
         :products="filteredBestProducts"
         :wishlist-items="wishlistTitles"
+        :cart-quantities="cartQuantities"
         @add-to-cart="addToCart"
+        @update-cart-quantity="updateCartQuantity"
         @quick-view="openQuickView"
         @add-wishlist="addToWishlist"
       />
@@ -115,6 +124,7 @@ import CartToast from '@/components/cart/CartToast.vue'
 import CartDrawer from '@/components/cart/CartDrawer.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import CategoryStrip from '@/components/sections/CategoryStrip.vue'
+import MarqueeStrip from '@/components/sections/MarqueeStrip.vue'
 import ApplianceBanner from '@/components/sections/ApplianceBanner.vue'
 import FeaturedBanners from '@/components/sections/FeaturedBanners.vue'
 import HomeAccessoriesSection from '@/components/sections/HomeAccessoriesSection.vue'
@@ -122,6 +132,8 @@ import ImageBanner from '@/components/sections/ImageBanner.vue'
 import Testimonials from '@/components/sections/Testimonials.vue'
 
 import heroBg from '@/assets/hero-bg.png'
+import heroBg1 from '@/assets/hero-bg1.png'
+import heroB1g from '@/assets/hero-b1g.png'
 import applianceBanner from '@/assets/appliance-banner.png'
 import homeAccessoriesBanner from '@/assets/home-accessories-banner.png'
 import {
@@ -139,6 +151,7 @@ import {
 } from '@/data/shopData'
 
 const searchTerm = ref('')
+const heroImages = [heroBg, heroBg1, heroB1g]
 const cart = ref([])
 const wishlist = ref([])
 const quickViewProduct = ref(null)
@@ -177,6 +190,12 @@ const filteredHomeAccessoryProducts = computed(() => {
 const filteredBestProducts = computed(() => filterProducts(bestProducts))
 const cartTotal = computed(() => cart.value.reduce((sum, item) => sum + item.price * item.quantity, 0))
 const cartCount = computed(() => cart.value.reduce((sum, item) => sum + item.quantity, 0))
+const cartQuantities = computed(() =>
+  cart.value.reduce((items, item) => {
+    items[item.title] = item.quantity
+    return items
+  }, {}),
+)
 const wishlistTitles = computed(() => wishlist.value.map((item) => item.title))
 
 const toggleSidebar = () => {
@@ -221,6 +240,23 @@ const addToCart = (payload) => {
   }
 
   showProductToast(product, `${quantity} item${quantity > 1 ? 's' : ''} added to your cart successfully.`)
+}
+
+const updateCartQuantity = ({ product, quantity }) => {
+  const existingIndex = cart.value.findIndex((item) => item.title === product.title)
+
+  if (quantity <= 0) {
+    if (existingIndex !== -1) cart.value.splice(existingIndex, 1)
+    return
+  }
+
+  if (existingIndex === -1) {
+    cart.value.push({ ...product, quantity })
+    showProductToast(product, `${quantity} item${quantity > 1 ? 's' : ''} added to your cart successfully.`)
+    return
+  }
+
+  cart.value[existingIndex].quantity = quantity
 }
 
 const addToWishlist = (product) => {
