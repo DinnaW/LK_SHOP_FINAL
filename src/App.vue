@@ -21,6 +21,12 @@
       <HeroSection :images="heroImages" />
       <MarqueeStrip :categories="scrollingCategories" />
 
+      <MegaSaleSection
+        :products="filteredMegaSaleProducts"
+        @buy-now="addToCart"
+        @quick-view="openQuickView"
+      />
+
       <ProductSection
         id="deals"
         title="Recommendation for you"
@@ -125,6 +131,7 @@ import CartDrawer from '@/components/cart/CartDrawer.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import CategoryStrip from '@/components/sections/CategoryStrip.vue'
 import MarqueeStrip from '@/components/sections/MarqueeStrip.vue'
+import MegaSaleSection from '@/components/sections/MegaSaleSection.vue'
 import ApplianceBanner from '@/components/sections/ApplianceBanner.vue'
 import FeaturedBanners from '@/components/sections/FeaturedBanners.vue'
 import HomeAccessoriesSection from '@/components/sections/HomeAccessoriesSection.vue'
@@ -143,6 +150,7 @@ import {
   homeAccessoryCategories,
   homeAccessoriesFeatureImage,
   homeAccessoryProducts,
+  megaSaleProducts,
   recommendedProducts,
   electronicsProducts,
   bestProducts,
@@ -177,6 +185,7 @@ const filterProducts = (items) => {
   return items.filter((item) => `${item.title} ${item.category}`.toLowerCase().includes(keyword))
 }
 
+const filteredMegaSaleProducts = computed(() => filterProducts(megaSaleProducts))
 const filteredRecommendedProducts = computed(() => filterProducts(recommendedProducts))
 const filteredElectronicsProducts = computed(() => filterProducts(electronicsProducts))
 const filteredHomeAccessoryProducts = computed(() => {

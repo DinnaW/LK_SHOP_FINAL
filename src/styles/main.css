@@ -7998,3 +7998,1032 @@ h6,
     height: 260px !important;
   }
 }
+
+/* =============================
+   Step 01 - Mega Sale Section
+   Add your real images inside public folder as:
+   mega-sale-tv.png, mega-sale-phone.png, mega-sale-blender.png, mega-sale-watch.png
+============================= */
+.mega-sale-section {
+  padding: 54px 0 68px;
+  background: #ffffff;
+}
+
+.mega-sale-section .container-fluid {
+  width: 100%;
+  max-width: none;
+  padding-left: clamp(18px, 5vw, 72px);
+  padding-right: clamp(18px, 5vw, 72px);
+}
+
+.mega-sale-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.mega-sale-card {
+  position: relative;
+  display: flex;
+  min-height: 520px;
+  overflow: hidden;
+  cursor: pointer;
+  flex-direction: column;
+  border: 8px solid #ff6b00;
+  border-radius: 6px;
+  background: #fff1e9;
+  box-shadow: none;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.mega-sale-card:hover {
+  transform: translateY(-4px);
+  border-color: #ffa15c;
+}
+
+.mega-sale-top {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  min-height: 104px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 13px 18px 0;
+}
+
+.mega-sale-logo-text {
+  display: inline-flex;
+  align-items: flex-start;
+  flex-direction: column;
+  text-transform: uppercase;
+}
+
+.mega-sale-logo-text span {
+  margin-left: 45px;
+  color: #111827;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.55em;
+}
+
+.mega-sale-logo-text strong {
+  color: #161616;
+  font-size: clamp(1.8rem, 2vw, 2.5rem);
+  font-weight: 950;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+}
+
+.mega-sale-logo-text em {
+  color: #ff7600;
+  font-style: normal;
+}
+
+.mega-sale-logo-text small {
+  margin-top: 6px;
+  margin-left: 43px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #ff8200;
+  color: #ffffff;
+  font-size: 0.63rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.mega-sale-discount {
+  position: absolute;
+  top: 16px;
+  right: 14px;
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border-radius: 50%;
+  background: #ff0f63;
+  color: #ffffff;
+  font-size: 1.22rem;
+  font-weight: 950;
+  line-height: 0.9;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.mega-sale-discount small {
+  display: block;
+  font-size: 0.53rem;
+  font-weight: 900;
+}
+
+.mega-sale-extra {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  width: 44px;
+  height: 58px;
+  place-items: center;
+  clip-path: polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%);
+  background: #ff8a00;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 950;
+  line-height: 1.05;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.mega-sale-discount + .mega-sale-extra {
+  top: 74px;
+  right: 20px;
+}
+
+.mega-sale-visual {
+  position: relative;
+  display: flex;
+  min-height: 196px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+}
+
+.mega-sale-orange-shape {
+  position: absolute;
+  right: -8px;
+  bottom: -34px;
+  left: -8px;
+  height: 132px;
+  border-radius: 56px 56px 0 0;
+  background: #ff6b00;
+}
+
+.mega-sale-visual img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  max-width: 285px;
+  height: 190px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 18px rgba(49, 31, 17, 0.18));
+  transition: transform 0.28s ease;
+}
+
+.mega-sale-card:hover .mega-sale-visual img {
+  transform: translateY(-5px) scale(1.025);
+}
+
+.mega-sale-timer {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  margin-top: -8px;
+  padding: 0 14px 11px;
+}
+
+.mega-sale-timer-label {
+  margin-right: 2px;
+  color: #ffffff;
+  font-size: 0.55rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: right;
+}
+
+.mega-sale-time-box {
+  min-width: 34px;
+  text-align: center;
+}
+
+.mega-sale-time-box small {
+  display: block;
+  margin-bottom: 2px;
+  color: #ffffff;
+  font-size: 0.45rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.mega-sale-time-box strong {
+  display: grid;
+  min-width: 34px;
+  height: 31px;
+  place-items: center;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+.mega-sale-info {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 0 10px 10px;
+  padding: 15px 16px 15px;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.mega-sale-info h3 {
+  display: -webkit-box;
+  min-height: 38px;
+  margin: 0 0 12px;
+  overflow: hidden;
+  color: #111827;
+  font-size: 0.94rem;
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.mega-sale-price-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.mega-sale-price {
+  display: flex;
+  min-height: 74px;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid #6b7280;
+}
+
+.mega-sale-price del {
+  color: #858585;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.mega-sale-price strong {
+  color: #6b7280;
+  font-size: 1.12rem;
+  font-weight: 950;
+  line-height: 1.05;
+}
+
+.mega-sale-price span {
+  margin-top: 3px;
+  color: #6b7280;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.mega-sale-save {
+  color: #ff6b00;
+  text-transform: uppercase;
+}
+
+.mega-sale-save span {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.mega-sale-save strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 1.03rem;
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.mega-sale-buy {
+  width: 100%;
+  margin-top: auto;
+  padding: 13px 18px;
+  border: 0;
+  border-radius: 5px;
+  background: #ff6b00;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.mega-sale-buy:hover {
+  transform: translateY(-2px);
+  background: #e85d00;
+}
+
+@media (max-width: 1199px) {
+  .mega-sale-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .mega-sale-section {
+    padding: 34px 0 46px;
+  }
+
+  .mega-sale-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mega-sale-card {
+    max-width: 430px;
+    min-height: 500px;
+    margin-inline: auto;
+  }
+}
+
+/* =============================
+   Step 01 Refinement - Mega Sale heavy orange look, no green
+   - Keeps the bold Mega Sale style from the reference
+   - Uses orange for badges, timer, save text, and buttons
+   - No green colors in this sale section
+============================= */
+.mega-sale-section {
+  padding: 54px 0 68px !important;
+  background: #ffffff !important;
+}
+
+.mega-sale-section .container-fluid {
+  width: 100% !important;
+  max-width: none !important;
+  padding-left: clamp(18px, 5vw, 72px) !important;
+  padding-right: clamp(18px, 5vw, 72px) !important;
+}
+
+.mega-sale-grid {
+  gap: 22px !important;
+}
+
+.mega-sale-card {
+  min-height: 520px !important;
+  border: 8px solid #ff6b00 !important;
+  border-radius: 7px !important;
+  background: #fff1e7 !important;
+  box-shadow: 0 18px 38px rgba(255, 107, 0, 0.10) !important;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.mega-sale-card::before {
+  display: none !important;
+}
+
+.mega-sale-card:hover {
+  transform: translateY(-4px) !important;
+  border-color: #ff8a1f !important;
+  box-shadow: 0 22px 44px rgba(255, 107, 0, 0.18) !important;
+}
+
+.mega-sale-top,
+.mega-sale-visual,
+.mega-sale-timer,
+.mega-sale-info {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.mega-sale-top {
+  min-height: 104px !important;
+  padding: 13px 18px 0 !important;
+}
+
+.mega-sale-logo-text span {
+  margin-left: 45px !important;
+  color: #151922 !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.55em !important;
+}
+
+.mega-sale-logo-text strong {
+  color: #151922 !important;
+  font-family: 'Red Hat Display', sans-serif !important;
+  font-size: clamp(1.8rem, 2vw, 2.5rem) !important;
+  font-weight: 950 !important;
+  line-height: 0.9 !important;
+  letter-spacing: -0.07em !important;
+}
+
+.mega-sale-logo-text em {
+  color: #ff6b00 !important;
+  font-style: normal !important;
+}
+
+.mega-sale-logo-text small {
+  margin-top: 6px !important;
+  margin-left: 43px !important;
+  padding: 4px 12px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ff7a00 !important;
+  color: #ffffff !important;
+  font-size: 0.63rem !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.mega-sale-discount {
+  top: 16px !important;
+  right: 14px !important;
+  width: 58px !important;
+  height: 58px !important;
+  background: #ff0f63 !important;
+  box-shadow: 0 14px 24px rgba(255, 15, 99, 0.25) !important;
+  color: #ffffff !important;
+}
+
+.mega-sale-extra {
+  top: 18px !important;
+  right: 18px !important;
+  width: 44px !important;
+  height: 58px !important;
+  background: linear-gradient(180deg, #ff9d1f 0%, #ff6b00 100%) !important;
+  box-shadow: 0 12px 22px rgba(255, 107, 0, 0.25) !important;
+  color: #ffffff !important;
+}
+
+.mega-sale-discount + .mega-sale-extra {
+  top: 74px !important;
+  right: 20px !important;
+}
+
+.mega-sale-visual {
+  min-height: 196px !important;
+  padding: 0 22px !important;
+}
+
+.mega-sale-orange-shape {
+  right: -8px !important;
+  bottom: -34px !important;
+  left: -8px !important;
+  height: 132px !important;
+  border-radius: 56px 56px 0 0 !important;
+  background: linear-gradient(180deg, #ff7a00 0%, #ff6500 100%) !important;
+}
+
+.mega-sale-visual img {
+  max-width: 285px !important;
+  height: 190px !important;
+  filter: drop-shadow(0 14px 18px rgba(49, 31, 17, 0.18)) !important;
+}
+
+.mega-sale-timer {
+  margin-top: -8px !important;
+  padding: 0 14px 11px !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.mega-sale-timer-label {
+  color: #ffffff !important;
+  font-size: 0.55rem !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+}
+
+.mega-sale-time-box small {
+  color: #ffffff !important;
+  font-size: 0.45rem !important;
+  font-weight: 900 !important;
+}
+
+.mega-sale-time-box strong {
+  min-width: 34px !important;
+  height: 31px !important;
+  border-radius: 5px !important;
+  background: #ffffff !important;
+  color: #6b7280 !important;
+  font-size: 1rem !important;
+  font-weight: 950 !important;
+}
+
+.mega-sale-info {
+  margin: 0 10px 10px !important;
+  padding: 15px 16px 15px !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.mega-sale-info h3 {
+  color: #111827 !important;
+  font-size: 0.94rem !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+}
+
+.mega-sale-price-row {
+  gap: 14px !important;
+  margin-bottom: 16px !important;
+}
+
+.mega-sale-price {
+  border-right: 1px solid #6b7280 !important;
+}
+
+.mega-sale-price del {
+  color: #858585 !important;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+}
+
+.mega-sale-price strong {
+  color: #6b7280 !important;
+  font-size: 1.12rem !important;
+  font-weight: 950 !important;
+}
+
+.mega-sale-price span {
+  color: #6b7280 !important;
+  font-size: 0.8rem !important;
+  font-weight: 800 !important;
+}
+
+.mega-sale-save {
+  color: #ff6b00 !important;
+  text-transform: uppercase !important;
+}
+
+.mega-sale-save span {
+  color: #ff6b00 !important;
+  font-size: 1.35rem !important;
+  font-weight: 950 !important;
+}
+
+.mega-sale-save strong {
+  color: #ff6b00 !important;
+  font-size: 1.03rem !important;
+  font-weight: 950 !important;
+}
+
+.mega-sale-buy {
+  width: 100% !important;
+  margin-top: auto !important;
+  padding: 13px 18px !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  background: #ff6b00 !important;
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase !important;
+  box-shadow: none !important;
+}
+
+.mega-sale-buy:hover {
+  transform: translateY(-2px) !important;
+  background: #e85d00 !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 1199px) {
+  .mega-sale-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .mega-sale-section {
+    padding: 34px 0 46px !important;
+  }
+
+  .mega-sale-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mega-sale-card {
+    max-width: 430px !important;
+    min-height: 500px !important;
+    margin-inline: auto !important;
+  }
+}
+
+/* =============================
+   Step 01 Refinement - Mega Sale blended with LKSHOP theme
+   - Keeps the sale feeling, but reduces the strong orange
+   - Uses soft peach accents + your blue primary buttons
+   - No green colors
+============================= */
+.mega-sale-section {
+  padding: 58px 0 72px !important;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 128, 35, 0.08), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%) !important;
+}
+
+.mega-sale-section .container-fluid {
+  padding-left: clamp(18px, 5vw, 72px) !important;
+  padding-right: clamp(18px, 5vw, 72px) !important;
+}
+
+.mega-sale-grid {
+  gap: 24px !important;
+}
+
+.mega-sale-card {
+  min-height: 505px !important;
+  border: 1px solid rgba(8, 61, 119, 0.10) !important;
+  border-radius: 24px !important;
+  background: #ffffff !important;
+  box-shadow: 0 22px 58px rgba(8, 61, 119, 0.08) !important;
+  isolation: isolate !important;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.mega-sale-card::before {
+  display: block !important;
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 0 auto 0 !important;
+  height: 184px !important;
+  background: linear-gradient(135deg, #fff0e3 0%, #fff8f2 55%, #ffffff 100%) !important;
+  z-index: 0 !important;
+}
+
+.mega-sale-card::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: auto 18px 0 18px !important;
+  height: 4px !important;
+  border-radius: 999px 999px 0 0 !important;
+  background: linear-gradient(90deg, rgba(255, 124, 25, 0.25), rgba(8, 61, 119, 0.35)) !important;
+  z-index: 6 !important;
+}
+
+.mega-sale-card:hover {
+  transform: translateY(-5px) !important;
+  border-color: rgba(8, 61, 119, 0.22) !important;
+  box-shadow: 0 28px 72px rgba(8, 61, 119, 0.13) !important;
+}
+
+.mega-sale-top,
+.mega-sale-visual,
+.mega-sale-timer,
+.mega-sale-info {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.mega-sale-top {
+  min-height: 108px !important;
+  padding: 18px 18px 0 !important;
+}
+
+.mega-sale-logo-text span {
+  margin-left: 42px !important;
+  color: rgba(21, 25, 34, 0.72) !important;
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.52em !important;
+}
+
+.mega-sale-logo-text strong {
+  color: #151922 !important;
+  font-family: 'Red Hat Display', sans-serif !important;
+  font-size: clamp(1.65rem, 1.85vw, 2.25rem) !important;
+  font-weight: 950 !important;
+  line-height: 0.9 !important;
+  letter-spacing: -0.065em !important;
+}
+
+.mega-sale-logo-text em {
+  color: #ff7a1a !important;
+  font-style: normal !important;
+}
+
+.mega-sale-logo-text small {
+  margin-top: 7px !important;
+  margin-left: 40px !important;
+  padding: 5px 13px !important;
+  border: 1px solid rgba(255, 122, 26, 0.14) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 122, 26, 0.10) !important;
+  color: #d85d00 !important;
+  font-size: 0.62rem !important;
+  font-weight: 950 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.mega-sale-discount {
+  top: 18px !important;
+  right: 16px !important;
+  width: 56px !important;
+  height: 56px !important;
+  background: linear-gradient(135deg, #ff3b30 0%, #ff5a7b 100%) !important;
+  box-shadow: 0 14px 26px rgba(255, 59, 48, 0.18) !important;
+  color: #ffffff !important;
+}
+
+.mega-sale-extra {
+  top: 18px !important;
+  right: 18px !important;
+  width: 43px !important;
+  height: 56px !important;
+  background: linear-gradient(180deg, #ff9b42 0%, #ff7620 100%) !important;
+  box-shadow: 0 12px 22px rgba(255, 122, 26, 0.16) !important;
+  color: #ffffff !important;
+}
+
+.mega-sale-discount + .mega-sale-extra {
+  top: 72px !important;
+  right: 20px !important;
+}
+
+.mega-sale-visual {
+  min-height: 195px !important;
+  padding: 0 22px !important;
+}
+
+.mega-sale-orange-shape {
+  right: 16px !important;
+  bottom: -24px !important;
+  left: 16px !important;
+  height: 118px !important;
+  border-radius: 44px 44px 0 0 !important;
+  background: linear-gradient(180deg, rgba(255, 129, 28, 0.18) 0%, rgba(255, 129, 28, 0.10) 100%) !important;
+}
+
+.mega-sale-visual img {
+  max-width: 285px !important;
+  height: 190px !important;
+  filter: drop-shadow(0 16px 24px rgba(8, 61, 119, 0.15)) !important;
+}
+
+.mega-sale-timer {
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  width: calc(100% - 46px) !important;
+  margin: -4px auto 14px !important;
+  padding: 9px 10px !important;
+  border: 1px solid rgba(255, 122, 26, 0.14) !important;
+  border-radius: 18px !important;
+  background: rgba(255, 245, 237, 0.96) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
+}
+
+.mega-sale-timer-label {
+  margin-right: 3px !important;
+  color: #083d77 !important;
+  font-size: 0.58rem !important;
+  font-weight: 950 !important;
+  line-height: 1.05 !important;
+}
+
+.mega-sale-time-box {
+  min-width: 34px !important;
+}
+
+.mega-sale-time-box small {
+  margin-bottom: 3px !important;
+  color: rgba(8, 61, 119, 0.72) !important;
+  font-size: 0.43rem !important;
+  font-weight: 950 !important;
+}
+
+.mega-sale-time-box strong {
+  min-width: 34px !important;
+  height: 31px !important;
+  border: 1px solid rgba(8, 61, 119, 0.08) !important;
+  border-radius: 9px !important;
+  background: #ffffff !important;
+  color: #083d77 !important;
+  font-size: 1rem !important;
+  font-weight: 950 !important;
+}
+
+.mega-sale-info {
+  margin: 0 14px 16px !important;
+  padding: 0 4px 2px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.mega-sale-info h3 {
+  min-height: 40px !important;
+  margin-bottom: 14px !important;
+  color: #151922 !important;
+  font-size: 0.96rem !important;
+  font-weight: 900 !important;
+  line-height: 1.28 !important;
+  text-align: left !important;
+}
+
+.mega-sale-price-row {
+  gap: 12px !important;
+  margin-bottom: 16px !important;
+  padding: 14px !important;
+  border: 1px solid rgba(8, 61, 119, 0.08) !important;
+  border-radius: 18px !important;
+  background: #f8fbff !important;
+}
+
+.mega-sale-price {
+  min-height: 68px !important;
+  border-right: 1px solid rgba(8, 61, 119, 0.14) !important;
+}
+
+.mega-sale-price del {
+  color: rgba(107, 114, 128, 0.78) !important;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+}
+
+.mega-sale-price strong {
+  color: #3f4b5f !important;
+  font-size: 1.08rem !important;
+  font-weight: 950 !important;
+}
+
+.mega-sale-price span {
+  color: #6b7280 !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+}
+
+.mega-sale-save {
+  color: #ff7620 !important;
+  text-transform: uppercase !important;
+}
+
+.mega-sale-save span {
+  color: #ff7620 !important;
+  font-size: 1.18rem !important;
+  font-weight: 950 !important;
+}
+
+.mega-sale-save strong {
+  color: #ff7620 !important;
+  font-size: 0.98rem !important;
+  font-weight: 950 !important;
+}
+
+.mega-sale-buy {
+  width: 100% !important;
+  margin-top: auto !important;
+  padding: 14px 18px !important;
+  border: 0 !important;
+  border-radius: 15px !important;
+  background: #0000b4 !important;
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 180, 0.18) !important;
+}
+
+.mega-sale-buy:hover {
+  transform: translateY(-2px) !important;
+  background: #0000b4 !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 1199px) {
+  .mega-sale-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .mega-sale-section {
+    padding: 38px 0 50px !important;
+  }
+
+  .mega-sale-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mega-sale-card {
+    max-width: 430px !important;
+    min-height: 500px !important;
+    margin-inline: auto !important;
+  }
+}
+
+
+/* =============================
+   Step 01 Final Button Fix - Use only main blue
+============================= */
+.mega-sale-buy,
+.mega-sale-buy:hover,
+.mega-sale-buy:focus,
+.mega-sale-buy:active {
+  background: #0000b4 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: #0000b4 !important;
+}
+
+/* =============================
+   Mega Sale image fix
+   Your uploaded images already include the Mega Sale title, badge and orange panel.
+   This layout uses the image as the full product creative instead of placing it inside another graphic.
+============================= */
+.mega-sale-card {
+  overflow: hidden !important;
+  min-height: auto !important;
+}
+
+.mega-sale-card::before {
+  display: none !important;
+}
+
+.mega-sale-card::after {
+  inset: auto 20px 0 20px !important;
+}
+
+.mega-sale-top,
+.mega-sale-logo-text,
+.mega-sale-discount,
+.mega-sale-extra,
+.mega-sale-orange-shape {
+  display: none !important;
+}
+
+.mega-sale-visual.mega-sale-creative-visual {
+  height: 292px !important;
+  min-height: 292px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 24px 24px 0 0 !important;
+  overflow: hidden !important;
+  background: #fff3ea !important;
+}
+
+.mega-sale-visual.mega-sale-creative-visual img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  object-position: top center !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+.mega-sale-card:hover .mega-sale-visual.mega-sale-creative-visual img {
+  transform: none !important;
+}
+
+.mega-sale-timer {
+  position: relative !important;
+  z-index: 4 !important;
+  width: calc(100% - 42px) !important;
+  margin: -24px auto 18px !important;
+  background: rgba(255, 248, 243, 0.97) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.mega-sale-info {
+  padding-bottom: 4px !important;
+}
+
+.mega-sale-buy,
+.mega-sale-buy:hover,
+.mega-sale-buy:focus,
+.mega-sale-buy:active {
+  background: #0000b4 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: #0000b4 !important;
+}
+
+@media (max-width: 1399px) {
+  .mega-sale-visual.mega-sale-creative-visual {
+    height: 270px !important;
+    min-height: 270px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .mega-sale-visual.mega-sale-creative-visual {
+    height: 310px !important;
+    min-height: 310px !important;
+  }
+}

@@ -8,6 +8,10 @@ import featured2 from '@/assets/featured-2.png'
 import featured3 from '@/assets/featured-3.png'
 import featured4 from '@/assets/featured-4.png'
 import homeAccessoriesMiddleBanner from '@/assets/home-accessories-middle-banner.png'
+import megaSaleTv from '@/assets/mega-sale-tv.png'
+import megaSalePhone from '@/assets/mega-sale-phone.png'
+import megaSaleBlender from '@/assets/mega-sale-blender.png'
+import megaSaleWatch from '@/assets/mega-sale-watch.png'
 
 export { product1, product2, product3, product4, product5 }
 
@@ -22,6 +26,7 @@ const applyProductImages = (items) => {
 }
 
 export const categorySidebarItems = [
+  { label: 'Mega Sale', href: '#mega-sale', icon: 'fa-solid fa-bolt' },
   { label: 'Electronics', href: '#electronics', icon: 'fa-solid fa-microchip' },
   { label: 'Home Appliances', href: '#home-appliances', icon: 'fa-solid fa-blender-phone' },
   { label: 'Home Accessories', href: '#home-accessories', icon: 'fa-solid fa-couch' },
@@ -249,6 +254,58 @@ export const mosaicBanners = [
     kicker: 'Popular Brands',
     className: 'tile-e',
     img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1100&auto=format&fit=crop',
+  },
+]
+
+
+export const megaSaleProducts = [
+  {
+    title: 'Xiaomi 43 Inch A Pro 4K QLED Smart TV',
+    category: 'Mega Sale TV',
+    price: 126100,
+    old: 134100,
+    monthly: 2235,
+    discount: '',
+    extra: '5%',
+    save: 8000,
+    badge: 'Mega Sale',
+    img: megaSaleTv,
+  },
+  {
+    title: 'Xiaomi Mobile Phone Redmi 15C 5G 4GB RAM',
+    category: 'Mega Sale Mobile',
+    price: 49140,
+    old: 55999,
+    monthly: 910,
+    discount: '2%',
+    extra: '9%',
+    save: 6859,
+    badge: 'Mega Sale',
+    img: megaSalePhone,
+  },
+  {
+    title: 'Xiaomi 1.75L Blender Pro',
+    category: 'Mega Sale Appliance',
+    price: 38466,
+    old: 47990,
+    monthly: 713,
+    discount: '10%',
+    extra: '10%',
+    save: 9524,
+    badge: 'Mega Sale',
+    img: megaSaleBlender,
+  },
+  {
+    title: 'Xiaomi Redmi Watch 5 Active Amoled Square Shape',
+    category: 'Mega Sale Wearable',
+    price: 9000,
+    old: 19999,
+    monthly: 167,
+    discount: '49%',
+    extra: '10%',
+    save: 10999,
+    badge: 'Mega Sale',
+    img: megaSaleWatch,
   },
 ]
 
