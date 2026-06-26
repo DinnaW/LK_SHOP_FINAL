@@ -24,31 +24,45 @@
 
       <div
         v-if="products.length"
-        ref="carouselRef"
-        class="product-carousel product-step-carousel"
-        aria-label="Auto stepping product carousel"
-        @mouseenter="pauseCarousel"
-        @mouseleave="resumeCarousel"
-        @focusin="pauseCarousel"
-        @focusout="resumeCarousel"
+        class="product-section-content"
+        :class="{ 'has-side-promo': promoImage }"
       >
-        <div
-          ref="trackRef"
-          class="products-grid product-section-grid product-carousel-track"
-          :class="{ 'is-resetting': isResetting }"
-          :style="trackStyle"
+        <a
+          v-if="promoImage"
+          href="#"
+          class="product-side-promo"
+          :aria-label="promoAlt || title"
         >
-          <ProductCard
-            v-for="(product, index) in carouselProducts"
-            :key="`${product.title}-${index}`"
-            :product="product"
-            :wishlist-items="wishlistItems"
-            :cart-quantity="cartQuantities[product.title] || 0"
-            @add-to-cart="$emit('add-to-cart', $event)"
-            @update-cart-quantity="$emit('update-cart-quantity', $event)"
-            @quick-view="$emit('quick-view', $event)"
-            @add-wishlist="$emit('add-wishlist', $event)"
-          />
+          <img :src="promoImage" :alt="promoAlt || title" />
+        </a>
+
+        <div
+          ref="carouselRef"
+          class="product-carousel product-step-carousel"
+          aria-label="Auto stepping product carousel"
+          @mouseenter="pauseCarousel"
+          @mouseleave="resumeCarousel"
+          @focusin="pauseCarousel"
+          @focusout="resumeCarousel"
+        >
+          <div
+            ref="trackRef"
+            class="products-grid product-section-grid product-carousel-track"
+            :class="{ 'is-resetting': isResetting }"
+            :style="trackStyle"
+          >
+            <ProductCard
+              v-for="(product, index) in carouselProducts"
+              :key="`${product.title}-${index}`"
+              :product="product"
+              :wishlist-items="wishlistItems"
+              :cart-quantity="cartQuantities[product.title] || 0"
+              @add-to-cart="$emit('add-to-cart', $event)"
+              @update-cart-quantity="$emit('update-cart-quantity', $event)"
+              @quick-view="$emit('quick-view', $event)"
+              @add-wishlist="$emit('add-wishlist', $event)"
+            />
+          </div>
         </div>
       </div>
 
@@ -67,6 +81,8 @@ const props = defineProps({
   subtitle: { type: String, required: true },
   chips: { type: Array, required: true },
   products: { type: Array, required: true },
+  promoImage: { type: String, default: '' },
+  promoAlt: { type: String, default: '' },
   wishlistItems: { type: Array, default: () => [] },
   cartQuantities: { type: Object, default: () => ({}) },
 })

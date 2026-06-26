@@ -9455,3 +9455,125 @@ h6 {
   text-transform: uppercase !important;
   letter-spacing: 0.035em;
 }
+
+/* === Final fix: keep sidebar active icon color same as normal icons === */
+.side-nav.categories-sidebar.lucide-category-dock a.active .nav-icon,
+.side-nav.categories-sidebar.lucide-category-dock a.active:hover .nav-icon,
+.side-nav.categories-sidebar a.active .nav-icon,
+.side-nav.categories-sidebar a.active:hover .nav-icon {
+  border-color: rgba(17, 17, 209, 0.1) !important;
+  background: #ffffff !important;
+  color: #1111d1 !important;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.07) !important;
+  transform: none !important;
+}
+
+.side-nav.categories-sidebar.lucide-category-dock a.active .lucide-sidebar-icon,
+.side-nav.categories-sidebar.lucide-category-dock a.active:hover .lucide-sidebar-icon {
+  color: #1111d1 !important;
+  stroke: #1111d1 !important;
+}
+
+/* === Final fix: Featured Products heading uses main blue === */
+.feature-showcase-head .section-title,
+.feature-showcase-head h2,
+.feature-showcase-section .section-title,
+.feature-showcase-section h2 {
+  color: var(--primary) !important;
+}
+
+/* === Electronics section side banner layout === */
+#electronics .product-section-content.has-side-promo {
+  display: grid !important;
+  grid-template-columns: minmax(260px, 330px) minmax(0, 1fr) !important;
+  gap: 28px !important;
+  align-items: stretch !important;
+}
+
+#electronics .product-side-promo {
+  position: relative;
+  display: block;
+  min-height: 545px;
+  overflow: hidden;
+  border-radius: 30px;
+  background: #f4f1ef;
+  border: 1px solid rgba(8, 61, 119, 0.12);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+  isolation: isolate;
+}
+
+#electronics .product-side-promo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 34%, rgba(0, 0, 0, 0.08));
+  z-index: 1;
+}
+
+#electronics .product-side-promo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 545px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.45s ease;
+}
+
+#electronics .product-side-promo:hover img {
+  transform: scale(1.035);
+}
+
+#electronics .product-step-carousel {
+  min-width: 0 !important;
+  align-self: stretch !important;
+}
+
+#electronics .product-step-carousel .product-card,
+#electronics .product-step-carousel .products-grid.product-section-grid.product-carousel-track .product-card {
+  flex: 0 0 clamp(240px, 18vw, 292px) !important;
+  width: clamp(240px, 18vw, 292px) !important;
+  min-width: clamp(240px, 18vw, 292px) !important;
+}
+
+@media (max-width: 1199px) {
+  #electronics .product-section-content.has-side-promo {
+    grid-template-columns: minmax(230px, 285px) minmax(0, 1fr) !important;
+    gap: 22px !important;
+  }
+
+  #electronics .product-side-promo,
+  #electronics .product-side-promo img {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 991px) {
+  #electronics .product-section-content.has-side-promo {
+    grid-template-columns: 1fr !important;
+  }
+
+  #electronics .product-side-promo {
+    min-height: 0;
+    height: 330px;
+    border-radius: 24px;
+  }
+
+  #electronics .product-side-promo img {
+    min-height: 0;
+    height: 100%;
+    object-position: center 38%;
+  }
+}
+
+@media (max-width: 575px) {
+  #electronics .product-section-content.has-side-promo {
+    gap: 18px !important;
+  }
+
+  #electronics .product-side-promo {
+    height: 280px;
+    border-radius: 20px;
+  }
+}

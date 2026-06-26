@@ -49,6 +49,8 @@
         subtitle="Gadgets, gaming, computer accessories and smart devices."
         :chips="['Gaming', 'Audio Devices', 'Computer Accessories', 'Cameras', 'Home Appliances']"
         :products="filteredElectronicsProducts"
+        :promo-image="electronicsSideBanner"
+        promo-alt="JBL speaker electronics promotional banner"
         :wishlist-items="wishlistTitles"
         :cart-quantities="cartQuantities"
         @add-to-cart="addToCart"
@@ -140,6 +142,7 @@ import Testimonials from '@/components/sections/Testimonials.vue'
 
 import heroB1g from '@/assets/hero-b1g.png'
 import applianceBanner from '@/assets/appliance-banner.png'
+import electronicsSideBanner from '@/assets/electronics-side-banner.png'
 import homeAccessoriesBanner from '@/assets/home-accessories-banner.png'
 import {
   categorySidebarItems,
