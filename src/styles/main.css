@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root {
   --primary: #083d77;
@@ -28,7 +28,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Red Hat Display', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: #fff;
   color: var(--text);
   overflow-x: hidden;
@@ -270,7 +270,7 @@ button {
 }
 
 .navbar-custom {
-  min-height: 78px;
+  min-height: 92px;
 }
 
 .brand {
@@ -285,6 +285,14 @@ button {
 
 .brand span {
   color: var(--accent);
+}
+
+.brand-logo {
+  display: block;
+  width: clamp(170px, 15vw, 230px);
+  height: auto;
+  max-height: 72px;
+  object-fit: contain;
 }
 
 .search-box {
@@ -3173,6 +3181,11 @@ button {
     font-size: 23px;
   }
 
+  .brand-logo {
+    width: clamp(132px, 36vw, 162px);
+    max-height: 54px;
+  }
+
   .promo-card {
     min-height: 210px;
   }
@@ -4253,7 +4266,7 @@ button {
 .home-accessories-head .section-title,
 .product-section-head .section-title,
 .modern-testimonial-head .section-title {
-  font-family: 'Red Hat Display', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 27px !important;
   line-height: 1.15 !important;
   font-weight: 900 !important;
@@ -5151,7 +5164,7 @@ button {
 .feature-showcase-head h2 {
   margin: 0 !important;
   color: #2d2d2f !important;
-  font-family: 'Red Hat Display', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 35px !important;
   line-height: 1.12 !important;
   font-weight: 500 !important;
@@ -5241,7 +5254,7 @@ button {
 .shopify-banners-head h2 {
   margin: 0 !important;
   color: #151922 !important;
-  font-family: 'Red Hat Display', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 35px !important;
   line-height: 1.12 !important;
   font-weight: 500 !important;
@@ -5344,7 +5357,7 @@ button {
   }
 }
 
-/* GLOBAL FONT LOCK - Red Hat Display only */
+/* GLOBAL FONT LOCK - Inter only */
 html,
 body,
 #app,
@@ -5367,14 +5380,14 @@ small,
 strong,
 del,
 label {
-  font-family: 'Red Hat Display', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
 }
 
 ::placeholder {
-  font-family: 'Red Hat Display', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
 }
 
-/* FONT AWESOME FIX: keep Red Hat Display for text, but restore icon font families */
+/* FONT AWESOME FIX: keep Inter for text, but restore icon font families */
 .fa,
 .fas,
 .fa-solid,
@@ -6500,6 +6513,11 @@ body {
     font-size: 23px !important;
   }
 
+  .brand-logo {
+    width: clamp(132px, 36vw, 162px) !important;
+    max-height: 54px !important;
+  }
+
   .category-menu-trigger,
   .category-strip .category-track a {
     font-size: 13px !important;
@@ -6855,11 +6873,14 @@ body {
 .hero-marquee-track {
   display: inline-flex;
   align-items: center;
-  gap: 18px;
+  flex-shrink: 0;
+  gap: clamp(20px, 2.6vw, 34px);
   width: max-content;
-  padding: 0 18px;
-  animation: heroMarqueeMove 30s linear infinite;
+  min-width: max-content;
+  padding: 0;
+  animation: heroMarqueeMove 28s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .hero-marquee-track span {
@@ -6877,11 +6898,11 @@ body {
 
 @keyframes heroMarqueeMove {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -6978,9 +6999,9 @@ body {
   }
 }
 
-/* FINAL SITE FONT SYNC - USE MARQUEE FONT ACROSS SITE */
+/* FINAL SITE FONT SYNC - USE INTER ACROSS SITE */
 :root {
-  --lkshop-site-font: 'Red Hat Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --lkshop-site-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 html,
@@ -8413,7 +8434,7 @@ h6,
 
 .mega-sale-logo-text strong {
   color: #151922 !important;
-  font-family: 'Red Hat Display', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: clamp(1.8rem, 2vw, 2.5rem) !important;
   font-weight: 950 !important;
   line-height: 0.9 !important;
@@ -8702,7 +8723,7 @@ h6,
 
 .mega-sale-logo-text strong {
   color: #151922 !important;
-  font-family: 'Red Hat Display', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: clamp(1.65rem, 1.85vw, 2.25rem) !important;
   font-weight: 950 !important;
   line-height: 0.9 !important;
@@ -9034,4 +9055,403 @@ h6,
 .mega-sale-card::after {
   display: none !important;
   content: none !important;
+}
+
+/* =============================
+   Final requested polish
+   - top bar #e7dbf8
+   - off-white site background
+   - category strip changed to clean menu
+   - mega sale matte pastel cards
+   - mega sale buttons white with #0000b4 border/text
+============================= */
+:root {
+  --primary: #0000b4 !important;
+  --primary-dark: #0000b4 !important;
+  --blue: #0000b4 !important;
+  --site-off-white: #fbf8f2;
+  --mega-sale-matte: #f8efe7;
+}
+
+html,
+body,
+.app-shell,
+.page-wrapper {
+  background: var(--site-off-white) !important;
+}
+
+.main-header,
+.navbar-custom {
+  background: rgba(255, 255, 255, 0.94) !important;
+}
+
+.product-grid-section,
+.section-block,
+.appliance-banner-section,
+.feature-showcase-section,
+.home-accessories-section,
+.home-accessories-image-banner-section,
+.modern-testimonials-section,
+.modern-footer,
+.premium-footer,
+.mega-sale-section {
+  background-color: var(--site-off-white) !important;
+}
+
+.top-strip {
+  background: #e7dbf8 !important;
+  color: #0000b4 !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+.category-strip.site-menu-strip,
+.category-strip {
+  min-height: 56px !important;
+  padding: 0 clamp(18px, 4vw, 64px) !important;
+  background: #ffffff !important;
+  color: #0000b4 !important;
+  border-top: 1px solid rgba(0, 0, 180, 0.06) !important;
+  border-bottom: 1px solid rgba(0, 0, 180, 0.08) !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+.category-menu-trigger,
+.category-nav-arrows {
+  display: none !important;
+}
+
+.category-strip .category-track,
+.category-strip.site-menu-strip .site-menu-track {
+  width: 100% !important;
+  max-width: 1180px !important;
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(18px, 3vw, 42px) !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.category-strip .category-track::-webkit-scrollbar {
+  display: none !important;
+}
+
+.category-strip .category-track a,
+.category-strip.site-menu-strip .site-menu-track a {
+  color: #0000b4 !important;
+  font-size: 14px !important;
+  font-weight: 850 !important;
+  line-height: 56px !important;
+  text-decoration: none !important;
+  flex: 0 0 auto !important;
+  opacity: 1 !important;
+  position: relative !important;
+  transition: color 0.2s ease, opacity 0.2s ease !important;
+}
+
+.category-strip .category-track a::after,
+.category-strip.site-menu-strip .site-menu-track a::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 13px !important;
+  height: 2px !important;
+  border-radius: 999px !important;
+  background: #0000b4 !important;
+  transform: scaleX(0) !important;
+  transform-origin: center !important;
+  transition: transform 0.2s ease !important;
+}
+
+.category-strip .category-track a:hover,
+.category-strip.site-menu-strip .site-menu-track a:hover {
+  color: #0000b4 !important;
+}
+
+.category-strip .category-track a:hover::after,
+.category-strip.site-menu-strip .site-menu-track a:hover::after {
+  transform: scaleX(1) !important;
+}
+
+.mega-sale-section {
+  background: var(--site-off-white) !important;
+}
+
+.mega-sale-card {
+  background: var(--mega-sale-matte) !important;
+  border: 1px solid rgba(0, 0, 180, 0.08) !important;
+  box-shadow: 0 22px 55px rgba(37, 28, 18, 0.06) !important;
+}
+
+.mega-sale-card:hover {
+  border-color: rgba(0, 0, 180, 0.18) !important;
+  box-shadow: 0 28px 70px rgba(37, 28, 18, 0.09) !important;
+}
+
+.mega-sale-visual.mega-sale-creative-visual {
+  background: #f8efe7 !important;
+}
+
+.mega-sale-timer {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 180, 0.08) !important;
+}
+
+.mega-sale-time-box strong {
+  color: #0000b4 !important;
+  border-color: rgba(0, 0, 180, 0.10) !important;
+}
+
+.mega-sale-timer-label,
+.mega-sale-time-box small {
+  color: #0000b4 !important;
+}
+
+.mega-sale-price-row {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border: 1px solid rgba(0, 0, 180, 0.08) !important;
+}
+
+.mega-sale-buy,
+.mega-sale-buy:hover,
+.mega-sale-buy:focus,
+.mega-sale-buy:active {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: #0000b4 !important;
+  border: 2px solid #0000b4 !important;
+  box-shadow: none !important;
+}
+
+.mega-sale-buy:hover,
+.mega-sale-buy:focus {
+  transform: translateY(-2px) !important;
+  background: #ffffff !important;
+  color: #0000b4 !important;
+}
+
+.header-icon,
+.view-link,
+.section-chip.active,
+.quantity-btn,
+.qty-btn,
+.product-add-btn,
+.quick-view-main-btn,
+.checkout-btn,
+.cart-checkout-btn {
+  color: #0000b4;
+}
+
+@media (max-width: 767px) {
+  .category-strip.site-menu-strip,
+  .category-strip {
+    justify-content: flex-start !important;
+    padding-inline: 16px !important;
+  }
+
+  .category-strip .category-track,
+  .category-strip.site-menu-strip .site-menu-track {
+    justify-content: flex-start !important;
+    gap: 24px !important;
+  }
+}
+
+/* Logo size update */
+.navbar-custom {
+  min-height: 92px !important;
+}
+
+.navbar-custom > .container-fluid {
+  grid-template-columns: minmax(190px, 250px) minmax(0, 1fr) minmax(120px, 170px) !important;
+}
+
+.brand {
+  min-width: clamp(170px, 15vw, 230px) !important;
+}
+
+.brand-logo {
+  width: clamp(170px, 15vw, 230px) !important;
+  max-height: 72px !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 991px) {
+  .navbar-custom > .container-fluid {
+    grid-template-columns: auto auto !important;
+  }
+
+  .brand {
+    min-width: auto !important;
+  }
+
+  .brand-logo {
+    width: clamp(145px, 28vw, 180px) !important;
+    max-height: 60px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .navbar-custom {
+    min-height: 82px !important;
+  }
+
+  .brand-logo {
+    width: clamp(132px, 40vw, 162px) !important;
+    max-height: 54px !important;
+  }
+}
+
+/* FINAL HEADER LOGO ENLARGE FIX
+   This forces the logo to use a wide header space instead of being squeezed
+   into a small square. object-fit: cover also helps when the uploaded logo
+   image has extra empty/white space around it. */
+.main-header .navbar-custom {
+  min-height: 104px !important;
+  overflow: visible !important;
+}
+
+.main-header .navbar-custom > .container-fluid {
+  grid-template-columns: minmax(280px, 330px) minmax(0, 1fr) minmax(120px, 170px) !important;
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+.main-header .brand {
+  width: 310px !important;
+  min-width: 310px !important;
+  max-width: 310px !important;
+  height: 86px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  overflow: visible !important;
+}
+
+.main-header .brand-logo {
+  display: block !important;
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  height: 86px !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+@media (max-width: 991px) {
+  .main-header .navbar-custom {
+    min-height: 96px !important;
+  }
+
+  .main-header .navbar-custom > .container-fluid {
+    grid-template-columns: minmax(220px, 260px) auto !important;
+  }
+
+  .main-header .brand {
+    width: 245px !important;
+    min-width: 245px !important;
+    max-width: 245px !important;
+    height: 76px !important;
+  }
+
+  .main-header .brand-logo {
+    width: 235px !important;
+    min-width: 235px !important;
+    max-width: 235px !important;
+    height: 76px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .main-header .navbar-custom {
+    min-height: 88px !important;
+  }
+
+  .main-header .brand {
+    width: 190px !important;
+    min-width: 190px !important;
+    max-width: 190px !important;
+    height: 66px !important;
+  }
+
+  .main-header .brand-logo {
+    width: 182px !important;
+    min-width: 182px !important;
+    max-width: 182px !important;
+    height: 66px !important;
+  }
+}
+
+/* SIDEBAR ACTIVE TEXT VISIBILITY FIX
+   Keeps the same soft hover background, but makes the active text blue and readable. */
+.side-nav.categories-sidebar.lucide-category-dock a.active,
+.side-nav.categories-sidebar.lucide-category-dock.expanded a.active {
+  background: rgba(17, 17, 209, 0.075) !important;
+  color: #083d77 !important;
+  box-shadow: none !important;
+}
+
+.side-nav.categories-sidebar.lucide-category-dock a.active .nav-label,
+.side-nav.categories-sidebar.lucide-category-dock.expanded a.active .nav-label,
+.side-nav.categories-sidebar.expanded a.active .nav-label {
+  color: #083d77 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.side-nav.categories-sidebar.lucide-category-dock a.active .nav-icon,
+.side-nav.categories-sidebar.lucide-category-dock.expanded a.active .nav-icon {
+  background: #ffffff !important;
+  color: #083d77 !important;
+  border-color: rgba(8, 61, 119, 0.25) !important;
+  box-shadow: none !important;
+}
+
+.side-nav.categories-sidebar.lucide-category-dock a.active .lucide-nav-arrow,
+.side-nav.categories-sidebar.lucide-category-dock.expanded a.active .lucide-nav-arrow {
+  color: #083d77 !important;
+  stroke: #083d77 !important;
+}
+
+.side-nav.categories-sidebar.lucide-category-dock a.active::before,
+.side-nav.categories-sidebar.lucide-category-dock.expanded a.active::before {
+  background: #083d77 !important;
+  opacity: 1 !important;
+}
+
+/* GLOBAL TITLE UPPERCASE UPDATE */
+.section-title,
+.product-title,
+.mega-sale-card h3,
+.quick-view-modal h2,
+.cart-drawer h4,
+.cart-drawer h6,
+.cart-toast h6,
+.footer-newsletter h2,
+.footer-column h5,
+.testimonial-card h5,
+.product-info h3,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-transform: uppercase !important;
+  letter-spacing: 0.035em;
 }

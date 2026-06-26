@@ -138,8 +138,6 @@ import HomeAccessoriesSection from '@/components/sections/HomeAccessoriesSection
 import ImageBanner from '@/components/sections/ImageBanner.vue'
 import Testimonials from '@/components/sections/Testimonials.vue'
 
-import heroBg from '@/assets/hero-bg.png'
-import heroBg1 from '@/assets/hero-bg1.png'
 import heroB1g from '@/assets/hero-b1g.png'
 import applianceBanner from '@/assets/appliance-banner.png'
 import homeAccessoriesBanner from '@/assets/home-accessories-banner.png'
@@ -159,7 +157,7 @@ import {
 } from '@/data/shopData'
 
 const searchTerm = ref('')
-const heroImages = [heroBg, heroBg1, heroB1g]
+const heroImages = [heroB1g]
 const cart = ref([])
 const wishlist = ref([])
 const quickViewProduct = ref(null)

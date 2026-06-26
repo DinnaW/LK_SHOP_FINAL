@@ -2,7 +2,9 @@
   <header class="main-header">
     <nav class="navbar navbar-expand-lg navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="brand" href="#">lksh<span>o</span>p</a>
+        <a class="brand" href="#" aria-label="LK Shop home">
+          <img class="brand-logo" :src="logoUrl" alt="LK Shop" />
+        </a>
 
         <div class="search-box mx-lg-auto">
           <i class="fa-solid fa-magnifying-glass"></i>
@@ -35,6 +37,8 @@
 </template>
 
 <script setup>
+import logoUrl from '../../assets/logo.png'
+
 defineProps({
   searchTerm: { type: String, required: true },
   cartCount: { type: Number, default: 0 },
