@@ -7974,12 +7974,12 @@ h6,
 }
 
 
-/* ===== Final topmost bar stronger orange update ===== */
+/* ===== Final topmost bar pastel orange update ===== */
 .top-strip {
-  background: #ffb15c !important;
-  color: #5f2b00 !important;
-  border-bottom: 1px solid #ff992e !important;
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.34) !important;
+  background: #ffe4c8 !important;
+  color: #8a430c !important;
+  border-bottom: 1px solid #ffd1a6 !important;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.55) !important;
 }
 
 /* ===== Appliance banner height small increase ===== */
@@ -9026,4 +9026,12 @@ h6,
     height: 310px !important;
     min-height: 310px !important;
   }
+}
+
+/* =============================
+   Mega Sale - remove bottom border line
+============================= */
+.mega-sale-card::after {
+  display: none !important;
+  content: none !important;
 }
