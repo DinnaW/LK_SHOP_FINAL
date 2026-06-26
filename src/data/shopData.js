@@ -94,11 +94,11 @@ export const featuredProductBanners = [
     img: featured1,
   },
   {
-    title: 'Smart watch banner',
+    title: 'Smart watch wide banner',
     img: featured4,
   },
   {
-    title: 'Streaming devices banner',
+    title: 'Streaming device banner',
     img: featured2,
   },
   {
@@ -158,7 +158,7 @@ export const homeAccessoryCategories = [
 ]
 export const homeAccessoriesFeatureImage = homeAccessoriesMiddleBanner
 
-export const homeAccessoryProducts = [
+export const homeAccessoryProducts = applyProductImages([
   {
     title: 'Minimal Ceramic Vase Set',
     category: 'Home Decor',
@@ -219,190 +219,408 @@ export const homeAccessoryProducts = [
     title: 'Wooden Desk Organizer',
     category: 'Storage',
     price: 7650,
-    old: 8990,
-    badge: 'Top',
+    old: 8900,
+    badge: 'Best',
     buttonLabel: 'Add To Cart',
+  },
+])
+
+export const mosaicBanners = [
+  {
+    title: 'Unleash Your Music',
+    badge: '-30%',
+    className: 'tile-a',
+    img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=900&auto=format&fit=crop',
+  },
+  {
+    title: 'Top Brand Toys 60% Off',
+    badge: 'BIG SALE',
+    className: 'tile-b',
+    img: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=900&auto=format&fit=crop',
+  },
+  {
+    title: 'Immersive Gaming Realm',
+    badge: 'NEW',
+    className: 'tile-c',
+    img: 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?q=80&w=900&auto=format&fit=crop',
+  },
+  {
+    title: 'Immersive Gaming Realm',
+    badge: 'NEW',
+    className: 'tile-d',
+    img: 'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?q=80&w=900&auto=format&fit=crop',
+  },
+  {
+    title: 'Camera Sale!',
+    kicker: 'Popular Brands',
+    className: 'tile-e',
+    img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1100&auto=format&fit=crop',
   },
 ]
 
-export const megaSaleProducts = applyProductImages([
+
+export const megaSaleProducts = [
   {
-    title: 'Apple Watch Series 9',
-    category: 'Wearables',
-    price: 75999,
-    old: 82999,
-    badge: '10% OFF',
-    buttonLabel: 'Buy Now',
-  },
-  {
-    title: 'Sony Noise Cancelling Headphones',
-    category: 'Audio Devices',
-    price: 68999,
-    old: 74999,
-    badge: 'Deal',
-    buttonLabel: 'Buy Now',
-  },
-  {
-    title: 'Apple iPhone 15 Pro Max',
-    category: 'Mobile Phones',
-    price: 479999,
-    old: 519999,
+    title: 'Xiaomi 43 Inch A Pro 4K QLED Smart TV',
+    category: 'Mega Sale TV',
+    price: 126100,
+    old: 134100,
+    monthly: 2235,
+    discount: '',
+    extra: '5%',
+    save: 8000,
     badge: 'Mega Sale',
-    buttonLabel: 'Buy Now',
+    img: megaSaleTv,
   },
   {
-    title: 'Samsung UHD Smart TV',
-    category: 'Televisions',
-    price: 289999,
-    old: 319999,
-    badge: 'Best Price',
-    buttonLabel: 'Buy Now',
+    title: 'Xiaomi Mobile Phone Redmi 15C 5G 4GB RAM',
+    category: 'Mega Sale Mobile',
+    price: 49140,
+    old: 55999,
+    monthly: 910,
+    discount: '2%',
+    extra: '9%',
+    save: 6859,
+    badge: 'Mega Sale',
+    img: megaSalePhone,
   },
-])
+  {
+    title: 'Xiaomi 1.75L Blender Pro',
+    category: 'Mega Sale Appliance',
+    price: 38466,
+    old: 47990,
+    monthly: 713,
+    discount: '10%',
+    extra: '10%',
+    save: 9524,
+    badge: 'Mega Sale',
+    img: megaSaleBlender,
+  },
+  {
+    title: 'Xiaomi Redmi Watch 5 Active Amoled Square Shape',
+    category: 'Mega Sale Wearable',
+    price: 9000,
+    old: 19999,
+    monthly: 167,
+    discount: '49%',
+    extra: '10%',
+    save: 10999,
+    badge: 'Mega Sale',
+    img: megaSaleWatch,
+  },
+]
 
-export const recommendedProducts = applyProductImages([
+export const recommendedProducts = [
   {
-    title: 'JBL Party Speaker',
-    category: 'Audio Devices',
-    price: 179999,
-    old: 194999,
-    badge: 'Trending',
-    buttonLabel: 'Add To Cart',
+    title: 'Harpic Power Plus 10X Cleaner',
+    category: 'Cleaning Product',
+    price: 4374,
+    old: 5450,
+    reviews: 24,
+    badge: '10% Off',
+    img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=900&auto=format&fit=crop',
   },
   {
-    title: 'Apple AirPods Pro',
-    category: 'Wearables',
-    price: 88999,
-    old: 95999,
-    badge: 'Popular',
-    buttonLabel: 'Add To Cart',
-  },
-  {
-    title: 'Canon Mirrorless Camera',
-    category: 'Cameras',
-    price: 349999,
-    old: 379999,
-    badge: 'Limited',
-    buttonLabel: 'Add To Cart',
-  },
-  {
-    title: 'Samsung Galaxy Tablet',
-    category: 'Mobile & Tablets',
-    price: 124999,
-    old: 134999,
+    title: 'Premium Floral Birthday Cake',
+    category: 'Lifestyle',
+    price: 2500,
+    old: 3200,
+    reviews: 31,
     badge: 'New',
-    buttonLabel: 'Add To Cart',
+    img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=900&auto=format&fit=crop',
   },
   {
-    title: 'Logitech Mechanical Keyboard',
-    category: 'Computer Accessories',
-    price: 26999,
-    old: 29999,
-    badge: 'Hot',
-    buttonLabel: 'Add To Cart',
-  },
-])
-
-export const electronicsProducts = applyProductImages([
-  {
-    title: 'PlayStation 5 Console',
-    category: 'Gaming',
-    price: 249999,
-    old: 269999,
-    badge: 'Best Seller',
-    buttonLabel: 'Add To Cart',
-  },
-  {
-    title: 'ASUS Gaming Laptop',
-    category: 'Computer Accessories',
-    price: 459999,
-    old: 489999,
-    badge: 'Featured',
-    buttonLabel: 'Add To Cart',
-  },
-  {
-    title: 'Anker Fast Charger',
-    category: 'Mobile & Tablets',
-    price: 9990,
-    old: 11500,
-    badge: 'New',
-    buttonLabel: 'Add To Cart',
-  },
-  {
-    title: 'GoPro Action Camera',
-    category: 'Cameras',
-    price: 155000,
-    old: 169999,
+    title: 'Atlas Active Fit School Bag C1',
+    category: 'School Bags',
+    price: 2750,
+    old: 3750,
+    reviews: 19,
     badge: 'Deal',
-    buttonLabel: 'Add To Cart',
+    img: 'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?q=80&w=900&auto=format&fit=crop',
   },
   {
-    title: 'Xiaomi Smart Display',
-    category: 'Smart Home',
-    price: 44999,
-    old: 49999,
-    badge: 'Special',
-    buttonLabel: 'Add To Cart',
-  },
-])
-
-export const bestProducts = applyProductImages([
-  {
-    title: 'Dyson Hair Dryer',
-    category: 'Personal Care Gadget',
-    price: 194999,
-    old: 214999,
-    badge: 'Premium',
-    buttonLabel: 'Add To Cart',
-  },
-  {
-    title: 'HP Laser Printer',
+    title: 'Casio FX-991ES Plus Scientific Calculator',
     category: 'Office Equipment',
-    price: 82999,
-    old: 89999,
-    badge: 'Office Pick',
-    buttonLabel: 'Add To Cart',
+    price: 8200,
+    old: 9200,
+    reviews: 52,
+    badge: 'Popular',
+    img: 'https://images.unsplash.com/photo-1564473185935-58113cba1e80?q=80&w=900&auto=format&fit=crop',
   },
   {
-    title: 'Nintendo Switch OLED',
-    category: 'Gaming',
-    price: 119999,
-    old: 129999,
-    badge: 'Hot',
-    buttonLabel: 'Add To Cart',
+    title: 'STC General Hot Water Shower',
+    category: 'Home Appliance',
+    price: 44491,
+    old: 48990,
+    reviews: 14,
+    badge: 'Premium',
+    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=900&auto=format&fit=crop',
   },
-  {
-    title: 'Philips Air Fryer',
-    category: 'Home Appliances',
-    price: 55999,
-    old: 61999,
-    badge: 'Top Deal',
-    buttonLabel: 'Add To Cart',
-  },
-  {
-    title: 'Amazon Echo Dot',
-    category: 'Audio Devices',
-    price: 18999,
-    old: 22999,
-    badge: 'Smart Pick',
-    buttonLabel: 'Add To Cart',
-  },
-])
+]
 
+export const electronicsProducts = [
+  {
+    title: 'Q16 AMD Console 3.5 Inch Game Player',
+    category: 'Gaming Console',
+    price: 9500,
+    old: 11900,
+    reviews: 67,
+    badge: 'Top',
+    img: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'UGREEN 4K HDMI Extension Cable',
+    category: 'Computer Accessories',
+    price: 8450,
+    old: 9350,
+    reviews: 44,
+    badge: 'New',
+    img: 'https://images.unsplash.com/photo-1611174797138-52c2873ca2b1?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'PS5 Hot Wheels Monster Trucks',
+    category: 'PS5 Games',
+    price: 13950,
+    old: 15950,
+    reviews: 37,
+    badge: 'Sale',
+    img: 'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'ADATA SC750 External SSD',
+    category: 'Storage Devices',
+    price: 39950,
+    old: 45950,
+    reviews: 23,
+    badge: 'Fast',
+    img: 'https://images.unsplash.com/photo-1601737487795-dab272f52420?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'Logitech MK215 Wireless Keyboard',
+    category: 'Computer Accessories',
+    price: 7950,
+    old: 8950,
+    reviews: 81,
+    badge: 'Best',
+    img: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=600&auto=format&fit=crop',
+  },
+]
+
+export const premiumFeature = {
+  title: 'Sony WH-1000XM Premium Headphones',
+  category: 'Premium Audio',
+  price: 98500,
+  old: 115000,
+  reviews: 96,
+  badge: 'Premium',
+  img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=900&auto=format&fit=crop',
+}
+
+export const premiumProducts = [
+  {
+    title: 'PS5 DualSense Controller',
+    category: 'Gaming',
+    price: 28950,
+    old: 32950,
+    img: 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'Apple Watch Style Tracker',
+    category: 'Wearable',
+    price: 74900,
+    old: 89900,
+    img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'Premium Portable Speaker',
+    category: 'Audio',
+    price: 24500,
+    old: 29900,
+    img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'Ergonomic Wireless Mouse',
+    category: 'Office',
+    price: 13950,
+    old: 16500,
+    img: 'https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=600&auto=format&fit=crop',
+  },
+]
+
+export const lifestyleProducts = [
+  {
+    title: 'Harpic Bathroom Cleaner',
+    category: 'Personal Care',
+    price: 4374,
+    old: 5450,
+    reviews: 25,
+    badge: '10% Off',
+    img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=900&auto=format&fit=crop',
+  },
+  {
+    title: 'Atlas Active Fit Backpack',
+    category: 'Bags',
+    price: 2750,
+    old: 3750,
+    reviews: 30,
+    badge: 'Deal',
+    img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'Casio Scientific Calculator',
+    category: 'Office',
+    price: 8200,
+    old: 9200,
+    reviews: 52,
+    badge: 'Popular',
+    img: 'https://images.unsplash.com/photo-1564473185935-58113cba1e80?q=80&w=900&auto=format&fit=crop',
+  },
+  {
+    title: 'Premium Hot Water Shower',
+    category: 'Home',
+    price: 44491,
+    old: 48990,
+    reviews: 14,
+    badge: 'Premium',
+    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=900&auto=format&fit=crop',
+  },
+  {
+    title: 'Double A A4 80 GSM Paper',
+    category: 'Paper Products',
+    price: 1580,
+    old: 1750,
+    reviews: 63,
+    badge: 'Office',
+    img: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?q=80&w=600&auto=format&fit=crop',
+  },
+]
+
+export const bestProducts = [
+  {
+    title: 'Wireless Gaming Controller',
+    category: 'Gaming',
+    price: 10950,
+    old: 12500,
+    reviews: 38,
+    badge: 'Best',
+    img: 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'Bluetooth Headphone Pro',
+    category: 'Audio',
+    price: 8950,
+    old: 10950,
+    reviews: 52,
+    badge: 'Sale',
+    img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'Smart Watch Fitness Tracker',
+    category: 'Wearable',
+    price: 7250,
+    old: 8900,
+    reviews: 77,
+    badge: 'Hot',
+    img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'Portable Speaker Mini',
+    category: 'Audio Devices',
+    price: 5950,
+    old: 7500,
+    reviews: 49,
+    badge: 'New',
+    img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    title: 'Modern Office Mouse',
+    category: 'Office Equipment',
+    price: 3850,
+    old: 4500,
+    reviews: 21,
+    badge: 'Office',
+    img: 'https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=600&auto=format&fit=crop',
+  },
+]
+
+
+applyProductImages(weeklyShowcaseCards)
+applyProductImages(homeAccessoryProducts)
+applyProductImages(recommendedProducts)
+applyProductImages(electronicsProducts)
+applyProductImages(premiumProducts)
+applyProductImages(lifestyleProducts)
+applyProductImages(bestProducts)
+premiumFeature.img = product1
+
+export const moreProductGridProducts = [
+  {
+    title: 'Smart Home Control Hub',
+    category: 'Smart Devices',
+    price: 14950,
+    old: 17950,
+    reviews: 46,
+    badge: 'New',
+  },
+  {
+    title: 'Premium Desk Setup Kit',
+    category: 'Office Picks',
+    price: 12950,
+    old: 14950,
+    reviews: 29,
+    badge: 'Popular',
+  },
+  {
+    title: 'Wireless Audio Dock',
+    category: 'Audio',
+    price: 16950,
+    old: 19950,
+    reviews: 38,
+    badge: 'Hot',
+  },
+  {
+    title: 'Compact Kitchen Helper',
+    category: 'Home Essentials',
+    price: 9950,
+    old: 11950,
+    reviews: 31,
+    badge: 'Deal',
+  },
+  {
+    title: 'Everyday Tech Organizer',
+    category: 'Top Rated',
+    price: 5750,
+    old: 6950,
+    reviews: 54,
+    badge: 'Best',
+  },
+]
+
+
+applyProductImages(moreProductGridProducts)
 export const reviews = [
   {
-    name: 'Amanda Perera',
-    role: 'Tech Enthusiast',
-    text: 'The delivery was super fast and the products felt genuinely premium. LK Shop has become my go-to place for electronics and home finds.',
+    initial: 'P',
+    name: 'Pasandul Senadhira',
+    time: '1 month ago',
+    text: 'Good service, fast delivery and product quality was better than expected.',
   },
   {
-    name: 'Ryan Fernando',
-    role: 'Interior Stylist',
-    text: 'I love the clean layout and curated accessory range. Shopping feels easy, classy and very well organized from start to finish.',
+    initial: 'A',
+    name: 'Abdullah Hisham',
+    time: '1 month ago',
+    text: 'Purchase came next day and the packaging was very clean.',
   },
   {
-    name: 'Nadeesha Silva',
-    role: 'Frequent Buyer',
-    text: 'Everything from the product cards to the quick checkout feels polished. It gives a modern brand experience that builds trust instantly.',
+    initial: 'T',
+    name: 'Thorushka Dinujaya',
+    time: '2 months ago',
+    text: 'Best customer support. They arranged same day delivery for me.',
+  },
+  {
+    initial: 'A',
+    name: 'Ajeema Shafeek',
+    time: '1 month ago',
+    text: 'Nice collection and very easy shopping experience.',
   },
 ]
