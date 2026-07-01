@@ -14,14 +14,11 @@
           :aria-label="brand.name"
         >
           <img
-            v-if="!failedLogos.includes(brand.name)"
             class="brand-logo-img"
             :src="brand.logo"
             :alt="`${brand.name} logo`"
             loading="lazy"
-            @error="markLogoFailed(brand.name)"
           />
-          <span v-else class="brand-logo-fallback">{{ brand.name }}</span>
         </div>
       </div>
     </div>
@@ -29,31 +26,37 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
-const failedLogos = ref([])
-
-const markLogoFailed = (brandName) => {
-  if (!failedLogos.value.includes(brandName)) {
-    failedLogos.value.push(brandName)
-  }
-}
+import appleLogo from '@/assets/brands/apple-color.svg'
+import samsungLogo from '@/assets/brands/samsung-color.svg'
+import sonyLogo from '@/assets/brands/sony-color.svg'
+import jblLogo from '@/assets/brands/jbl-color.svg'
+import xiaomiLogo from '@/assets/brands/xiaomi-color.svg'
+import lgLogo from '@/assets/brands/lg-color.svg'
+import philipsLogo from '@/assets/brands/philips-color.svg'
+import logitechLogo from '@/assets/brands/logitech-color.svg'
+import asusLogo from '@/assets/brands/asus-color.svg'
+import dellLogo from '@/assets/brands/dell-color.svg'
+import lenovoLogo from '@/assets/brands/lenovo-color.svg'
+import hpLogo from '@/assets/brands/hp-color.svg'
+import panasonicLogo from '@/assets/brands/panasonic-color.svg'
+import canonLogo from '@/assets/brands/canon-color.svg'
+import beatsLogo from '@/assets/brands/beats-color.svg'
 
 const brands = [
-  { name: 'Apple', logo: 'https://cdn.simpleicons.org/apple/000068' },
-  { name: 'Samsung', logo: 'https://cdn.simpleicons.org/samsung/000068' },
-  { name: 'Sony', logo: 'https://cdn.simpleicons.org/sony/000068' },
-  { name: 'JBL', logo: 'https://cdn.simpleicons.org/jbl/000068' },
-  { name: 'Xiaomi', logo: 'https://cdn.simpleicons.org/xiaomi/000068' },
-  { name: 'LG', logo: 'https://cdn.simpleicons.org/lg/000068' },
-  { name: 'Philips', logo: 'https://cdn.simpleicons.org/philips/000068' },
-  { name: 'Logitech', logo: 'https://cdn.simpleicons.org/logitech/000068' },
-  { name: 'ASUS', logo: 'https://cdn.simpleicons.org/asus/000068' },
-  { name: 'Dell', logo: 'https://cdn.simpleicons.org/dell/000068' },
-  { name: 'Lenovo', logo: 'https://cdn.simpleicons.org/lenovo/000068' },
-  { name: 'HP', logo: 'https://cdn.simpleicons.org/hp/000068' },
-  { name: 'Panasonic', logo: 'https://cdn.simpleicons.org/panasonic/000068' },
-  { name: 'Canon', logo: 'https://cdn.simpleicons.org/canon/000068' },
-  { name: 'Beats', logo: 'https://cdn.simpleicons.org/beatsbydre/000068' },
+  { name: 'Apple', logo: appleLogo },
+  { name: 'Samsung', logo: samsungLogo },
+  { name: 'Sony', logo: sonyLogo },
+  { name: 'JBL', logo: jblLogo },
+  { name: 'Xiaomi', logo: xiaomiLogo },
+  { name: 'LG', logo: lgLogo },
+  { name: 'Philips', logo: philipsLogo },
+  { name: 'Logitech', logo: logitechLogo },
+  { name: 'ASUS', logo: asusLogo },
+  { name: 'Dell', logo: dellLogo },
+  { name: 'Lenovo', logo: lenovoLogo },
+  { name: 'HP', logo: hpLogo },
+  { name: 'Panasonic', logo: panasonicLogo },
+  { name: 'Canon', logo: canonLogo },
+  { name: 'Beats', logo: beatsLogo },
 ]
 </script>

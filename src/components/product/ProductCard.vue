@@ -1,7 +1,11 @@
 <template>
   <article class="product-card" :class="{ 'is-out-of-stock': isOutOfStock }">
     <div class="product-img">
-      <span v-if="ribbonText" class="product-ribbon" :class="{ 'out-stock': isOutOfStock }">
+      <span
+        v-if="ribbonText"
+        class="product-ribbon"
+        :class="[ribbonClass, { 'out-stock': isOutOfStock }]"
+      >
         {{ ribbonText }}
       </span>
 
@@ -141,6 +145,11 @@ const isOutOfStock = computed(() =>
   String(props.product.badge || '').toLowerCase().includes('out of stock'),
 )
 const ribbonText = computed(() => (isOutOfStock.value ? 'OUT OF STOCK' : props.product.badge))
+const ribbonClass = computed(() => {
+  const badge = String(ribbonText.value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-')
+
+  return badge ? `ribbon-${badge}` : ''
+})
 
 const addOneToCart = () => {
   if (isOutOfStock.value) return

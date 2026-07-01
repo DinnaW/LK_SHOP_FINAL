@@ -33,17 +33,58 @@
         </div>
       </div>
     </nav>
+
+    <nav
+      class="scroll-header-categories"
+      :class="{ 'is-visible': isScrolled }"
+      aria-label="Header categories"
+    >
+      <a v-for="item in categoryLinks" :key="item.label" :href="item.href">
+        {{ item.label }}
+      </a>
+    </nav>
   </header>
 </template>
 
 <script setup>
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import logoUrl from '../../assets/logo.png'
 
-defineProps({
+const props = defineProps({
   searchTerm: { type: String, required: true },
   cartCount: { type: Number, default: 0 },
   wishlistCount: { type: Number, default: 0 },
+  categories: { type: Array, default: () => [] },
 })
 
 defineEmits(['update:searchTerm', 'open-cart'])
+
+const isScrolled = ref(false)
+let scrollFrame = null
+
+const categoryLinks = computed(() => {
+  const validCategories = props.categories.filter((item) => item?.label && item?.href)
+  const storageIndex = validCategories.findIndex((item) => item.label === 'Storage')
+
+  return storageIndex >= 0 ? validCategories.slice(0, storageIndex + 1) : validCategories
+})
+
+const updateScrollState = () => {
+  if (scrollFrame) return
+
+  scrollFrame = window.requestAnimationFrame(() => {
+    isScrolled.value = window.scrollY > 140
+    scrollFrame = null
+  })
+}
+
+onMounted(() => {
+  updateScrollState()
+  window.addEventListener('scroll', updateScrollState, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', updateScrollState)
+  if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
+})
 </script>

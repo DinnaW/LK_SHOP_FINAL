@@ -14,6 +14,7 @@
         v-model:search-term="searchTerm"
         :cart-count="cartCount"
         :wishlist-count="wishlist.length"
+        :categories="categorySidebarItems"
         @open-cart="openCart"
       />
 

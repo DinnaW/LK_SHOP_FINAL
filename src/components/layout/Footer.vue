@@ -1,9 +1,14 @@
 <template>
-  <footer class="premium-footer-showcase" id="footer">
+  <footer
+    ref="footerRef"
+    class="premium-footer-showcase"
+    :class="{ 'footer-name-visible': isFooterNameVisible }"
+    id="footer"
+  >
     <div class="premium-footer-shell">
       <div class="premium-footer-top-row">
         <div class="premium-footer-newsletter-block">
-          <h2>Sign up to the LKSHOP newsletter for 10% off your next purchase</h2>
+          <h2>Sign up to the Zappymart newsletter for 10% off your next purchase</h2>
 
           <form class="premium-footer-newsletter-form" @submit.prevent="subscribeUser">
             <input
@@ -31,36 +36,49 @@
       </div>
 
       <div class="premium-footer-bottom-row">
-        <span>© 2026 LK Shop All Rights Reserved</span>
+        <span>© 2026 Zappymart All Rights Reserved</span>
 
         <div class="premium-footer-legal-links">
           <a v-for="link in legalLinks" :key="link.label" :href="link.href">{{ link.label }}</a>
         </div>
       </div>
 
-      <div class="premium-footer-watermark" aria-hidden="true">LKSHOP</div>
+      <div class="premium-footer-watermark" aria-hidden="true">
+        <span
+          v-for="(letter, index) in footerBrandLetters"
+          :key="`${letter}-${index}`"
+          class="premium-footer-letter"
+          :style="{ '--letter-index': index }"
+        >
+          {{ letter }}
+        </span>
+      </div>
     </div>
   </footer>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const newsletterEmail = ref('')
+const footerRef = ref(null)
+const isFooterNameVisible = ref(false)
+const footerBrandLetters = 'Zappymart'.split('')
+let footerObserver = null
 
 const footerColumns = [
   {
     title: 'Shop',
     links: [
-      { label: 'Electronics', href: '#electronics' },
-      { label: 'Home Appliances', href: '#home-appliances' },
-      { label: 'Home Accessories', href: '#home-accessories' },
-      { label: 'Latest Products', href: '#best-week' },
-      { label: 'Deals & Offers', href: '#best-week' },
+      { label: 'Products', href: '#best-week' },
+      { label: 'Cart', href: '#' },
+      { label: 'Checkout', href: '#' },
+      { label: 'My account', href: '#' },
+      { label: 'Returns Policy', href: '#' },
     ],
   },
   {
-    title: 'Customer Care',
+    title: 'Sales Service',
     links: [
       { label: 'Products', href: '#' },
       { label: 'Cart', href: '#' },
@@ -72,11 +90,11 @@ const footerColumns = [
   {
     title: 'About',
     links: [
-      { label: 'About LK Shop', href: '#' },
-      { label: 'Support', href: '#' },
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms & Conditions', href: '#' },
-      { label: 'Contact Us', href: '#' },
+      { label: 'Products', href: '#' },
+      { label: 'Cart', href: '#' },
+      { label: 'Checkout', href: '#' },
+      { label: 'My account', href: '#' },
+      { label: 'Returns Policy', href: '#' },
     ],
   },
 ]
@@ -96,4 +114,31 @@ const subscribeUser = () => {
   alert(`Thank you for subscribing: ${newsletterEmail.value}`)
   newsletterEmail.value = ''
 }
+
+onMounted(() => {
+  if (!footerRef.value) return
+
+  if (!('IntersectionObserver' in window)) {
+    isFooterNameVisible.value = true
+    return
+  }
+
+  footerObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return
+
+      isFooterNameVisible.value = true
+      footerObserver?.disconnect()
+    },
+    {
+      threshold: 0.22,
+    },
+  )
+
+  footerObserver.observe(footerRef.value)
+})
+
+onUnmounted(() => {
+  footerObserver?.disconnect()
+})
 </script>
