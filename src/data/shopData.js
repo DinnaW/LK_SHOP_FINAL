@@ -13,6 +13,18 @@ import megaSaleTv from '@/assets/mega-sale-tv.png'
 import megaSalePhone from '@/assets/mega-sale-phone.png'
 import megaSaleBlender from '@/assets/mega-sale-blender.png'
 import megaSaleWatch from '@/assets/mega-sale-watch.png'
+import homeItem1 from '@/assets/home-item1.png'
+import homeItem2 from '@/assets/home-item2.png'
+import homeItem3 from '@/assets/home-item3.png'
+import homeItem4 from '@/assets/home-item4.png'
+import homeItem5 from '@/assets/home-item5.png'
+import homeItem6 from '@/assets/home-item6.png'
+import homeItem7 from '@/assets/home-item7.png'
+import skinCare1 from '@/assets/skin-care1.png'
+import skinCare2 from '@/assets/skin-care2.png'
+import skinCare3 from '@/assets/skin-care3.png'
+import skinCare4 from '@/assets/skin-care4.png'
+import skinCare5 from '@/assets/skin-care5.png'
 
 export { product1, product2, product3, product4, product5 }
 
@@ -158,7 +170,7 @@ export const homeAccessoryCategories = [
 ]
 export const homeAccessoriesFeatureImage = homeAccessoriesMiddleBanner
 
-export const homeAccessoryProducts = applyProductImages([
+export const homeAccessoryProducts = [
   {
     title: 'Minimal Ceramic Vase Set',
     category: 'Home Decor',
@@ -166,6 +178,7 @@ export const homeAccessoryProducts = applyProductImages([
     old: 8250,
     badge: 'New',
     buttonLabel: 'Add To Cart',
+    img: homeItem1,
   },
   {
     title: 'Modern Table Lamp',
@@ -174,6 +187,7 @@ export const homeAccessoryProducts = applyProductImages([
     old: 10500,
     badge: '15% Off',
     buttonLabel: 'Add To Cart',
+    img: homeItem2,
   },
   {
     title: 'Premium Cushion Collection',
@@ -182,6 +196,7 @@ export const homeAccessoryProducts = applyProductImages([
     old: 7800,
     badge: 'Deal',
     buttonLabel: 'Add To Cart',
+    img: homeItem3,
   },
   {
     title: 'Decorative Storage Basket',
@@ -190,6 +205,7 @@ export const homeAccessoryProducts = applyProductImages([
     old: 12200,
     badge: 'Best',
     buttonLabel: 'Select Options',
+    img: homeItem4,
   },
   {
     title: 'Marble Serving Tray',
@@ -198,6 +214,7 @@ export const homeAccessoryProducts = applyProductImages([
     old: 6900,
     badge: 'New',
     buttonLabel: 'Add To Cart',
+    img: homeItem5,
   },
   {
     title: 'Glass Tableware Set',
@@ -206,6 +223,7 @@ export const homeAccessoryProducts = applyProductImages([
     old: 14950,
     badge: 'Premium',
     buttonLabel: 'Add To Cart',
+    img: homeItem6,
   },
   {
     title: 'Soft Linen Throw Pillow',
@@ -214,6 +232,7 @@ export const homeAccessoryProducts = applyProductImages([
     old: 5200,
     badge: 'Deal',
     buttonLabel: 'Add To Cart',
+    img: homeItem7,
   },
   {
     title: 'Wooden Desk Organizer',
@@ -222,8 +241,9 @@ export const homeAccessoryProducts = applyProductImages([
     old: 8900,
     badge: 'Best',
     buttonLabel: 'Add To Cart',
+    img: homeItem7,
   },
-])
+]
 
 export const mosaicBanners = [
   {
@@ -312,49 +332,49 @@ export const megaSaleProducts = [
 
 export const recommendedProducts = [
   {
-    title: 'Harpic Power Plus 10X Cleaner',
-    category: 'Cleaning Product',
-    price: 4374,
-    old: 5450,
+    title: 'Deep Action Exfoliating Cleanser',
+    category: 'Skin Care',
+    price: 6950,
+    old: 8250,
     reviews: 24,
-    badge: '10% Off',
-    img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=900&auto=format&fit=crop',
-  },
-  {
-    title: 'Premium Floral Birthday Cake',
-    category: 'Lifestyle',
-    price: 2500,
-    old: 3200,
-    reviews: 31,
     badge: 'New',
-    img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=900&auto=format&fit=crop',
+    img: skinCare1,
   },
   {
-    title: 'Atlas Active Fit School Bag C1',
-    category: 'School Bags',
-    price: 2750,
-    old: 3750,
+    title: 'Hydrating Face Cream',
+    category: 'Skin Care',
+    price: 7450,
+    old: 8900,
+    reviews: 31,
+    badge: 'Sale',
+    img: skinCare2,
+  },
+  {
+    title: 'Minimal Ceramic Vase Set',
+    category: 'Home Decor',
+    price: 6950,
+    old: 8250,
     reviews: 19,
     badge: 'Deal',
-    img: 'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?q=80&w=900&auto=format&fit=crop',
+    img: homeItem1,
   },
   {
-    title: 'Casio FX-991ES Plus Scientific Calculator',
-    category: 'Office Equipment',
-    price: 8200,
-    old: 9200,
+    title: 'Modern Table Lamp',
+    category: 'Lighting',
+    price: 8950,
+    old: 10500,
     reviews: 52,
     badge: 'Popular',
-    img: 'https://images.unsplash.com/photo-1564473185935-58113cba1e80?q=80&w=900&auto=format&fit=crop',
+    img: homeItem2,
   },
   {
-    title: 'STC General Hot Water Shower',
-    category: 'Home Appliance',
-    price: 44491,
-    old: 48990,
+    title: 'Premium Cushion Collection',
+    category: 'Bedding & Cushions',
+    price: 6630,
+    old: 7800,
     reviews: 14,
     badge: 'Premium',
-    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=900&auto=format&fit=crop',
+    img: homeItem3,
   },
 ]
 
@@ -497,60 +517,102 @@ export const lifestyleProducts = [
 
 export const bestProducts = [
   {
-    title: 'Wireless Gaming Controller',
-    category: 'Gaming',
-    price: 10950,
-    old: 12500,
+    title: 'Brightening Serum',
+    category: 'Skin Care',
+    price: 8950,
+    old: 10500,
     reviews: 38,
     badge: 'Best',
-    img: 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?q=80&w=600&auto=format&fit=crop',
+    img: skinCare3,
   },
   {
-    title: 'Bluetooth Headphone Pro',
-    category: 'Audio',
+    title: 'Modern Table Lamp',
+    category: 'Home Accessories',
     price: 8950,
-    old: 10950,
+    old: 10500,
     reviews: 52,
     badge: 'Sale',
-    img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop',
+    img: homeItem2,
   },
   {
-    title: 'Smart Watch Fitness Tracker',
-    category: 'Wearable',
-    price: 7250,
-    old: 8900,
+    title: 'Decorative Storage Basket',
+    category: 'Storage',
+    price: 10370,
+    old: 12200,
     reviews: 77,
-    badge: 'Hot',
-    img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop',
+    badge: 'Best',
+    img: homeItem4,
   },
   {
-    title: 'Portable Speaker Mini',
-    category: 'Audio Devices',
-    price: 5950,
-    old: 7500,
+    title: 'Premium Cushion Collection',
+    category: 'Home Decor',
+    price: 6630,
+    old: 7800,
     reviews: 49,
     badge: 'New',
-    img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=600&auto=format&fit=crop',
+    img: homeItem3,
   },
   {
-    title: 'Modern Office Mouse',
-    category: 'Office Equipment',
-    price: 3850,
-    old: 4500,
+    title: 'Gentle Facial Cleanser',
+    category: 'Skin Care',
+    price: 5850,
+    old: 6900,
     reviews: 21,
-    badge: 'Office',
-    img: 'https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=600&auto=format&fit=crop',
+    badge: 'Deal',
+    img: skinCare4,
+  },
+  {
+    title: 'Minimal Ceramic Vase Set',
+    category: 'Home Decor',
+    price: 6950,
+    old: 8250,
+    reviews: 36,
+    badge: 'Home',
+    img: homeItem1,
+  },
+  {
+    title: 'Hydrating Face Cream',
+    category: 'Beauty',
+    price: 7450,
+    old: 8900,
+    reviews: 58,
+    badge: 'Top',
+    img: skinCare2,
+  },
+  {
+    title: 'Daily Moisture Lotion',
+    category: 'Personal Care',
+    price: 6350,
+    old: 7600,
+    reviews: 42,
+    badge: 'Fresh',
+    img: skinCare5,
+  },
+  {
+    title: 'Glass Tableware Set',
+    category: 'Tableware',
+    price: 12950,
+    old: 14950,
+    reviews: 64,
+    badge: 'Premium',
+    img: homeItem6,
+  },
+  {
+    title: 'Marble Serving Tray',
+    category: 'Kitchen Accessories',
+    price: 5850,
+    old: 6900,
+    reviews: 29,
+    badge: 'Pick',
+    img: homeItem5,
   },
 ]
 
 
 applyProductImages(weeklyShowcaseCards)
-applyProductImages(homeAccessoryProducts)
-applyProductImages(recommendedProducts)
 applyProductImages(electronicsProducts)
 applyProductImages(premiumProducts)
 applyProductImages(lifestyleProducts)
-applyProductImages(bestProducts)
 premiumFeature.img = product1
 
 export const moreProductGridProducts = [
@@ -603,24 +665,24 @@ export const reviews = [
     initial: 'P',
     name: 'Pasandul Senadhira',
     time: '1 month ago',
-    text: 'Good service, fast delivery and product quality was better than expected.',
+    text: 'Excellent shopping experience. Delivery was fast, the item was packed safely, and the product quality matched the listing.',
   },
   {
     initial: 'A',
     name: 'Abdullah Hisham',
     time: '1 month ago',
-    text: 'Purchase came next day and the packaging was very clean.',
+    text: 'Very smooth process from order to delivery. The package arrived the next day and everything was handled professionally.',
   },
   {
     initial: 'T',
     name: 'Thorushka Dinujaya',
     time: '2 months ago',
-    text: 'Best customer support. They arranged same day delivery for me.',
+    text: 'Customer support was responsive and helpful. They confirmed my order quickly and arranged delivery without any delay.',
   },
   {
     initial: 'A',
     name: 'Ajeema Shafeek',
     time: '1 month ago',
-    text: 'Nice collection and very easy shopping experience.',
+    text: 'Great collection with clear product details. The website was easy to use and checkout felt simple and reliable.',
   },
 ]

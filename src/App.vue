@@ -75,11 +75,28 @@
         @add-wishlist="addToWishlist"
       />
 
-      <ImageBanner
-        id="home-accessories-banner"
-        :image="homeAccessoriesBanner"
-        alt="Home accessories promotional banner"
+      <SplitPromoSection
+        id="home-accessories-promo"
+        :left-image="splitPromoLeft"
+        left-alt="Home accessories lifestyle promotion"
+        :right-image="splitPromoRight"
+        :product="homeAccessoryProducts[0]"
+        headline="Hydrating & fast-absorbing essentials for a softer, cleaner home feeling."
+        description="A premium everyday pick with a clean finish and special offer pricing."
+        @add-to-cart="addToCart"
       />
+
+      <SkinCareProductStrip
+        :products="skinCareProducts"
+        :wishlist-items="wishlistTitles"
+        :cart-quantities="cartQuantities"
+        @add-to-cart="addToCart"
+        @update-cart-quantity="updateCartQuantity"
+        @quick-view="openQuickView"
+        @add-wishlist="addToWishlist"
+      />
+
+      <BrandShowcase />
 
       <ProductSection
         id="best-week"
@@ -108,6 +125,17 @@
       @remove="removeFromCart"
     />
 
+    <button
+      class="floating-cart-button"
+      :class="{ 'is-visible': showFloatingCart }"
+      type="button"
+      aria-label="Open shopping cart"
+      @click="openCart"
+    >
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span v-if="cartCount">{{ cartCount }}</span>
+    </button>
+
     <QuickViewModal
       :product="quickViewProduct"
       :is-wishlisted="quickViewProduct ? isWishlisted(quickViewProduct) : false"
@@ -120,7 +148,7 @@
 </template>
 
 <script setup>
-import { computed, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 import Sidebar from '@/components/layout/Sidebar.vue'
 import TopStrip from '@/components/layout/TopStrip.vue'
@@ -137,13 +165,21 @@ import MegaSaleSection from '@/components/sections/MegaSaleSection.vue'
 import ApplianceBanner from '@/components/sections/ApplianceBanner.vue'
 import FeaturedBanners from '@/components/sections/FeaturedBanners.vue'
 import HomeAccessoriesSection from '@/components/sections/HomeAccessoriesSection.vue'
-import ImageBanner from '@/components/sections/ImageBanner.vue'
+import SplitPromoSection from '@/components/sections/SplitPromoSection.vue'
+import SkinCareProductStrip from '@/components/sections/SkinCareProductStrip.vue'
+import BrandShowcase from '@/components/sections/BrandShowcase.vue'
 import Testimonials from '@/components/sections/Testimonials.vue'
 
 import heroB1g from '@/assets/hero-b1g.png'
 import applianceBanner from '@/assets/appliance-banner.png'
 import electronicsSideBanner from '@/assets/electronics-side-banner.png'
-import homeAccessoriesBanner from '@/assets/home-accessories-banner.png'
+import splitPromoLeft from '@/assets/split-promo-left.png'
+import splitPromoRight from '@/assets/split-promo-right.png'
+import skinCare1 from '@/assets/skin-care1.png'
+import skinCare2 from '@/assets/skin-care2.png'
+import skinCare3 from '@/assets/skin-care3.png'
+import skinCare4 from '@/assets/skin-care4.png'
+import skinCare5 from '@/assets/skin-care5.png'
 import {
   categorySidebarItems,
   scrollingCategories,
@@ -166,6 +202,7 @@ const wishlist = ref([])
 const quickViewProduct = ref(null)
 const isCartOpen = ref(false)
 const isSidebarExpanded = ref(false)
+const showFloatingCart = ref(false)
 const activeSidebar = ref('Electronics')
 const activeHomeAccessoryCategory = ref('All')
 const toast = ref({
@@ -173,10 +210,85 @@ const toast = ref({
   product: null,
   message: 'Added to your cart successfully.',
 })
+const skinCareProducts = [
+  {
+    title: 'Deep Action Exfoliating Cleanser',
+    category: 'Skin Care',
+    price: 6950,
+    old: 8250,
+    badge: 'New',
+    buttonLabel: 'Add To Cart',
+    img: skinCare1,
+  },
+  {
+    title: 'Hydrating Face Cream',
+    category: 'Skin Care',
+    price: 7450,
+    old: 8900,
+    badge: 'Sale',
+    buttonLabel: 'Add To Cart',
+    img: skinCare2,
+  },
+  {
+    title: 'Brightening Serum',
+    category: 'Skin Care',
+    price: 8950,
+    old: 10500,
+    badge: 'Best',
+    buttonLabel: 'Add To Cart',
+    img: skinCare3,
+  },
+  {
+    title: 'Gentle Facial Cleanser',
+    category: 'Skin Care',
+    price: 5850,
+    old: 6900,
+    badge: 'Deal',
+    buttonLabel: 'Add To Cart',
+    img: skinCare4,
+  },
+  {
+    title: 'Daily Moisture Lotion',
+    category: 'Skin Care',
+    price: 6350,
+    old: 7600,
+    badge: 'Top',
+    buttonLabel: 'Add To Cart',
+    img: skinCare5,
+  },
+]
 let toastTimer = null
+let floatingCartFrame = null
+
+const updateFloatingCartVisibility = () => {
+  const hero = document.querySelector('.hero-full-banner')
+  const heroBottom = hero
+    ? hero.getBoundingClientRect().bottom + window.scrollY
+    : window.innerHeight * 0.8
+
+  showFloatingCart.value = window.scrollY > heroBottom - 12
+}
+
+const requestFloatingCartUpdate = () => {
+  if (floatingCartFrame) return
+
+  floatingCartFrame = window.requestAnimationFrame(() => {
+    updateFloatingCartVisibility()
+    floatingCartFrame = null
+  })
+}
+
+onMounted(() => {
+  updateFloatingCartVisibility()
+  window.addEventListener('scroll', requestFloatingCartUpdate, { passive: true })
+  window.addEventListener('resize', updateFloatingCartVisibility, { passive: true })
+})
 
 onUnmounted(() => {
   clearTimeout(toastTimer)
+  window.removeEventListener('scroll', requestFloatingCartUpdate)
+  window.removeEventListener('resize', updateFloatingCartVisibility)
+  if (floatingCartFrame) window.cancelAnimationFrame(floatingCartFrame)
 })
 
 const filterProducts = (items) => {
