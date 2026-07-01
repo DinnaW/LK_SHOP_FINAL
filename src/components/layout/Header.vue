@@ -2,8 +2,8 @@
   <header class="main-header">
     <nav class="navbar navbar-expand-lg navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="brand" href="#" aria-label="LK Shop home">
-          <img class="brand-logo" :src="logoUrl" alt="LK Shop" />
+        <a class="brand" href="#" aria-label="ZappyMart home">
+          <img class="brand-logo" :src="logoUrl" alt="ZappyMart" />
         </a>
 
         <div class="search-box mx-lg-auto">
@@ -48,7 +48,7 @@
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import logoUrl from '../../assets/logo.png'
+import logoUrl from '../../assets/ZappyMart Logo.svg'
 
 const props = defineProps({
   searchTerm: { type: String, required: true },

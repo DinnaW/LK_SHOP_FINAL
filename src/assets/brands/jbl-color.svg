@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" role="img" aria-label="JBL logo">
-  <rect x="46" y="27" width="148" height="66" rx="5" fill="#FF5000"/>
-  <rect x="62" y="39" width="14" height="42" fill="#FFFFFF"/>
-  <path fill="#FFFFFF" d="M86 39h33c15 0 24 7 24 19 0 8-4 14-12 17l12 10h-24l-11-10h-3v10H86V39Zm19 15v8h13c4 0 7-1 7-4s-3-4-7-4h-13Z"/>
-  <text x="154" y="82" fill="#FFFFFF" font-family="Arial Black, Arial, sans-serif" font-size="49" font-weight="900">L</text>
-</svg>
