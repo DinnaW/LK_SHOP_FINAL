@@ -39,7 +39,7 @@
 
           <ProductCard
             v-if="products[5]"
-            class="home-accessory-product-card"
+            class="home-accessory-product-card is-feature-side-card"
             :product="products[5]"
             :wishlist-items="wishlistItems"
             :cart-quantity="cartQuantities[products[5].title] || 0"
@@ -55,7 +55,7 @@
 
           <ProductCard
             v-if="products[6]"
-            class="home-accessory-product-card"
+            class="home-accessory-product-card is-feature-side-card"
             :product="products[6]"
             :wishlist-items="wishlistItems"
             :cart-quantity="cartQuantities[products[6].title] || 0"

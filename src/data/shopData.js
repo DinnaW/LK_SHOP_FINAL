@@ -20,6 +20,8 @@ import homeItem4 from '@/assets/home-item4.png'
 import homeItem5 from '@/assets/home-item5.png'
 import homeItem6 from '@/assets/home-item6.png'
 import homeItem7 from '@/assets/home-item7.png'
+import longPro from '@/assets/longpro.jpg'
+import prodc2 from '@/assets/prodc2.jpg'
 import skinCare1 from '@/assets/skin-care1.png'
 import skinCare2 from '@/assets/skin-care2.png'
 import skinCare3 from '@/assets/skin-care3.png'
@@ -217,22 +219,22 @@ export const homeAccessoryProducts = [
     img: homeItem5,
   },
   {
-    title: 'Glass Tableware Set',
-    category: 'Tableware',
+    title: 'Premium Side By Side Refrigerator',
+    category: 'Home Appliances',
     price: 12950,
     old: 14950,
     badge: 'Premium',
     buttonLabel: 'Add To Cart',
-    img: homeItem6,
+    img: longPro,
   },
   {
-    title: 'Soft Linen Throw Pillow',
-    category: 'Bedding & Cushions',
+    title: 'Portable Party Speaker',
+    category: 'Audio Devices',
     price: 4450,
     old: 5200,
     badge: 'Deal',
     buttonLabel: 'Add To Cart',
-    img: homeItem7,
+    img: prodc2,
   },
   {
     title: 'Wooden Desk Organizer',
