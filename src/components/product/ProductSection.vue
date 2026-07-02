@@ -23,7 +23,7 @@
       </div>
 
       <div
-        v-if="products.length"
+        v-if="displayedProducts.length"
         class="product-section-content"
         :class="{ 'has-side-promo': promoImage }"
       >
@@ -37,23 +37,15 @@
         </a>
 
         <div
-          ref="carouselRef"
-          class="product-carousel product-step-carousel"
-          aria-label="Auto stepping product carousel"
-          @mouseenter="pauseCarousel"
-          @mouseleave="resumeCarousel"
-          @focusin="pauseCarousel"
-          @focusout="resumeCarousel"
+          class="product-static-grid-wrap"
+          aria-label="Product grid"
         >
           <div
-            ref="trackRef"
-            class="products-grid product-section-grid product-carousel-track"
-            :class="{ 'is-resetting': isResetting }"
-            :style="trackStyle"
+            class="products-grid product-section-grid product-static-grid"
           >
             <ProductCard
-              v-for="(product, index) in carouselProducts"
-              :key="`${product.title}-${index}`"
+              v-for="product in displayedProducts"
+              :key="product.title"
               :product="product"
               :wishlist-items="wishlistItems"
               :cart-quantity="cartQuantities[product.title] || 0"
@@ -72,7 +64,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import ProductCard from './ProductCard.vue'
 
 const props = defineProps({
@@ -81,6 +73,7 @@ const props = defineProps({
   subtitle: { type: String, required: true },
   chips: { type: Array, required: true },
   products: { type: Array, required: true },
+  productGroups: { type: Object, default: null },
   promoImage: { type: String, default: '' },
   promoAlt: { type: String, default: '' },
   wishlistItems: { type: Array, default: () => [] },
@@ -90,115 +83,16 @@ const props = defineProps({
 defineEmits(['add-to-cart', 'update-cart-quantity', 'quick-view', 'add-wishlist'])
 
 const activeChip = ref(props.chips[0])
-const carouselProducts = computed(() => [...props.products, ...props.products, ...props.products])
-const carouselRef = ref(null)
-const trackRef = ref(null)
-const stepIndex = ref(0)
-const stepSize = ref(0)
-const isResetting = ref(false)
-let stepTimer = null
-let resetTimer = null
-let isCarouselPaused = false
 
-const trackStyle = computed(() => ({
-  '--lk-carousel-x': `-${stepIndex.value * stepSize.value}px`,
-}))
+const displayedProducts = computed(() => {
+  const groupedProducts = props.productGroups?.[activeChip.value]
 
-const measureStepSize = () => {
-  const card = trackRef.value?.querySelector('.product-card')
-  const track = trackRef.value
-
-  if (!card || !track) {
-    stepSize.value = 0
-    return
-  }
-
-  const trackStyles = window.getComputedStyle(track)
-  const gap = parseFloat(trackStyles.columnGap || trackStyles.gap || '0') || 24
-  const cardWidth = card.getBoundingClientRect().width
-
-  stepSize.value = Math.round(cardWidth + gap)
-}
-
-const hardResetToStart = () => {
-  isResetting.value = true
-  stepIndex.value = 0
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      isResetting.value = false
-    })
-  })
-}
-
-const moveOneCard = () => {
-  const totalProducts = props.products.length
-
-  if (!totalProducts) return
-
-  if (!stepSize.value) {
-    measureStepSize()
-  }
-
-  if (!stepSize.value) return
-
-  clearTimeout(resetTimer)
-
-  stepIndex.value += 1
-
-  if (stepIndex.value >= totalProducts) {
-    resetTimer = setTimeout(hardResetToStart, 760)
-  }
-}
-
-const startCarousel = () => {
-  clearInterval(stepTimer)
-  stepTimer = null
-
-  if (isCarouselPaused || props.products.length < 2) return
-
-  stepTimer = setInterval(moveOneCard, 2300)
-}
-
-const pauseCarousel = () => {
-  isCarouselPaused = true
-  clearInterval(stepTimer)
-  stepTimer = null
-}
-
-const resumeCarousel = () => {
-  isCarouselPaused = false
-  startCarousel()
-}
-
-const resetCarousel = () => {
-  clearInterval(stepTimer)
-  clearTimeout(resetTimer)
-  stepIndex.value = 0
-  isResetting.value = false
-
-  nextTick(() => {
-    measureStepSize()
-    startCarousel()
-  })
-}
-
-const handleResize = () => {
-  measureStepSize()
-}
-
-onMounted(() => {
-  nextTick(resetCarousel)
-  window.addEventListener('resize', handleResize, { passive: true })
+  return Array.isArray(groupedProducts) ? groupedProducts : props.products
 })
 
-onBeforeUnmount(() => {
-  clearInterval(stepTimer)
-  clearTimeout(resetTimer)
-  window.removeEventListener('resize', handleResize)
-})
-
-watch(() => props.products, () => {
-  nextTick(resetCarousel)
+watch(() => props.chips, (chips) => {
+  if (!chips.includes(activeChip.value)) {
+    activeChip.value = chips[0]
+  }
 })
 </script>

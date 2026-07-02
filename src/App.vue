@@ -20,7 +20,6 @@
 
       <CategoryStrip :categories="categorySidebarItems" />
       <HeroSection :images="heroImages" />
-      <MarqueeStrip :categories="scrollingCategories" />
 
       <MegaSaleSection
         :products="filteredMegaSaleProducts"
@@ -34,6 +33,7 @@
         subtitle="Recommended products arranged in a clean 5-card row with full-cover product visuals."
         :chips="['New Products', 'Featured Products', 'Top Deals', 'Best Sellers']"
         :products="filteredRecommendedProducts"
+        :product-groups="filteredRecommendedProductTabs"
         :wishlist-items="wishlistTitles"
         :cart-quantities="cartQuantities"
         @add-to-cart="addToCart"
@@ -50,6 +50,7 @@
         subtitle="Gadgets, gaming, computer accessories and smart devices."
         :chips="['Gaming', 'Audio Devices', 'Computer Accessories', 'Cameras', 'Home Appliances']"
         :products="filteredElectronicsProducts"
+        :product-groups="filteredElectronicsProductTabs"
         :promo-image="electronicsSideBanner"
         promo-alt="JBL speaker electronics promotional banner"
         :wishlist-items="wishlistTitles"
@@ -105,6 +106,7 @@
         subtitle="Top selling items with special weekly prices."
         :chips="['Personal Care Gadget', 'Office Equipment', 'Gaming', 'Top Deals']"
         :products="filteredBestProducts"
+        :product-groups="filteredBestProductTabs"
         :wishlist-items="wishlistTitles"
         :cart-quantities="cartQuantities"
         @add-to-cart="addToCart"
@@ -161,7 +163,6 @@ import CartToast from '@/components/cart/CartToast.vue'
 import CartDrawer from '@/components/cart/CartDrawer.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import CategoryStrip from '@/components/sections/CategoryStrip.vue'
-import MarqueeStrip from '@/components/sections/MarqueeStrip.vue'
 import MegaSaleSection from '@/components/sections/MegaSaleSection.vue'
 import ApplianceBanner from '@/components/sections/ApplianceBanner.vue'
 import FeaturedBanners from '@/components/sections/FeaturedBanners.vue'
@@ -183,15 +184,17 @@ import skinCare4 from '@/assets/skin-care4.png'
 import skinCare5 from '@/assets/skin-care5.png'
 import {
   categorySidebarItems,
-  scrollingCategories,
   featuredProductBanners,
   homeAccessoryCategories,
   homeAccessoriesFeatureImage,
   homeAccessoryProducts,
   megaSaleProducts,
   recommendedProducts,
+  recommendedProductTabs,
   electronicsProducts,
+  electronicsProductTabs,
   bestProducts,
+  bestProductTabs,
   reviews,
   product4,
 } from '@/data/shopData'
@@ -299,9 +302,16 @@ const filterProducts = (items) => {
   return items.filter((item) => `${item.title} ${item.category}`.toLowerCase().includes(keyword))
 }
 
+const filterProductTabs = (tabs) =>
+  Object.fromEntries(
+    Object.entries(tabs).map(([label, items]) => [label, filterProducts(items)]),
+  )
+
 const filteredMegaSaleProducts = computed(() => filterProducts(megaSaleProducts))
 const filteredRecommendedProducts = computed(() => filterProducts(recommendedProducts))
+const filteredRecommendedProductTabs = computed(() => filterProductTabs(recommendedProductTabs))
 const filteredElectronicsProducts = computed(() => filterProducts(electronicsProducts))
+const filteredElectronicsProductTabs = computed(() => filterProductTabs(electronicsProductTabs))
 const filteredHomeAccessoryProducts = computed(() => {
   const category = activeHomeAccessoryCategory.value
   const categoryItems = category === 'All'
@@ -311,6 +321,7 @@ const filteredHomeAccessoryProducts = computed(() => {
   return filterProducts(categoryItems)
 })
 const filteredBestProducts = computed(() => filterProducts(bestProducts))
+const filteredBestProductTabs = computed(() => filterProductTabs(bestProductTabs))
 const cartTotal = computed(() => cart.value.reduce((sum, item) => sum + item.price * item.quantity, 0))
 const cartCount = computed(() => cart.value.reduce((sum, item) => sum + item.quantity, 0))
 const cartQuantities = computed(() =>

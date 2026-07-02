@@ -20,8 +20,6 @@ import homeItem4 from '@/assets/home-item4.png'
 import homeItem5 from '@/assets/home-item5.png'
 import homeItem6 from '@/assets/home-item6.png'
 import homeItem7 from '@/assets/home-item7.png'
-import longPro from '@/assets/longpro.jpg'
-import prodc2 from '@/assets/prodc2.jpg'
 import skinCare1 from '@/assets/skin-care1.png'
 import skinCare2 from '@/assets/skin-care2.png'
 import skinCare3 from '@/assets/skin-care3.png'
@@ -219,22 +217,22 @@ export const homeAccessoryProducts = [
     img: homeItem5,
   },
   {
-    title: 'Premium Side By Side Refrigerator',
-    category: 'Home Appliances',
+    title: 'Glass Tableware Set',
+    category: 'Tableware',
     price: 12950,
     old: 14950,
     badge: 'Premium',
     buttonLabel: 'Add To Cart',
-    img: longPro,
+    img: homeItem6,
   },
   {
-    title: 'Portable Party Speaker',
-    category: 'Audio Devices',
+    title: 'Soft Linen Throw Pillow',
+    category: 'Bedding & Cushions',
     price: 4450,
     old: 5200,
     badge: 'Deal',
     buttonLabel: 'Add To Cart',
-    img: prodc2,
+    img: homeItem7,
   },
   {
     title: 'Wooden Desk Organizer',
@@ -662,6 +660,125 @@ export const moreProductGridProducts = [
 
 
 applyProductImages(moreProductGridProducts)
+
+const productVariant = (product, overrides = {}) => ({
+  ...product,
+  ...overrides,
+})
+
+export const recommendedProductTabs = {
+  'New Products': [
+    recommendedProducts[0],
+    electronicsProducts[1],
+    homeAccessoryProducts[0],
+    bestProducts[3],
+    moreProductGridProducts[0],
+    recommendedProducts[1],
+  ],
+  'Featured Products': [
+    recommendedProducts[1],
+    recommendedProducts[2],
+    electronicsProducts[4],
+    homeAccessoryProducts[4],
+    bestProducts[8],
+    bestProducts[0],
+  ],
+  'Top Deals': [
+    recommendedProducts[2],
+    bestProducts[4],
+    homeAccessoryProducts[2],
+    moreProductGridProducts[3],
+    electronicsProducts[2],
+    bestProducts[7],
+  ],
+  'Best Sellers': [
+    bestProducts[0],
+    bestProducts[1],
+    bestProducts[2],
+    bestProducts[6],
+    bestProducts[9],
+    recommendedProducts[3],
+  ],
+}
+
+export const electronicsProductTabs = {
+  Gaming: [
+    electronicsProducts[0],
+    electronicsProducts[2],
+    productVariant(premiumProducts[0], { reviews: 62, badge: 'Gamer' }),
+    productVariant(moreProductGridProducts[4], { title: 'RGB Gaming Desk Organizer', category: 'Gaming', badge: 'Best' }),
+    productVariant(electronicsProducts[0], { title: 'Portable Retro Gaming Console', badge: 'New' }),
+    productVariant(electronicsProducts[1], { title: 'Gaming HDMI Cable Pro', category: 'Gaming', badge: 'Fast' }),
+  ],
+  'Audio Devices': [
+    productVariant(premiumFeature, { badge: 'Premium' }),
+    productVariant(premiumProducts[2], { reviews: 41, badge: 'Hot' }),
+    moreProductGridProducts[2],
+    productVariant(electronicsProducts[0], { title: 'Wireless Gaming Audio Dock', category: 'Audio Devices', badge: 'Top' }),
+    productVariant(moreProductGridProducts[2], { title: 'Compact Bluetooth Speaker', price: 12950, old: 14950, badge: 'Deal' }),
+    productVariant(electronicsProducts[2], { title: 'Wireless Earbuds Pro', category: 'Audio Devices', price: 14950, old: 17950, badge: 'New' }),
+  ],
+  'Computer Accessories': [
+    electronicsProducts[1],
+    electronicsProducts[3],
+    electronicsProducts[4],
+    productVariant(premiumProducts[3], { reviews: 35, badge: 'Office' }),
+    productVariant(moreProductGridProducts[1], { category: 'Computer Accessories' }),
+    productVariant(moreProductGridProducts[4], { title: 'Cable & Storage Organizer', category: 'Computer Accessories', badge: 'Best' }),
+  ],
+  Cameras: [
+    productVariant(electronicsProducts[3], { title: 'Compact Action Camera Kit', category: 'Cameras', badge: 'New' }),
+    productVariant(electronicsProducts[2], { title: 'Smart Indoor Camera', category: 'Cameras', price: 15950, old: 18950, badge: 'Deal' }),
+    productVariant(moreProductGridProducts[0], { title: 'WiFi Security Camera Hub', category: 'Cameras', badge: 'Smart' }),
+    productVariant(electronicsProducts[1], { title: 'Camera HDMI Capture Cable', category: 'Cameras', badge: 'Fast' }),
+    productVariant(premiumProducts[3], { title: 'Mini Tripod Creator Kit', category: 'Cameras', price: 7950, old: 9450, badge: 'Pick' }),
+    productVariant(electronicsProducts[4], { title: 'Creator Keyboard Camera Control', category: 'Cameras', badge: 'Top' }),
+  ],
+  'Home Appliances': [
+    productVariant(moreProductGridProducts[3], { category: 'Home Appliances' }),
+    productVariant(lifestyleProducts[3], { category: 'Home Appliances' }),
+    productVariant(homeAccessoryProducts[6], { title: 'Soft Home Comfort Appliance Set', category: 'Home Appliances' }),
+    productVariant(electronicsProducts[3], { title: 'Smart Home Storage Device', category: 'Home Appliances', badge: 'Fast' }),
+    productVariant(moreProductGridProducts[0], { category: 'Home Appliances' }),
+    productVariant(homeAccessoryProducts[4], { title: 'Compact Kitchen Appliance Helper', category: 'Home Appliances', badge: 'Pick' }),
+  ],
+}
+
+export const bestProductTabs = {
+  'Personal Care Gadget': [
+    bestProducts[0],
+    bestProducts[4],
+    bestProducts[6],
+    bestProducts[7],
+    recommendedProducts[1],
+    recommendedProducts[0],
+  ],
+  'Office Equipment': [
+    lifestyleProducts[2],
+    lifestyleProducts[4],
+    moreProductGridProducts[1],
+    productVariant(premiumProducts[3], { reviews: 35, badge: 'Office' }),
+    productVariant(electronicsProducts[4], { category: 'Office Equipment' }),
+    productVariant(electronicsProducts[1], { title: 'Office HDMI Extension Cable', category: 'Office Equipment', badge: 'New' }),
+  ],
+  Gaming: [
+    electronicsProducts[0],
+    electronicsProducts[2],
+    productVariant(premiumProducts[0], { reviews: 62, badge: 'Gamer' }),
+    productVariant(moreProductGridProducts[4], { title: 'Gaming Storage Organizer', category: 'Gaming', badge: 'Best' }),
+    productVariant(electronicsProducts[1], { title: 'Gaming HDMI Cable Pro', category: 'Gaming', badge: 'New' }),
+    productVariant(premiumProducts[2], { title: 'Gaming Party Speaker', category: 'Gaming', badge: 'Hot' }),
+  ],
+  'Top Deals': [
+    bestProducts[1],
+    bestProducts[2],
+    bestProducts[5],
+    bestProducts[8],
+    moreProductGridProducts[3],
+    recommendedProducts[2],
+  ],
+}
+
 export const reviews = [
   {
     initial: 'P',
