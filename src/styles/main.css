@@ -17371,3 +17371,355 @@ h6 {
     min-height: 3rem;
   }
 }
+
+/* ================================================================
+   PRODUCT PAGE: WHOLESALE + DOWNLOADABLE PRODUCT PDF
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-business-actions {
+  display: grid;
+  gap: clamp(0.55rem, 0.7vw, 0.8rem);
+  margin-top: clamp(0.9rem, 1.15vw, 1.2rem);
+  padding-top: clamp(0.9rem, 1.15vw, 1.2rem);
+  border-top: 1px solid var(--border);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action {
+  width: 100%;
+  min-height: clamp(3.35rem, 4.2vw, 4rem);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.7rem, 0.85vw, 0.95rem);
+  padding: clamp(0.72rem, 0.95vw, 0.95rem);
+  border: 1px solid #dbe4ef;
+  border-radius: 0.65rem;
+  background: #ffffff;
+  color: var(--text);
+  text-align: left;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action:hover,
+.pro-pdp--sticky-commerce .pro-pdp-business-action.active {
+  border-color: var(--primary);
+  box-shadow: 0 0.55rem 1.5rem rgba(8, 61, 119, 0.09);
+  transform: translateY(-1px);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action-icon {
+  width: clamp(2.15rem, 2.7vw, 2.55rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 0.55rem;
+  background: #f1f6fc;
+  color: var(--primary);
+  font-size: clamp(0.92rem, 0.78vw, 1.05rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action > span:nth-child(2) {
+  min-width: 0;
+  display: grid;
+  gap: 0.18rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action strong {
+  color: var(--text);
+  font-size: clamp(0.84rem, 0.72vw, 0.98rem);
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action small {
+  color: var(--muted);
+  font-size: clamp(0.72rem, 0.62vw, 0.84rem);
+  line-height: 1.42;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-chevron {
+  color: var(--primary);
+  font-size: clamp(0.72rem, 0.62vw, 0.82rem);
+  transition: transform 180ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action.active .pro-pdp-business-chevron {
+  transform: rotate(180deg);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-panel {
+  margin-top: clamp(0.65rem, 0.85vw, 0.9rem);
+  padding: clamp(0.9rem, 1.15vw, 1.15rem);
+  border: 1px solid rgba(8, 61, 119, 0.2);
+  border-left: 0.24rem solid var(--primary);
+  border-radius: 0.65rem;
+  background: #ffffff;
+  box-shadow: 0 0.65rem 1.8rem rgba(8, 61, 119, 0.075);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-head > div {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-head > div > span {
+  color: var(--muted);
+  font-size: clamp(0.68rem, 0.57vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-head > div > strong {
+  color: var(--text);
+  font-size: clamp(0.94rem, 0.82vw, 1.08rem);
+  font-weight: 700;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-discount {
+  flex: 0 0 auto;
+  padding: 0.32rem 0.5rem;
+  border: 1px solid rgba(8, 61, 119, 0.2);
+  border-radius: 999px;
+  background: #f1f6fc;
+  color: var(--primary);
+  font-size: clamp(0.68rem, 0.57vw, 0.77rem);
+  font-weight: 700;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-panel > p {
+  margin: clamp(0.7rem, 0.85vw, 0.9rem) 0;
+  color: #536173;
+  font-size: clamp(0.75rem, 0.66vw, 0.88rem);
+  line-height: 1.55;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
+  overflow: hidden;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics article {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 0.28rem;
+  padding: clamp(0.62rem, 0.82vw, 0.82rem);
+  background: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics article + article {
+  border-left: 1px solid var(--border);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics span {
+  color: var(--muted);
+  font-size: clamp(0.64rem, 0.54vw, 0.74rem);
+  line-height: 1.35;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics strong {
+  color: var(--text);
+  font-size: clamp(0.76rem, 0.67vw, 0.91rem);
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin-top: 0.7rem;
+  padding: 0.68rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #f5f8fc;
+  color: #405064;
+  font-size: clamp(0.7rem, 0.62vw, 0.82rem);
+  line-height: 1.45;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving i {
+  margin-top: 0.14rem;
+  color: var(--primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving strong {
+  color: var(--primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-status {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.7rem;
+  padding-top: 0.72rem;
+  border-top: 1px solid var(--border);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-status > span {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  color: #536173;
+  font-size: clamp(0.71rem, 0.62vw, 0.83rem);
+  line-height: 1.45;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-status > span i {
+  margin-top: 0.16rem;
+  color: var(--primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-status.eligible > span,
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-status.eligible > span i {
+  color: #16803a;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-status button {
+  min-height: 2.35rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--primary);
+  border-radius: 0.4rem;
+  background: #ffffff;
+  color: var(--primary);
+  font-size: clamp(0.72rem, 0.62vw, 0.84rem);
+  font-weight: 650;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-status button:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-note {
+  display: block;
+  margin-top: 0.72rem;
+  color: #768395;
+  font-size: clamp(0.66rem, 0.56vw, 0.76rem);
+  line-height: 1.5;
+}
+
+.pro-pdp-expand-enter-active,
+.pro-pdp-expand-leave-active {
+  overflow: hidden;
+  transition: opacity 180ms ease, transform 180ms ease, max-height 240ms ease;
+}
+
+.pro-pdp-expand-enter-from,
+.pro-pdp-expand-leave-to {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-0.35rem);
+}
+
+.pro-pdp-expand-enter-to,
+.pro-pdp-expand-leave-from {
+  max-height: 50rem;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 76rem) {
+  .pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics article + article {
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 48rem) {
+  .pro-pdp--sticky-commerce .pro-pdp-business-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-business-action {
+    grid-template-columns: auto 1fr;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-business-chevron {
+    display: none;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics article + article {
+    border-top: 0;
+    border-left: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 35rem) {
+  .pro-pdp--sticky-commerce .pro-pdp-business-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics article + article {
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+}
+
+/* ================================================================
+   PRODUCT PAGE: BUSINESS TOOLS IN THE MIDDLE INFORMATION COLUMN
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools {
+  margin-top: clamp(1rem, 1.15vw, 1.35rem);
+  padding: clamp(0.9rem, 1.1vw, 1.2rem);
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+  background: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools .pro-pdp-business-actions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools .pro-pdp-business-action {
+  min-height: clamp(3.75rem, 4.5vw, 4.5rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools .pro-pdp-wholesale-panel {
+  margin-top: clamp(0.75rem, 0.9vw, 1rem);
+  box-shadow: none;
+}
+
+@media (max-width: 1180px) {
+  .pro-pdp--sticky-commerce .pro-pdp-middle-tools .pro-pdp-business-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .pro-pdp--sticky-commerce .pro-pdp-middle-tools {
+    padding: 0.75rem;
+  }
+}

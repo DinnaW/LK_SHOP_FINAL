@@ -174,6 +174,105 @@
               </section>
             </div>
 
+            <section class="pro-pdp-middle-tools" aria-label="Wholesale pricing and product download">
+              <div class="pro-pdp-business-actions">
+                <button
+                  class="pro-pdp-business-action"
+                  type="button"
+                  :class="{ active: showWholesale }"
+                  :aria-expanded="showWholesale"
+                  aria-controls="pro-pdp-wholesale-panel"
+                  @click="showWholesale = !showWholesale"
+                >
+                  <span class="pro-pdp-business-action-icon">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                  </span>
+                  <span>
+                    <strong>Wholesale pricing</strong>
+                    <small>View bulk-order rates and savings</small>
+                  </span>
+                  <i class="fa-solid fa-chevron-down pro-pdp-business-chevron"></i>
+                </button>
+
+                <button
+                  class="pro-pdp-business-action"
+                  type="button"
+                  :disabled="isPdfGenerating"
+                  @click="downloadProductPdf"
+                >
+                  <span class="pro-pdp-business-action-icon">
+                    <i :class="isPdfGenerating ? 'fa-solid fa-spinner fa-spin' : 'fa-solid fa-file-arrow-down'"></i>
+                  </span>
+                  <span>
+                    <strong>{{ pdfDownloadLabel }}</strong>
+                    <small>Product details, options and specifications</small>
+                  </span>
+                  <i class="fa-solid fa-arrow-down pro-pdp-business-chevron"></i>
+                </button>
+              </div>
+
+              <transition name="pro-pdp-expand">
+                <section
+                  v-if="showWholesale"
+                  id="pro-pdp-wholesale-panel"
+                  class="pro-pdp-wholesale-panel"
+                  aria-label="Wholesale product details"
+                >
+                  <div class="pro-pdp-wholesale-head">
+                    <div>
+                      <span>Business orders</span>
+                      <strong>Wholesale product</strong>
+                    </div>
+                    <span class="pro-pdp-wholesale-discount">Save {{ wholesaleDiscount }}%</span>
+                  </div>
+
+                  <p>
+                    Order {{ wholesaleMinQuantity }} or more units to access the wholesale rate for this product.
+                  </p>
+
+                  <div class="pro-pdp-wholesale-metrics">
+                    <article>
+                      <span>Minimum order</span>
+                      <strong>{{ wholesaleMinQuantity }} units</strong>
+                    </article>
+                    <article>
+                      <span>Wholesale unit price</span>
+                      <strong>{{ formatPrice(wholesaleUnitPrice) }}</strong>
+                    </article>
+                    <article>
+                      <span>Minimum order total</span>
+                      <strong>{{ formatPrice(wholesaleTotal) }}</strong>
+                    </article>
+                  </div>
+
+                  <div class="pro-pdp-wholesale-saving">
+                    <i class="fa-solid fa-tags"></i>
+                    <span>
+                      You save <strong>{{ formatPrice(wholesaleSavings) }}</strong> on the minimum wholesale order.
+                    </span>
+                  </div>
+
+                  <div class="pro-pdp-wholesale-status" :class="{ eligible: wholesaleEligible }">
+                    <span>
+                      <i :class="wholesaleEligible ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-info'"></i>
+                      {{ wholesaleEligible
+                        ? `Wholesale pricing is active for ${quantity} units.`
+                        : `Add ${Math.max(wholesaleMinQuantity - quantity, 0)} more units to activate wholesale pricing.`
+                      }}
+                    </span>
+                    <button v-if="!wholesaleEligible" type="button" @click="applyWholesaleQuantity">
+                      Set quantity to {{ wholesaleMinQuantity }}
+                    </button>
+                  </div>
+
+                  <small class="pro-pdp-wholesale-note">
+                    Final availability, delivery fees and fulfilment dates are confirmed by our sales team for bulk orders.
+                  </small>
+                </section>
+              </transition>
+
+            </section>
+
             <div class="pro-pdp-assurance-ribbon">
               <article v-for="item in assuranceItems" :key="item.title">
                 <i :class="item.icon"></i>
@@ -529,8 +628,12 @@ const reviewText = ref('')
 const shareLabel = ref('Share')
 const imageHoverZoom = ref(false)
 const imageHoverOrigin = ref('50% 50%')
+const showWholesale = ref(false)
+const isPdfGenerating = ref(false)
+const pdfDownloadLabel = ref('Download product PDF')
 let reviewTimer
 let shareTimer
+let pdfLabelTimer
 
 const productText = computed(() => `${props.product.title || ''} ${props.product.category || ''}`.toLowerCase())
 const categoryKey = computed(() => String(props.product.category || '').toLowerCase())
@@ -567,6 +670,31 @@ const sku = computed(() => props.product.sku || props.product.title
   .replace(/^-|-$/g, '')
   .slice(0, 16))
 const warrantyLabel = computed(() => props.product.warranty || 'Seller warranty')
+const wholesaleMinQuantity = computed(() => Math.max(2, Number(
+  props.product.wholesaleMinQuantity ?? props.product.wholesaleMinQty ?? 20,
+)))
+const wholesaleDiscount = computed(() => {
+  const suppliedDiscount = Number(props.product.wholesaleDiscount)
+  if (Number.isFinite(suppliedDiscount) && suppliedDiscount > 0) return Math.min(60, suppliedDiscount)
+
+  const suppliedPrice = Number(props.product.wholesalePrice)
+  if (Number.isFinite(suppliedPrice) && suppliedPrice > 0 && suppliedPrice < Number(props.product.price)) {
+    return Math.round(((Number(props.product.price) - suppliedPrice) / Number(props.product.price)) * 100)
+  }
+
+  return 10
+})
+const wholesaleUnitPrice = computed(() => {
+  const suppliedPrice = Number(props.product.wholesalePrice)
+  if (Number.isFinite(suppliedPrice) && suppliedPrice > 0) return suppliedPrice
+  return Math.max(0, Number(props.product.price || 0) * (1 - wholesaleDiscount.value / 100))
+})
+const wholesaleTotal = computed(() => wholesaleUnitPrice.value * wholesaleMinQuantity.value)
+const wholesaleSavings = computed(() => Math.max(
+  0,
+  (Number(props.product.price || 0) - wholesaleUnitPrice.value) * wholesaleMinQuantity.value,
+))
+const wholesaleEligible = computed(() => quantity.value >= wholesaleMinQuantity.value)
 
 const colourChoice = (label, color, extra = {}) => ({ label, value: label, color, ...extra })
 const textChoice = (label, note = '', extra = {}) => ({ label, value: label, note, ...extra })
@@ -979,6 +1107,7 @@ watch(() => props.product, () => {
   activeTab.value = 'Overview'
   quantity.value = 1
   showZoom.value = false
+  showWholesale.value = false
   activeGuideGroup.value = null
   resetImageHoverZoom()
 }, { deep: false })
@@ -1038,6 +1167,249 @@ const scrollToInformation = (tab) => {
   requestAnimationFrame(() => informationSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
 }
 
+const applyWholesaleQuantity = () => {
+  quantity.value = Math.min(maxQuantity, wholesaleMinQuantity.value)
+}
+
+const safePdfFileName = (value) => String(value || 'zappymart-product')
+  .trim()
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '')
+  .slice(0, 72)
+
+const productImageToPng = async (source) => {
+  if (!source || typeof document === 'undefined') return null
+
+  try {
+    const response = await fetch(source)
+    if (!response.ok) throw new Error('Unable to load product image')
+    const blob = await response.blob()
+    const objectUrl = URL.createObjectURL(blob)
+
+    try {
+      const image = await new Promise((resolve, reject) => {
+        const element = new Image()
+        element.onload = () => resolve(element)
+        element.onerror = reject
+        element.src = objectUrl
+      })
+
+      const maxDimension = 1200
+      const scale = Math.min(1, maxDimension / Math.max(image.naturalWidth, image.naturalHeight))
+      const canvas = document.createElement('canvas')
+      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale))
+      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale))
+
+      const context = canvas.getContext('2d')
+      if (!context) return null
+      context.fillStyle = '#ffffff'
+      context.fillRect(0, 0, canvas.width, canvas.height)
+      context.drawImage(image, 0, 0, canvas.width, canvas.height)
+      return {
+        dataUrl: canvas.toDataURL('image/png', 0.92),
+        width: canvas.width,
+        height: canvas.height,
+      }
+    } finally {
+      URL.revokeObjectURL(objectUrl)
+    }
+  } catch (error) {
+    console.warn('Product image was not added to the PDF:', error)
+    return null
+  }
+}
+
+const downloadProductPdf = async () => {
+  if (isPdfGenerating.value) return
+
+  isPdfGenerating.value = true
+  pdfDownloadLabel.value = 'Preparing PDF...'
+  clearTimeout(pdfLabelTimer)
+
+  try {
+    const [{ jsPDF }, productImage] = await Promise.all([
+      import('jspdf'),
+      productImageToPng(activeGalleryView.value.image),
+    ])
+
+    const doc = new jsPDF({ unit: 'pt', format: 'a4', compress: true })
+    const pageWidth = doc.internal.pageSize.getWidth()
+    const pageHeight = doc.internal.pageSize.getHeight()
+    const margin = 42
+    const contentWidth = pageWidth - margin * 2
+    const brandBlue = [8, 61, 119]
+    const textDark = [21, 25, 34]
+    const textMuted = [96, 108, 125]
+    const border = [226, 232, 240]
+    let y = 0
+
+    const pdfSafeText = (value) => String(value ?? '')
+      .replace(/[–—]/g, '-')
+      .replace(/[·•]/g, '-')
+      .replace(/[^\x20-\x7E]/g, '')
+
+    const setText = (size = 10, style = 'normal', color = textDark) => {
+      doc.setFont('helvetica', style)
+      doc.setFontSize(size)
+      doc.setTextColor(...color)
+    }
+
+    const addPageHeader = () => {
+      doc.setFillColor(...brandBlue)
+      doc.rect(0, 0, pageWidth, 72, 'F')
+      setText(20, 'bold', [255, 255, 255])
+      doc.text('ZAPPYMART', margin, 31)
+      setText(9, 'normal', [224, 235, 248])
+      doc.text('Product Information Sheet', margin, 49)
+      setText(8.5, 'normal', [224, 235, 248])
+      doc.text(new Date().toLocaleDateString('en-LK'), pageWidth - margin, 42, { align: 'right' })
+      y = 98
+    }
+
+    const ensureSpace = (requiredHeight) => {
+      if (y + requiredHeight <= pageHeight - 44) return
+      doc.addPage()
+      addPageHeader()
+    }
+
+    const sectionTitle = (title) => {
+      ensureSpace(40)
+      doc.setDrawColor(...brandBlue)
+      doc.setLineWidth(2)
+      doc.line(margin, y, margin + 28, y)
+      setText(12, 'bold', brandBlue)
+      doc.text(title, margin + 38, y + 4)
+      y += 24
+    }
+
+    const wrappedText = (content, x, maxWidth, options = {}) => {
+      const lines = doc.splitTextToSize(pdfSafeText(content), maxWidth)
+      doc.text(lines, x, y, options)
+      y += lines.length * 14
+      return lines.length
+    }
+
+    const detailRow = (label, value) => {
+      const rowHeight = 28
+      ensureSpace(rowHeight)
+      doc.setDrawColor(...border)
+      doc.line(margin, y + rowHeight - 5, pageWidth - margin, y + rowHeight - 5)
+      setText(9, 'normal', textMuted)
+      doc.text(pdfSafeText(label), margin, y + 12)
+      setText(9.5, 'bold', textDark)
+      const valueLines = doc.splitTextToSize(pdfSafeText(value || '-'), contentWidth * 0.62)
+      doc.text(valueLines, margin + contentWidth * 0.38, y + 12)
+      y += Math.max(rowHeight, valueLines.length * 12 + 12)
+    }
+
+    addPageHeader()
+
+    const imageBoxWidth = 190
+    const productInfoX = productImage ? margin + imageBoxWidth + 26 : margin
+    const productInfoWidth = productImage ? contentWidth - imageBoxWidth - 26 : contentWidth
+
+    if (productImage) {
+      doc.setFillColor(248, 250, 252)
+      doc.roundedRect(margin, y, imageBoxWidth, 196, 8, 8, 'F')
+      const imageMaxWidth = imageBoxWidth - 24
+      const imageMaxHeight = 172
+      const imageScale = Math.min(imageMaxWidth / productImage.width, imageMaxHeight / productImage.height)
+      const imageWidth = productImage.width * imageScale
+      const imageHeight = productImage.height * imageScale
+      const imageX = margin + (imageBoxWidth - imageWidth) / 2
+      const imageY = y + 12 + (imageMaxHeight - imageHeight) / 2
+      doc.addImage(productImage.dataUrl, 'PNG', imageX, imageY, imageWidth, imageHeight, undefined, 'FAST')
+    }
+
+    setText(8.5, 'bold', brandBlue)
+    doc.text(pdfSafeText(String(props.product.category || 'PRODUCT').toUpperCase()), productInfoX, y + 10)
+    setText(18, 'bold', textDark)
+    const titleLines = doc.splitTextToSize(pdfSafeText(props.product.title), productInfoWidth)
+    doc.text(titleLines, productInfoX, y + 34)
+    let infoY = y + 34 + titleLines.length * 21
+
+    setText(10, 'normal', textMuted)
+    doc.text(pdfSafeText(`SKU: ${sku.value}`), productInfoX, infoY)
+    infoY += 20
+    setText(15, 'bold', brandBlue)
+    doc.text(pdfSafeText(formatPrice(props.product.price)), productInfoX, infoY)
+    if (props.product.old) {
+      setText(9, 'normal', textMuted)
+      doc.text(pdfSafeText(`Original price: ${formatPrice(props.product.old)}`), productInfoX, infoY + 17)
+      infoY += 17
+    }
+    setText(9.5, 'normal', textDark)
+    doc.text(pdfSafeText(`Rating: ${rating.value}/5 (${reviewCount.value} reviews)`), productInfoX, infoY + 20)
+    doc.text(pdfSafeText(`Availability: ${isOutOfStock.value ? 'Out of stock' : 'In stock'}`), productInfoX, infoY + 38)
+
+    y += productImage ? 222 : Math.max(140, infoY - y + 58)
+
+    sectionTitle('Product overview')
+    setText(10, 'normal', textDark)
+    wrappedText(description.value, margin, contentWidth)
+    y += 8
+
+    if (optionGroups.value.length) {
+      sectionTitle('Available options')
+      optionGroups.value.forEach((group) => {
+        detailRow(group.label, group.values.filter((choice) => !choice.disabled).map((choice) => choice.label).join(', '))
+      })
+      detailRow('Currently selected', selectedOptionsLabel.value)
+      y += 6
+    }
+
+    sectionTitle('Key features')
+    features.value.forEach((feature) => {
+      ensureSpace(26)
+      doc.setFillColor(...brandBlue)
+      doc.circle(margin + 4, y + 4, 2.5, 'F')
+      setText(9.5, 'normal', textDark)
+      const lines = doc.splitTextToSize(feature, contentWidth - 18)
+      doc.text(lines, margin + 16, y + 7)
+      y += Math.max(22, lines.length * 13 + 7)
+    })
+    y += 6
+
+    sectionTitle('Specifications')
+    specifications.value.forEach((item) => detailRow(item.label, item.value))
+    y += 10
+
+    sectionTitle('Wholesale information')
+    detailRow('Minimum order quantity', `${wholesaleMinQuantity.value} units`)
+    detailRow('Wholesale discount', `${wholesaleDiscount.value}%`)
+    detailRow('Wholesale unit price', formatPrice(wholesaleUnitPrice.value))
+    detailRow('Minimum wholesale total', formatPrice(wholesaleTotal.value))
+    detailRow('Savings on minimum order', formatPrice(wholesaleSavings.value))
+
+    ensureSpace(76)
+    y += 14
+    doc.setFillColor(245, 248, 252)
+    doc.roundedRect(margin, y, contentWidth, 54, 6, 6, 'F')
+    setText(8.8, 'normal', textMuted)
+    doc.text('Prices, availability, delivery charges and warranty terms are subject to confirmation at order time.', margin + 14, y + 21)
+    doc.text('For bulk orders, contact the ZappyMart sales team for final fulfilment details.', margin + 14, y + 38)
+
+    const totalPages = doc.getNumberOfPages()
+    for (let page = 1; page <= totalPages; page += 1) {
+      doc.setPage(page)
+      setText(8, 'normal', textMuted)
+      doc.text(`ZappyMart Product Sheet - Page ${page} of ${totalPages}`, pageWidth / 2, pageHeight - 20, { align: 'center' })
+    }
+
+    doc.save(`${safePdfFileName(props.product.title)}-product-details.pdf`)
+    pdfDownloadLabel.value = 'PDF downloaded'
+  } catch (error) {
+    console.error('Unable to generate product PDF:', error)
+    pdfDownloadLabel.value = 'PDF download failed'
+  } finally {
+    isPdfGenerating.value = false
+    pdfLabelTimer = setTimeout(() => {
+      pdfDownloadLabel.value = 'Download product PDF'
+    }, 2600)
+  }
+}
+
 const shareProduct = async () => {
   const shareData = { title: props.product.title, text: description.value, url: window.location.href }
 
@@ -1065,6 +1437,7 @@ const submitReview = () => {
 const handleKeydown = (event) => {
   if (event.key !== 'Escape') return
   showZoom.value = false
+  showWholesale.value = false
   activeGuideGroup.value = null
   showReviewForm.value = false
 }
@@ -1074,5 +1447,6 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
   clearTimeout(reviewTimer)
   clearTimeout(shareTimer)
+  clearTimeout(pdfLabelTimer)
 })
 </script>
