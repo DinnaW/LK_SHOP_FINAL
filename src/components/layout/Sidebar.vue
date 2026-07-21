@@ -46,7 +46,7 @@
         :class="{ active: activeSidebar === item.label, 'has-submenu': hasChildren(item) }"
         @mouseenter="setSubmenu(item)"
         @focus="setSubmenu(item)"
-        @click="handleItemClick(item)"
+        @click.prevent="handleItemClick(item)"
       >
         <span class="nav-icon" aria-hidden="true">
           <svg
@@ -88,7 +88,7 @@
         :key="child.label"
         :href="child.href"
         class="submenu-link"
-        @click="$emit('set-active', activeSubmenu.label)"
+        @click.prevent="handleChildClick(child)"
       >
         {{ child.label }}
       </a>
@@ -105,7 +105,7 @@ const props = defineProps({
   isExpanded: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['toggle', 'set-active'])
+const emit = defineEmits(['toggle', 'set-active', 'navigate-section'])
 
 const activeSubmenu = ref(null)
 
@@ -157,9 +157,15 @@ const keepSubmenu = () => {
 
 const handleItemClick = (item) => {
   emit('set-active', item.label)
+  emit('navigate-section', item.href)
 
   if (props.isExpanded && hasChildren(item)) {
     activeSubmenu.value = item
   }
+}
+
+const handleChildClick = (child) => {
+  if (activeSubmenu.value) emit('set-active', activeSubmenu.value.label)
+  emit('navigate-section', child.href)
 }
 </script>

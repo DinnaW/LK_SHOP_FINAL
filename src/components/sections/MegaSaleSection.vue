@@ -6,7 +6,7 @@
           v-for="product in products"
           :key="product.title"
           class="mega-sale-card"
-          @click="$emit('quick-view', product)"
+          @click="$emit('view-product', product)"
         >
           <div class="mega-sale-visual mega-sale-creative-visual">
             <img :src="product.img" :alt="product.title" loading="lazy" />
@@ -57,7 +57,7 @@ defineProps({
   },
 })
 
-defineEmits(['buy-now', 'quick-view'])
+defineEmits(['buy-now', 'quick-view', 'view-product'])
 
 const remaining = ref({ days: '0', hours: '12', minutes: '04', seconds: '49' })
 let saleEndTime = null

@@ -2,7 +2,7 @@
   <header class="main-header">
     <nav class="navbar navbar-expand-lg navbar-custom">
       <div class="container-fluid px-4 px-lg-5">
-        <a class="brand" href="#" aria-label="ZappyMart home">
+        <a class="brand" href="#" aria-label="ZappyMart home" @click.prevent="$emit('go-home')">
           <img class="brand-logo" :src="logoUrl" alt="ZappyMart" />
         </a>
 
@@ -39,7 +39,12 @@
       :class="{ 'is-visible': isScrolled }"
       aria-label="Header categories"
     >
-      <a v-for="item in categoryLinks" :key="item.label" :href="item.href">
+      <a
+        v-for="item in categoryLinks"
+        :key="item.label"
+        :href="item.href"
+        @click.prevent="$emit('navigate-section', item.href)"
+      >
         {{ item.label }}
       </a>
     </nav>
@@ -57,7 +62,7 @@ const props = defineProps({
   categories: { type: Array, default: () => [] },
 })
 
-defineEmits(['update:searchTerm', 'open-cart'])
+defineEmits(['update:searchTerm', 'open-cart', 'go-home', 'navigate-section'])
 
 const isScrolled = ref(false)
 let scrollFrame = null

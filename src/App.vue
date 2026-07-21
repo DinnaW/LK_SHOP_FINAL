@@ -6,6 +6,7 @@
       :is-expanded="isSidebarExpanded"
       @toggle="toggleSidebar"
       @set-active="setActiveSidebar"
+      @navigate-section="navigateToSection"
     />
 
     <main class="page-wrapper">
@@ -16,106 +17,132 @@
         :wishlist-count="wishlist.length"
         :categories="categorySidebarItems"
         @open-cart="openCart"
+        @go-home="goHome"
+        @navigate-section="navigateToSection"
       />
 
-      <CategoryStrip :categories="categorySidebarItems" />
-      <HeroSection :images="heroImages" />
+      <template v-if="!selectedProduct">
+        <CategoryStrip :categories="categorySidebarItems" />
+        <HeroSection :images="heroImages" />
 
-      <MegaSaleSection
-        :products="filteredMegaSaleProducts"
-        @buy-now="addToCart"
-        @quick-view="openQuickView"
-      />
+        <MegaSaleSection
+          :products="filteredMegaSaleProducts"
+          @buy-now="addToCart"
+          @quick-view="openQuickView"
+          @view-product="openProductPage"
+        />
 
-      <ProductSection
-        id="deals"
-        title="Recommendation for you"
-        subtitle="Recommended products arranged in a clean 5-card row with full-cover product visuals."
-        :chips="['New Products', 'Featured Products', 'Top Deals', 'Best Sellers']"
-        :products="filteredRecommendedProducts"
-        :product-groups="filteredRecommendedProductTabs"
+        <ProductSection
+          id="deals"
+          title="Recommendation for you"
+          subtitle="Recommended products arranged in a clean 5-card row with full-cover product visuals."
+          :chips="['New Products', 'Featured Products', 'Top Deals', 'Best Sellers']"
+          :products="filteredRecommendedProducts"
+          :product-groups="filteredRecommendedProductTabs"
+          :wishlist-items="wishlistTitles"
+          :cart-quantities="cartQuantities"
+          @add-to-cart="addToCart"
+          @update-cart-quantity="updateCartQuantity"
+          @quick-view="openQuickView"
+          @view-product="openProductPage"
+          @add-wishlist="addToWishlist"
+        />
+
+        <ApplianceBanner :image="applianceBanner" />
+
+        <ProductSection
+          id="electronics"
+          title="Electronics"
+          subtitle="Gadgets, gaming, computer accessories and smart devices."
+          :chips="['Gaming', 'Audio Devices', 'Computer Accessories', 'Cameras', 'Home Appliances']"
+          :products="filteredElectronicsProducts"
+          :product-groups="filteredElectronicsProductTabs"
+          :promo-image="electronicsSideBanner"
+          promo-alt="JBL speaker electronics promotional banner"
+          :wishlist-items="wishlistTitles"
+          :cart-quantities="cartQuantities"
+          @add-to-cart="addToCart"
+          @update-cart-quantity="updateCartQuantity"
+          @quick-view="openQuickView"
+          @view-product="openProductPage"
+          @add-wishlist="addToWishlist"
+        />
+
+        <FeaturedBanners :banners="featuredProductBanners" />
+
+        <HomeAccessoriesSection
+          v-model:active-category="activeHomeAccessoryCategory"
+          :categories="homeAccessoryCategories"
+          :products="filteredHomeAccessoryProducts"
+          :wishlist-items="wishlistTitles"
+          :cart-quantities="cartQuantities"
+          :feature-image="homeAccessoriesFeatureImage"
+          :visual-image="product4"
+          @add-to-cart="addToCart"
+          @update-cart-quantity="updateCartQuantity"
+          @quick-view="openQuickView"
+          @view-product="openProductPage"
+          @add-wishlist="addToWishlist"
+        />
+
+        <SplitPromoSection
+          id="home-accessories-promo"
+          :left-image="splitPromoLeft"
+          left-alt="Home accessories lifestyle promotion"
+          :right-image="splitPromoRight"
+          :product="homeAccessoryProducts[0]"
+          headline="Hydrating & fast-absorbing essentials for a softer, cleaner home feeling."
+          description="A premium everyday pick with a clean finish and special offer pricing."
+          @add-to-cart="addToCart"
+        />
+
+        <SkinCareProductStrip
+          :products="skinCareProducts"
+          :wishlist-items="wishlistTitles"
+          :cart-quantities="cartQuantities"
+          @add-to-cart="addToCart"
+          @update-cart-quantity="updateCartQuantity"
+          @quick-view="openQuickView"
+          @view-product="openProductPage"
+          @add-wishlist="addToWishlist"
+        />
+
+        <BrandShowcase />
+
+        <ProductSection
+          id="best-week"
+          title="Best of The Week"
+          subtitle="Top selling items with special weekly prices."
+          :chips="['Personal Care Gadget', 'Office Equipment', 'Gaming', 'Top Deals']"
+          :products="filteredBestProducts"
+          :product-groups="filteredBestProductTabs"
+          :wishlist-items="wishlistTitles"
+          :cart-quantities="cartQuantities"
+          @add-to-cart="addToCart"
+          @update-cart-quantity="updateCartQuantity"
+          @quick-view="openQuickView"
+          @view-product="openProductPage"
+          @add-wishlist="addToWishlist"
+        />
+
+        <Testimonials :reviews="reviews" />
+      </template>
+
+      <ProductDetailPage
+        v-else
+        :product="selectedProduct"
+        :related-products="relatedProducts"
         :wishlist-items="wishlistTitles"
         :cart-quantities="cartQuantities"
+        @go-home="goHome"
         @add-to-cart="addToCart"
         @update-cart-quantity="updateCartQuantity"
+        @buy-now="quickCheckout"
         @quick-view="openQuickView"
+        @view-product="openProductPage"
         @add-wishlist="addToWishlist"
       />
 
-      <ApplianceBanner :image="applianceBanner" />
-
-      <ProductSection
-        id="electronics"
-        title="Electronics"
-        subtitle="Gadgets, gaming, computer accessories and smart devices."
-        :chips="['Gaming', 'Audio Devices', 'Computer Accessories', 'Cameras', 'Home Appliances']"
-        :products="filteredElectronicsProducts"
-        :product-groups="filteredElectronicsProductTabs"
-        :promo-image="electronicsSideBanner"
-        promo-alt="JBL speaker electronics promotional banner"
-        :wishlist-items="wishlistTitles"
-        :cart-quantities="cartQuantities"
-        @add-to-cart="addToCart"
-        @update-cart-quantity="updateCartQuantity"
-        @quick-view="openQuickView"
-        @add-wishlist="addToWishlist"
-      />
-
-      <FeaturedBanners :banners="featuredProductBanners" />
-
-      <HomeAccessoriesSection
-        v-model:active-category="activeHomeAccessoryCategory"
-        :categories="homeAccessoryCategories"
-        :products="filteredHomeAccessoryProducts"
-        :wishlist-items="wishlistTitles"
-        :cart-quantities="cartQuantities"
-        :feature-image="homeAccessoriesFeatureImage"
-        :visual-image="product4"
-        @add-to-cart="addToCart"
-        @update-cart-quantity="updateCartQuantity"
-        @quick-view="openQuickView"
-        @add-wishlist="addToWishlist"
-      />
-
-      <SplitPromoSection
-        id="home-accessories-promo"
-        :left-image="splitPromoLeft"
-        left-alt="Home accessories lifestyle promotion"
-        :right-image="splitPromoRight"
-        :product="homeAccessoryProducts[0]"
-        headline="Hydrating & fast-absorbing essentials for a softer, cleaner home feeling."
-        description="A premium everyday pick with a clean finish and special offer pricing."
-        @add-to-cart="addToCart"
-      />
-
-      <SkinCareProductStrip
-        :products="skinCareProducts"
-        :wishlist-items="wishlistTitles"
-        :cart-quantities="cartQuantities"
-        @add-to-cart="addToCart"
-        @update-cart-quantity="updateCartQuantity"
-        @quick-view="openQuickView"
-        @add-wishlist="addToWishlist"
-      />
-
-      <BrandShowcase />
-
-      <ProductSection
-        id="best-week"
-        title="Best of The Week"
-        subtitle="Top selling items with special weekly prices."
-        :chips="['Personal Care Gadget', 'Office Equipment', 'Gaming', 'Top Deals']"
-        :products="filteredBestProducts"
-        :product-groups="filteredBestProductTabs"
-        :wishlist-items="wishlistTitles"
-        :cart-quantities="cartQuantities"
-        @add-to-cart="addToCart"
-        @update-cart-quantity="updateCartQuantity"
-        @quick-view="openQuickView"
-        @add-wishlist="addToWishlist"
-      />
-
-      <Testimonials :reviews="reviews" />
       <Footer />
     </main>
 
@@ -130,7 +157,7 @@
 
     <button
       class="floating-cart-button"
-      :class="{ 'is-visible': showFloatingCart }"
+      :class="{ 'is-visible': showFloatingCart || Boolean(selectedProduct) }"
       type="button"
       aria-label="Open shopping cart"
       @click="openCart"
@@ -151,13 +178,14 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 
 import Sidebar from '@/components/layout/Sidebar.vue'
 import TopStrip from '@/components/layout/TopStrip.vue'
 import Header from '@/components/layout/Header.vue'
 import Footer from '@/components/layout/Footer.vue'
 import ProductSection from '@/components/product/ProductSection.vue'
+import ProductDetailPage from '@/components/product/ProductDetailPage.vue'
 import QuickViewModal from '@/components/product/QuickViewModal.vue'
 import CartToast from '@/components/cart/CartToast.vue'
 import CartDrawer from '@/components/cart/CartDrawer.vue'
@@ -204,6 +232,7 @@ const heroImages = [heroB1g]
 const cart = ref([])
 const wishlist = ref([])
 const quickViewProduct = ref(null)
+const selectedProduct = ref(null)
 const isCartOpen = ref(false)
 const isSidebarExpanded = ref(false)
 const showFloatingCart = ref(false)
@@ -261,6 +290,49 @@ const skinCareProducts = [
     img: skinCare5,
   },
 ]
+
+const slugifyProduct = (title) => String(title || '')
+  .toLowerCase()
+  .trim()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '')
+
+const uniqueProductsByTitle = (items) => {
+  const products = new Map()
+
+  items.filter(Boolean).forEach((product) => {
+    if (!products.has(product.title)) products.set(product.title, product)
+  })
+
+  return [...products.values()]
+}
+
+const allStoreProducts = uniqueProductsByTitle([
+  ...megaSaleProducts,
+  ...recommendedProducts,
+  ...Object.values(recommendedProductTabs).flat(),
+  ...electronicsProducts,
+  ...Object.values(electronicsProductTabs).flat(),
+  ...homeAccessoryProducts,
+  ...bestProducts,
+  ...Object.values(bestProductTabs).flat(),
+  ...skinCareProducts,
+])
+
+const relatedProducts = computed(() => {
+  if (!selectedProduct.value) return []
+
+  const current = selectedProduct.value
+  const sameCategory = allStoreProducts.filter((product) =>
+    product.title !== current.title && product.category === current.category,
+  )
+  const otherProducts = allStoreProducts.filter((product) =>
+    product.title !== current.title && product.category !== current.category,
+  )
+
+  return uniqueProductsByTitle([...sameCategory, ...otherProducts])
+})
+
 let toastTimer = null
 let floatingCartFrame = null
 
@@ -283,15 +355,18 @@ const requestFloatingCartUpdate = () => {
 }
 
 onMounted(() => {
+  syncProductFromUrl()
   updateFloatingCartVisibility()
   window.addEventListener('scroll', requestFloatingCartUpdate, { passive: true })
   window.addEventListener('resize', updateFloatingCartVisibility, { passive: true })
+  window.addEventListener('popstate', handlePopState)
 })
 
 onUnmounted(() => {
   clearTimeout(toastTimer)
   window.removeEventListener('scroll', requestFloatingCartUpdate)
   window.removeEventListener('resize', updateFloatingCartVisibility)
+  window.removeEventListener('popstate', handlePopState)
   if (floatingCartFrame) window.cancelAnimationFrame(floatingCartFrame)
 })
 
@@ -331,6 +406,76 @@ const cartQuantities = computed(() =>
   }, {}),
 )
 const wishlistTitles = computed(() => wishlist.value.map((item) => item.title))
+
+const findProductBySlug = (slug) => allStoreProducts.find(
+  (product) => slugifyProduct(product.title) === slug,
+)
+
+const updateBrowserUrl = ({ product = null, hash = '', replace = false } = {}) => {
+  const url = new URL(window.location.href)
+
+  if (product) url.searchParams.set('product', slugifyProduct(product.title))
+  else url.searchParams.delete('product')
+
+  url.hash = hash
+  const method = replace ? 'replaceState' : 'pushState'
+  window.history[method]({}, '', `${url.pathname}${url.search}${url.hash}`)
+}
+
+const openProductPage = (product, { replace = false } = {}) => {
+  if (!product) return
+
+  selectedProduct.value = product
+  quickViewProduct.value = null
+  isSidebarExpanded.value = false
+  updateBrowserUrl({ product, replace })
+  document.title = `${product.title} | ZappyMart`
+  nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+}
+
+const goHome = () => {
+  const wasViewingProduct = Boolean(selectedProduct.value)
+  selectedProduct.value = null
+  document.title = 'ZappyMart'
+  updateBrowserUrl({ replace: !wasViewingProduct })
+  nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+}
+
+const navigateToSection = (href = '#deals') => {
+  const targetHash = String(href).startsWith('#') ? href : `#${href}`
+  selectedProduct.value = null
+  isSidebarExpanded.value = false
+  document.title = 'ZappyMart'
+  updateBrowserUrl({ hash: targetHash })
+
+  nextTick(() => {
+    const target = document.querySelector(targetHash)
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  })
+}
+
+const syncProductFromUrl = () => {
+  const url = new URL(window.location.href)
+  const slug = url.searchParams.get('product')
+  const product = slug ? findProductBySlug(slug) : null
+
+  selectedProduct.value = product || null
+  document.title = product ? `${product.title} | ZappyMart` : 'ZappyMart'
+
+  nextTick(() => {
+    if (product) {
+      window.scrollTo({ top: 0 })
+      return
+    }
+
+    if (url.hash) {
+      const target = document.querySelector(url.hash)
+      if (target) target.scrollIntoView({ block: 'start' })
+    }
+  })
+}
+
+const handlePopState = () => syncProductFromUrl()
 
 const toggleSidebar = () => {
   isSidebarExpanded.value = !isSidebarExpanded.value

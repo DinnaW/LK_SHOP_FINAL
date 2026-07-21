@@ -59,12 +59,23 @@
         </button>
       </div>
 
-      <img :src="product.img" :alt="product.title" @click="$emit('quick-view', product)" />
+      <img
+        :src="product.img"
+        :alt="product.title"
+        role="button"
+        tabindex="0"
+        @click="$emit('view-product', product)"
+        @keydown.enter="$emit('view-product', product)"
+      />
     </div>
 
     <div class="product-body">
       <div class="product-category">{{ product.category }}</div>
-      <h3 class="product-title">{{ product.title }}</h3>
+      <h3 class="product-title">
+        <button type="button" class="product-title-link" @click="$emit('view-product', product)">
+          {{ product.title }}
+        </button>
+      </h3>
 
       <div class="price">
         <del v-if="product.old">{{ formatPrice(product.old) }}</del>
@@ -133,7 +144,7 @@ const props = defineProps({
   cartQuantity: { type: Number, default: 0 },
 })
 
-const emit = defineEmits(['add-to-cart', 'update-cart-quantity', 'quick-view', 'add-wishlist'])
+const emit = defineEmits(['add-to-cart', 'update-cart-quantity', 'quick-view', 'view-product', 'add-wishlist'])
 
 const maxQuantity = 99
 

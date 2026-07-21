@@ -1,0 +1,38 @@
+LK_SHOP_FINAL - MERGED PROJECT
+
+This project combines:
+1. The updated local product-page project.
+2. The current GitHub repository files and GitHub Pages workflow.
+
+The merge has already been completed in these files. No conflict markers remain.
+The production build was tested successfully with `npm run build`.
+
+RECOMMENDED CLEAN PUSH METHOD
+
+1. Extract this ZIP into a NEW folder, for example:
+   E:\LK_SHOP_FINAL_MERGED
+
+2. Open that folder in VS Code.
+
+3. Open the VS Code terminal and run:
+
+   git init
+   git branch -M main
+   git remote add origin https://github.com/DinnaW/LK_SHOP_FINAL.git
+   git fetch origin main
+   git reset origin/main
+   git add -A
+   git commit -m "Merge updated product page into current repository"
+   git push -u origin main
+
+Notes:
+- `git reset origin/main` connects the new folder to the existing GitHub history while keeping these merged working files.
+- `node_modules` is intentionally excluded and ignored. GitHub Actions installs dependencies using `npm ci`.
+- Before running locally, use:
+
+   npm install
+   npm run dev
+
+- To test the production build:
+
+   npm run build

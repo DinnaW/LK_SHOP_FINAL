@@ -34,6 +34,7 @@
             @add-to-cart="$emit('add-to-cart', $event)"
             @update-cart-quantity="$emit('update-cart-quantity', $event)"
             @quick-view="$emit('quick-view', $event)"
+            @view-product="$emit('view-product', $event)"
             @add-wishlist="$emit('add-wishlist', $event)"
           />
 
@@ -46,6 +47,7 @@
             @add-to-cart="$emit('add-to-cart', $event)"
             @update-cart-quantity="$emit('update-cart-quantity', $event)"
             @quick-view="$emit('quick-view', $event)"
+            @view-product="$emit('view-product', $event)"
             @add-wishlist="$emit('add-wishlist', $event)"
           />
 
@@ -62,6 +64,7 @@
             @add-to-cart="$emit('add-to-cart', $event)"
             @update-cart-quantity="$emit('update-cart-quantity', $event)"
             @quick-view="$emit('quick-view', $event)"
+            @view-product="$emit('view-product', $event)"
             @add-wishlist="$emit('add-wishlist', $event)"
           />
         </div>
@@ -83,5 +86,5 @@ defineProps({
   visualImage: { type: String, required: true },
 })
 
-defineEmits(['update:activeCategory', 'add-to-cart', 'update-cart-quantity', 'quick-view', 'add-wishlist'])
+defineEmits(['update:activeCategory', 'add-to-cart', 'update-cart-quantity', 'quick-view', 'view-product', 'add-wishlist'])
 </script>
