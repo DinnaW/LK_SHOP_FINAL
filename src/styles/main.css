@@ -17723,3 +17723,558 @@ h6 {
     padding: 0.75rem;
   }
 }
+
+/* ================================================================
+   PRODUCT PAGE: WHOLESALE PRICING SHOWN IN BOTH COLUMNS
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-business-action--wholesale {
+  border-color: rgba(8, 61, 119, 0.42);
+  background: #f7faff;
+  box-shadow: inset 0.2rem 0 0 var(--primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action--wholesale:hover,
+.pro-pdp--sticky-commerce .pro-pdp-business-action--wholesale.active {
+  border-color: var(--primary);
+  background: #f2f7fd;
+  box-shadow: inset 0.2rem 0 0 var(--primary), 0 0.65rem 1.7rem rgba(8, 61, 119, 0.1);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action--wholesale .pro-pdp-business-action-icon {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools .pro-pdp-wholesale-panel {
+  border-width: 1.5px;
+  border-color: rgba(8, 61, 119, 0.38);
+  border-left-width: 0.32rem;
+  background: #fbfdff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale {
+  display: grid;
+  gap: clamp(0.65rem, 0.72vw, 0.85rem);
+  margin: clamp(0.85rem, 1vw, 1rem) 0;
+  padding: clamp(0.82rem, 0.95vw, 1rem);
+  border: 1.5px solid rgba(8, 61, 119, 0.42);
+  border-left: 0.28rem solid var(--primary);
+  border-radius: 0.65rem;
+  background: #f7faff;
+  box-shadow: 0 0.55rem 1.5rem rgba(8, 61, 119, 0.08);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale.eligible {
+  border-color: rgba(22, 128, 58, 0.5);
+  border-left-color: #16803a;
+  background: #f6fcf8;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.55rem, 0.65vw, 0.72rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-icon {
+  width: clamp(2rem, 2.25vw, 2.35rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 0.5rem;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: clamp(0.76rem, 0.68vw, 0.9rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale.eligible .pro-pdp-checkout-wholesale-icon {
+  background: #16803a;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.08rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head > div > span {
+  color: var(--muted);
+  font-size: clamp(0.69rem, 0.58vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head > div > strong {
+  color: var(--text);
+  font-size: clamp(0.85rem, 0.74vw, 0.98rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-badge {
+  padding: 0.28rem 0.45rem;
+  border: 1px solid rgba(8, 61, 119, 0.22);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--primary);
+  font-size: clamp(0.64rem, 0.54vw, 0.74rem);
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale.eligible .pro-pdp-checkout-wholesale-badge {
+  border-color: rgba(22, 128, 58, 0.25);
+  color: #16803a;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-price {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid rgba(8, 61, 119, 0.14);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-price > div {
+  display: grid;
+  gap: 0.2rem;
+  padding: clamp(0.55rem, 0.65vw, 0.7rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-price > div + div {
+  border-left: 1px solid var(--border);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-price span {
+  color: var(--muted);
+  font-size: clamp(0.66rem, 0.55vw, 0.75rem);
+  line-height: 1.3;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-price strong {
+  color: var(--text);
+  font-size: clamp(0.79rem, 0.68vw, 0.92rem);
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-progress {
+  height: 0.32rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dfe9f4;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary);
+  transition: width 220ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale.eligible .pro-pdp-wholesale-progress span {
+  background: #16803a;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale > p {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin: 0;
+  color: #47576a;
+  font-size: clamp(0.7rem, 0.6vw, 0.81rem);
+  line-height: 1.4;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale > p i {
+  margin-top: 0.14rem;
+  color: var(--primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale.eligible > p,
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale.eligible > p i {
+  color: #16803a;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-actions button {
+  min-height: 2.2rem;
+  padding: 0.48rem 0.55rem;
+  border-radius: 0.35rem;
+  font-size: clamp(0.68rem, 0.58vw, 0.79rem);
+  font-weight: 680;
+  line-height: 1.2;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-apply {
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-apply:hover {
+  background: #062f5d;
+  border-color: #062f5d;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-details {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border: 1px solid rgba(8, 61, 119, 0.42);
+  background: #ffffff;
+  color: var(--primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-details:hover {
+  border-color: var(--primary);
+  background: #eef5fc;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale.eligible .pro-pdp-checkout-wholesale-actions {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 1180px) {
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale {
+    padding: 0.82rem;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-badge {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-left: calc(clamp(2rem, 2.25vw, 2.35rem) + clamp(0.55rem, 0.65vw, 0.72rem));
+  }
+}
+
+/* ================================================================
+   PRODUCT PAGE: DEFAULT-OPEN, HIGH-VISIBILITY WHOLESALE EXPERIENCE
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools {
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid rgba(8, 61, 119, 0.42);
+  box-shadow: 0 0.8rem 2rem rgba(8, 61, 119, 0.09);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.28rem;
+  background: var(--primary);
+  pointer-events: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.7rem, 0.9vw, 1rem);
+  margin: calc(clamp(0.9rem, 1.1vw, 1.2rem) * -1) calc(clamp(0.9rem, 1.1vw, 1.2rem) * -1)
+    clamp(0.9rem, 1.05vw, 1.15rem);
+  padding: clamp(0.86rem, 1vw, 1.08rem) clamp(0.95rem, 1.18vw, 1.25rem);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight-icon {
+  width: clamp(2.35rem, 2.7vw, 2.75rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: clamp(0.92rem, 0.8vw, 1.08rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.16rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight small {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: clamp(0.72rem, 0.61vw, 0.84rem);
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight strong {
+  color: #ffffff;
+  font-size: clamp(0.98rem, 0.86vw, 1.14rem);
+  font-weight: 720;
+  line-height: 1.22;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: clamp(0.76rem, 0.66vw, 0.9rem);
+  line-height: 1.45;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight-badge {
+  flex: 0 0 auto;
+  padding: 0.42rem 0.62rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--primary);
+  font-size: clamp(0.7rem, 0.6vw, 0.82rem);
+  font-weight: 780;
+  white-space: nowrap;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action--wholesale {
+  border-width: 1.5px;
+  background: #eef5fc;
+  box-shadow: inset 0.24rem 0 0 var(--primary), 0 0.45rem 1.2rem rgba(8, 61, 119, 0.07);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action--wholesale.active {
+  background: #eaf3fc;
+  box-shadow: inset 0.24rem 0 0 var(--primary), 0 0.65rem 1.55rem rgba(8, 61, 119, 0.12);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools .pro-pdp-wholesale-panel {
+  position: relative;
+  border: 2px solid rgba(8, 61, 119, 0.46);
+  border-left: 0.36rem solid var(--primary);
+  background: #f7faff;
+  box-shadow: 0 0.65rem 1.7rem rgba(8, 61, 119, 0.08);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-head > div > strong {
+  font-size: clamp(1rem, 0.88vw, 1.16rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-discount {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics {
+  border-color: rgba(8, 61, 119, 0.24);
+  box-shadow: 0 0.35rem 0.9rem rgba(8, 61, 119, 0.045);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics article {
+  background: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving {
+  border: 1px solid rgba(8, 61, 119, 0.18);
+  background: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale {
+  border-width: 2px;
+  border-left-width: 0.34rem;
+  background: #f2f7fd;
+  box-shadow: 0 0.8rem 1.8rem rgba(8, 61, 119, 0.12);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-badge {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+@media (max-width: 680px) {
+  .pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight-badge {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* ================================================================
+   PRODUCT PAGE: FOCUSED WHOLESALE SAVINGS EMPHASIS
+   Keeps wholesale visible without overpowering the purchase flow.
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools {
+  overflow: visible;
+  border: 1px solid rgba(8, 61, 119, 0.16);
+  box-shadow: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools::before {
+  display: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight {
+  margin: calc(clamp(0.9rem, 1.1vw, 1.2rem) * -1) calc(clamp(0.9rem, 1.1vw, 1.2rem) * -1)
+    clamp(0.9rem, 1.05vw, 1.15rem);
+  padding: clamp(0.8rem, 0.95vw, 1rem) clamp(0.95rem, 1.15vw, 1.2rem);
+  border-bottom: 1px solid rgba(8, 61, 119, 0.14);
+  background: #f8fbff;
+  color: var(--text);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight-icon {
+  border: 1px solid rgba(8, 61, 119, 0.16);
+  background: #eaf3fc;
+  color: var(--primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight small {
+  color: var(--muted);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight strong {
+  color: var(--text);
+  font-weight: 680;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight p {
+  color: #5c6a7b;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight-badge,
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-badge {
+  padding: 0.42rem 0.62rem;
+  border: 1px solid #16803a;
+  border-radius: 0.38rem;
+  background: #16803a;
+  color: #ffffff;
+  font-size: clamp(0.7rem, 0.62vw, 0.84rem);
+  font-weight: 780;
+  line-height: 1.15;
+  white-space: nowrap;
+  box-shadow: 0 0.3rem 0.7rem rgba(22, 128, 58, 0.16);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action--wholesale,
+.pro-pdp--sticky-commerce .pro-pdp-business-action--wholesale.active {
+  border-width: 1px;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-business-action--wholesale.active {
+  border-color: rgba(8, 61, 119, 0.42);
+  background: #f8fbff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-middle-tools .pro-pdp-wholesale-panel {
+  border: 1px solid rgba(8, 61, 119, 0.2);
+  border-left: 0.22rem solid var(--primary);
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-discount {
+  border: 1px solid rgba(8, 61, 119, 0.2);
+  background: #f1f6fc;
+  color: var(--primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-metrics {
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving {
+  align-items: center;
+  border: 1px solid rgba(22, 128, 58, 0.24);
+  background: #f7fcf8;
+  color: #445466;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving i {
+  color: #16803a;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving > div {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.28rem 0.48rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving small {
+  flex-basis: 100%;
+  color: #647366;
+  font-size: clamp(0.65rem, 0.56vw, 0.76rem);
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0.3rem 0.55rem;
+  border-radius: 0.34rem;
+  background: #16803a;
+  color: #ffffff !important;
+  font-size: clamp(0.74rem, 0.66vw, 0.9rem);
+  font-weight: 780;
+  line-height: 1.15;
+  white-space: nowrap;
+  box-shadow: 0 0.28rem 0.65rem rgba(22, 128, 58, 0.15);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-wholesale-saving > div > span {
+  color: #536173;
+  font-size: clamp(0.7rem, 0.61vw, 0.82rem);
+  line-height: 1.4;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale {
+  border: 1px solid rgba(8, 61, 119, 0.2);
+  border-left: 0.22rem solid var(--primary);
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale.eligible {
+  border-color: rgba(22, 128, 58, 0.36);
+  border-left-color: #16803a;
+  background: #fbfefc;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale.eligible .pro-pdp-checkout-wholesale-badge {
+  border-color: #16803a;
+  background: #16803a;
+  color: #ffffff;
+}
+
+@media (max-width: 680px) {
+  .pro-pdp--sticky-commerce .pro-pdp-wholesale-highlight-badge {
+    grid-column: 2;
+    justify-self: start;
+  }
+}

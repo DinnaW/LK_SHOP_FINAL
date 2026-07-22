@@ -175,9 +175,24 @@
             </div>
 
             <section class="pro-pdp-middle-tools" aria-label="Wholesale pricing and product download">
+              <div class="pro-pdp-wholesale-highlight" role="note" aria-label="Wholesale savings available">
+                <span class="pro-pdp-wholesale-highlight-icon">
+                  <i class="fa-solid fa-boxes-stacked"></i>
+                </span>
+                <div>
+                  <small>Bulk order benefit</small>
+                  <strong>Wholesale savings are available</strong>
+                  <p>
+                    Order {{ wholesaleMinQuantity }} units or more and save {{ wholesaleDiscount }}% per unit.
+                    The complete pricing breakdown is open below.
+                  </p>
+                </div>
+                <span class="pro-pdp-wholesale-highlight-badge">Save {{ formatPrice(wholesaleSavings) }}</span>
+              </div>
+
               <div class="pro-pdp-business-actions">
                 <button
-                  class="pro-pdp-business-action"
+                  class="pro-pdp-business-action pro-pdp-business-action--wholesale"
                   type="button"
                   :class="{ active: showWholesale }"
                   :aria-expanded="showWholesale"
@@ -247,9 +262,11 @@
 
                   <div class="pro-pdp-wholesale-saving">
                     <i class="fa-solid fa-tags"></i>
-                    <span>
-                      You save <strong>{{ formatPrice(wholesaleSavings) }}</strong> on the minimum wholesale order.
-                    </span>
+                    <div>
+                      <small>Minimum-order saving</small>
+                      <strong class="pro-pdp-wholesale-saving-label">{{ formatPrice(wholesaleSavings) }} saved</strong>
+                      <span>when you order {{ wholesaleMinQuantity }} units at the wholesale rate.</span>
+                    </div>
                   </div>
 
                   <div class="pro-pdp-wholesale-status" :class="{ eligible: wholesaleEligible }">
@@ -321,6 +338,61 @@
                 <span>Selected options</span>
                 <strong>{{ selectedOptionsLabel }}</strong>
               </div>
+
+              <section
+                class="pro-pdp-checkout-wholesale"
+                :class="{ eligible: wholesaleEligible }"
+                aria-label="Wholesale pricing summary"
+              >
+                <div class="pro-pdp-checkout-wholesale-head">
+                  <span class="pro-pdp-checkout-wholesale-icon">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                  </span>
+                  <div>
+                    <span>Business pricing</span>
+                    <strong>Wholesale available</strong>
+                  </div>
+                  <span class="pro-pdp-checkout-wholesale-badge">Save {{ formatPrice(wholesaleSavings) }}</span>
+                </div>
+
+                <div class="pro-pdp-checkout-wholesale-price">
+                  <div>
+                    <span>Wholesale unit price</span>
+                    <strong>{{ formatPrice(wholesaleUnitPrice) }}</strong>
+                  </div>
+                  <div>
+                    <span>Minimum order</span>
+                    <strong>{{ wholesaleMinQuantity }} units</strong>
+                  </div>
+                </div>
+
+                <div class="pro-pdp-wholesale-progress" aria-hidden="true">
+                  <span :style="{ width: `${Math.min((quantity / wholesaleMinQuantity) * 100, 100)}%` }"></span>
+                </div>
+
+                <p>
+                  <i :class="wholesaleEligible ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-info'"></i>
+                  {{ wholesaleEligible
+                    ? `Wholesale price is active for ${quantity} units.`
+                    : `${Math.max(wholesaleMinQuantity - quantity, 0)} more units needed for wholesale pricing.`
+                  }}
+                </p>
+
+                <div class="pro-pdp-checkout-wholesale-actions">
+                  <button
+                    v-if="!wholesaleEligible"
+                    class="pro-pdp-checkout-wholesale-apply"
+                    type="button"
+                    @click="applyWholesaleQuantity"
+                  >
+                    Set {{ wholesaleMinQuantity }} units
+                  </button>
+                  <button class="pro-pdp-checkout-wholesale-details" type="button" @click="openWholesaleDetails">
+                    View details
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                </div>
+              </section>
 
               <div class="pro-pdp-checkout-quantity">
                 <span>Quantity</span>
@@ -592,7 +664,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { formatPrice } from '@/utils/formatters'
 
 const props = defineProps({
@@ -628,7 +700,7 @@ const reviewText = ref('')
 const shareLabel = ref('Share')
 const imageHoverZoom = ref(false)
 const imageHoverOrigin = ref('50% 50%')
-const showWholesale = ref(false)
+const showWholesale = ref(true)
 const isPdfGenerating = ref(false)
 const pdfDownloadLabel = ref('Download product PDF')
 let reviewTimer
@@ -1107,7 +1179,7 @@ watch(() => props.product, () => {
   activeTab.value = 'Overview'
   quantity.value = 1
   showZoom.value = false
-  showWholesale.value = false
+  showWholesale.value = true
   activeGuideGroup.value = null
   resetImageHoverZoom()
 }, { deep: false })
@@ -1169,6 +1241,15 @@ const scrollToInformation = (tab) => {
 
 const applyWholesaleQuantity = () => {
   quantity.value = Math.min(maxQuantity, wholesaleMinQuantity.value)
+}
+
+const openWholesaleDetails = async () => {
+  showWholesale.value = true
+  await nextTick()
+  document.getElementById('pro-pdp-wholesale-panel')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+  })
 }
 
 const safePdfFileName = (value) => String(value || 'zappymart-product')
