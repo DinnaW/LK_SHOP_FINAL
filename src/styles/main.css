@@ -18278,3 +18278,143 @@ h6 {
     justify-self: start;
   }
 }
+
+/* ================================================================
+   PRODUCT PAGE: WHOLESALE CHECKOUT HEADER OVERLAP FIX
+   Keeps the savings badge on its own line inside the narrow sticky card.
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(0.55rem, 0.65vw, 0.72rem);
+  row-gap: 0.5rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head > div > strong {
+  overflow-wrap: anywhere;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head .pro-pdp-checkout-wholesale-badge {
+  grid-column: 2;
+  justify-self: start;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 1180px) {
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head .pro-pdp-checkout-wholesale-badge {
+    font-size: clamp(0.68rem, 0.75vw, 0.8rem);
+  }
+}
+
+@media (max-width: 420px) {
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head .pro-pdp-checkout-wholesale-badge {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+
+/* ================================================================
+   PRODUCT PAGE: WHOLESALE SAVING STRIPE + ROOMIER CHECKOUT COLUMN
+   Gives the sticky purchase card more breathing room and keeps the
+   saving message in a clear, full-width green strip.
+   ================================================================ */
+@media (min-width: 1121px) {
+  .pro-pdp--sticky-commerce .pro-pdp-layout--three-column {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(19rem, 0.86fr)
+      minmax(20rem, 0.64fr);
+    gap: clamp(1.35rem, 1.8vw, 2.15rem);
+  }
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-card {
+  padding: clamp(1.12rem, 1.3vw, 1.5rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale {
+  --checkout-wholesale-pad: clamp(0.92rem, 1vw, 1.08rem);
+  gap: clamp(0.72rem, 0.82vw, 0.92rem);
+  padding: var(--checkout-wholesale-pad);
+  overflow: hidden;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-stripe {
+  min-height: clamp(2.25rem, 2.55vw, 2.65rem);
+  margin:
+    calc(var(--checkout-wholesale-pad) * -1)
+    calc(var(--checkout-wholesale-pad) * -1)
+    0;
+  padding: 0.58rem var(--checkout-wholesale-pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: #16803a;
+  color: #ffffff;
+  font-size: clamp(0.7rem, 0.62vw, 0.82rem);
+  line-height: 1.25;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-stripe > span {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  font-weight: 650;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-stripe > span i {
+  font-size: 0.82em;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-stripe > strong {
+  flex: 0 0 auto;
+  padding-left: 0.7rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.34);
+  color: #ffffff;
+  font-size: clamp(0.74rem, 0.67vw, 0.88rem);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-head {
+  grid-template-columns: auto minmax(0, 1fr);
+  row-gap: 0;
+  padding-top: 0.08rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-price > div {
+  padding: clamp(0.65rem, 0.72vw, 0.8rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-actions {
+  gap: 0.55rem;
+}
+
+@media (max-width: 1120px) {
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 420px) {
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-stripe {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-stripe > strong {
+    padding-left: 0;
+    border-left: 0;
+  }
+}

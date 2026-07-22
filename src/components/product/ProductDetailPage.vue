@@ -175,21 +175,6 @@
             </div>
 
             <section class="pro-pdp-middle-tools" aria-label="Wholesale pricing and product download">
-              <div class="pro-pdp-wholesale-highlight" role="note" aria-label="Wholesale savings available">
-                <span class="pro-pdp-wholesale-highlight-icon">
-                  <i class="fa-solid fa-boxes-stacked"></i>
-                </span>
-                <div>
-                  <small>Bulk order benefit</small>
-                  <strong>Wholesale savings are available</strong>
-                  <p>
-                    Order {{ wholesaleMinQuantity }} units or more and save {{ wholesaleDiscount }}% per unit.
-                    The complete pricing breakdown is open below.
-                  </p>
-                </div>
-                <span class="pro-pdp-wholesale-highlight-badge">Save {{ formatPrice(wholesaleSavings) }}</span>
-              </div>
-
               <div class="pro-pdp-business-actions">
                 <button
                   class="pro-pdp-business-action pro-pdp-business-action--wholesale"
@@ -344,6 +329,14 @@
                 :class="{ eligible: wholesaleEligible }"
                 aria-label="Wholesale pricing summary"
               >
+                <div class="pro-pdp-checkout-wholesale-stripe" role="note">
+                  <span>
+                    <i class="fa-solid fa-tag"></i>
+                    Wholesale saving
+                  </span>
+                  <strong>Save {{ formatPrice(wholesaleSavings) }}</strong>
+                </div>
+
                 <div class="pro-pdp-checkout-wholesale-head">
                   <span class="pro-pdp-checkout-wholesale-icon">
                     <i class="fa-solid fa-boxes-stacked"></i>
@@ -352,7 +345,6 @@
                     <span>Business pricing</span>
                     <strong>Wholesale available</strong>
                   </div>
-                  <span class="pro-pdp-checkout-wholesale-badge">Save {{ formatPrice(wholesaleSavings) }}</span>
                 </div>
 
                 <div class="pro-pdp-checkout-wholesale-price">
