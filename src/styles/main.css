@@ -16026,7 +16026,7 @@ h6 {
 
 .pro-pdp--sticky-commerce .pro-pdp-swatches > button {
   min-width: 3.25rem;
-  gap: 0.5rem;
+  gap: 0.42rem;
 }
 
 .pro-pdp--sticky-commerce .pro-pdp-swatches > button > span {
@@ -18416,5 +18416,844 @@ h6 {
   .pro-pdp--sticky-commerce .pro-pdp-checkout-wholesale-stripe > strong {
     padding-left: 0;
     border-left: 0;
+  }
+}
+
+/* ================================================================
+   PRODUCT PAGE: PICKUP / CITY DELIVERY CHECKOUT
+   Added below Buy Now inside the sticky purchase card.
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment {
+  display: grid;
+  gap: clamp(0.78rem, 0.86vw, 1rem);
+  margin-top: clamp(1rem, 1.05vw, 1.2rem);
+  padding-top: clamp(1rem, 1.05vw, 1.2rem);
+  border-top: 1px solid #e1e7ef;
+  scroll-margin-top: 1.25rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-heading > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.14rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-heading span {
+  color: #7a8595;
+  font-size: clamp(0.69rem, 0.61vw, 0.79rem);
+  line-height: 1.35;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-heading strong {
+  color: #151b25;
+  font-size: clamp(0.92rem, 0.82vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-heading > i {
+  width: clamp(2rem, 2.2vw, 2.35rem);
+  height: clamp(2rem, 2.2vw, 2.35rem);
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid #dce5f1;
+  border-radius: 8px;
+  background: #f5f8fc;
+  color: var(--pdp-primary);
+  font-size: clamp(0.78rem, 0.7vw, 0.92rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods > button {
+  position: relative;
+  min-width: 0;
+  min-height: clamp(4.1rem, 4.4vw, 4.75rem);
+  padding: clamp(0.72rem, 0.74vw, 0.84rem);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid #d7dee8;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #283140;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods > button:hover {
+  border-color: #8da9d3;
+  background: #fbfdff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods > button.active {
+  border-color: var(--pdp-primary);
+  background: #f6f9ff;
+  box-shadow: inset 0 0 0 1px var(--pdp-primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods > button > i:first-child {
+  width: 1.7rem;
+  height: 1.7rem;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #eef3fa;
+  color: var(--pdp-primary);
+  font-size: 0.72rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods > button.active > i:first-child {
+  background: var(--pdp-primary);
+  color: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods > button > span {
+  min-width: 0;
+  display: grid;
+  gap: 0.12rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods strong {
+  overflow: hidden;
+  color: #18202b;
+  font-size: clamp(0.72rem, 0.65vw, 0.82rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods small {
+  color: #7b8696;
+  font-size: clamp(0.61rem, 0.54vw, 0.69rem);
+  line-height: 1.3;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-method-check {
+  position: absolute;
+  top: 0.42rem;
+  right: 0.42rem;
+  color: var(--pdp-primary);
+  font-size: 0.72rem;
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods > button.active .pro-pdp-method-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail {
+  border: 1px solid #e0e6ee;
+  border-radius: 9px;
+  background: #fafbfd;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail--pickup {
+  min-height: 3.7rem;
+  padding: clamp(0.72rem, 0.78vw, 0.9rem);
+  display: flex;
+  align-items: center;
+  gap: 0.72rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail--pickup > i {
+  width: 1.9rem;
+  height: 1.9rem;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #eaf7ef;
+  color: #16803a;
+  font-size: 0.78rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail--pickup > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.12rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail--pickup strong {
+  color: #18202b;
+  font-size: clamp(0.72rem, 0.65vw, 0.82rem);
+  font-weight: 700;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail--pickup span {
+  color: #6d7888;
+  font-size: clamp(0.62rem, 0.56vw, 0.71rem);
+  line-height: 1.4;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail--delivery {
+  padding: clamp(0.78rem, 0.84vw, 0.95rem);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail--delivery label {
+  color: #303947;
+  font-size: clamp(0.68rem, 0.61vw, 0.77rem);
+  font-weight: 700;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-city-select {
+  position: relative;
+  display: grid;
+  align-items: center;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-city-select > i:first-child {
+  position: absolute;
+  left: 0.72rem;
+  z-index: 1;
+  color: var(--pdp-primary);
+  font-size: 0.7rem;
+  pointer-events: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-city-select > i:last-child {
+  position: absolute;
+  right: 0.72rem;
+  color: #758195;
+  font-size: 0.62rem;
+  pointer-events: none;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-city-select select {
+  width: 100%;
+  min-height: 2.7rem;
+  padding: 0.62rem 2rem 0.62rem 2rem;
+  border: 1px solid #cfd8e5;
+  border-radius: 7px;
+  outline: none;
+  background: #ffffff;
+  color: #1d2633;
+  font: inherit;
+  font-size: clamp(0.69rem, 0.62vw, 0.79rem);
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-city-select select:focus {
+  border-color: var(--pdp-primary);
+  box-shadow: 0 0 0 3px rgba(8, 61, 119, 0.1);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail--delivery > p {
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.42rem;
+  color: #687486;
+  font-size: clamp(0.62rem, 0.56vw, 0.71rem);
+  line-height: 1.4;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-fulfilment-detail--delivery > p i {
+  margin-top: 0.18rem;
+  color: #16803a;
+  font-size: 0.66rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total {
+  padding: clamp(0.78rem, 0.84vw, 0.96rem);
+  display: grid;
+  gap: 0.58rem;
+  border: 1px solid #dde4ed;
+  border-radius: 9px;
+  background: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total span {
+  color: #687486;
+  font-size: clamp(0.65rem, 0.58vw, 0.74rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total strong {
+  color: #1b2330;
+  font-size: clamp(0.7rem, 0.63vw, 0.8rem);
+  font-weight: 700;
+  text-align: right;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total strong.free {
+  color: #16803a;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total-final {
+  margin-top: 0.1rem;
+  padding-top: 0.68rem;
+  border-top: 1px solid #e2e7ee;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total-final span {
+  color: #202936;
+  font-weight: 700;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total-final strong {
+  color: var(--pdp-primary);
+  font-size: clamp(0.94rem, 0.86vw, 1.08rem);
+  font-weight: 800;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total > small {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  color: #16803a;
+  font-size: clamp(0.6rem, 0.53vw, 0.68rem);
+  line-height: 1.4;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-total > small i {
+  margin-top: 0.15rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-notice {
+  margin: -0.15rem 0 0;
+  padding: 0.58rem 0.68rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.42rem;
+  border-left: 3px solid var(--pdp-primary);
+  background: #f4f7fb;
+  color: #536174;
+  font-size: clamp(0.62rem, 0.56vw, 0.71rem);
+  line-height: 1.4;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-checkout-notice i {
+  margin-top: 0.15rem;
+  color: var(--pdp-primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-proceed-checkout {
+  width: 100%;
+  min-height: clamp(2.75rem, 3vw, 3.15rem);
+  padding: 0.72rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border: 1px solid var(--pdp-primary);
+  border-radius: 5px;
+  background: var(--pdp-primary);
+  color: #ffffff;
+  font-size: clamp(0.7rem, 0.64vw, 0.82rem);
+  font-weight: 750;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-proceed-checkout:hover:not(:disabled) {
+  background: #062f5d;
+  border-color: #062f5d;
+  transform: translateY(-1px);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-proceed-checkout:disabled {
+  border-color: #c9d1dc;
+  background: #c9d1dc;
+  color: #ffffff;
+  cursor: not-allowed;
+}
+
+@media (max-width: 420px) {
+  .pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-fulfilment-methods > button {
+    min-height: 3.8rem;
+  }
+}
+
+/* ================================================================
+   PRODUCT PAGE: WHATSAPP + PRODUCT INQUIRY CONVERSION BLOCK
+   Positioned immediately after the main purchase buttons so high-
+   intent shoppers can get help before selecting fulfilment.
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist {
+  display: grid;
+  gap: clamp(0.72rem, 0.78vw, 0.9rem);
+  margin-top: clamp(0.88rem, 0.95vw, 1.05rem);
+  padding: clamp(0.86rem, 0.94vw, 1.02rem);
+  border: 1px solid #dce5ef;
+  border-left: 3px solid #1f9d55;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 35, 65, 0.055);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist.is-open {
+  border-color: #c9d7e8;
+  border-left-color: #1f9d55;
+  box-shadow: 0 12px 28px rgba(15, 35, 65, 0.075);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist-intro {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.72rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist-icon {
+  width: clamp(2.35rem, 2.45vw, 2.7rem);
+  aspect-ratio: 1;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid #bde8cd;
+  border-radius: 9px;
+  background: #eaf8ef;
+  color: #138a43;
+  font-size: clamp(1.16rem, 1.12vw, 1.34rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist-intro > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.12rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist-intro > div > span {
+  color: #6f7d91;
+  font-size: clamp(0.68rem, 0.62vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist-intro strong {
+  color: #111a29;
+  font-size: clamp(0.84rem, 0.77vw, 0.94rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist-intro p {
+  margin: 0.12rem 0 0;
+  color: #657286;
+  font-size: clamp(0.72rem, 0.66vw, 0.82rem);
+  line-height: 1.48;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.55rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist-actions > button {
+  min-width: 0;
+  min-height: 2.62rem;
+  padding: 0.64rem 0.68rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.46rem;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: clamp(0.72rem, 0.66vw, 0.82rem);
+  font-weight: 750;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-sales-assist-actions > button:hover {
+  transform: translateY(-1px);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-whatsapp-cta {
+  border: 1px solid #168f49;
+  background: #168f49;
+  color: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-whatsapp-cta:hover {
+  border-color: #10783d;
+  background: #10783d;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-whatsapp-cta i {
+  font-size: 1.04em;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-toggle {
+  border: 1px solid var(--pdp-primary);
+  background: #ffffff;
+  color: var(--pdp-primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-toggle:hover,
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-toggle[aria-expanded='true'] {
+  background: rgba(8, 61, 119, 0.055);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-toggle > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-chevron {
+  margin-left: auto;
+  font-size: 0.72em;
+  transition: transform 180ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0.08rem -0.15rem -0.15rem;
+  padding: clamp(0.8rem, 0.86vw, 0.96rem);
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  background: #f7f9fc;
+  animation: proPdpInquiryReveal 180ms ease both;
+}
+
+@keyframes proPdpInquiryReveal {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form-heading > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.08rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form-heading span {
+  color: #66758a;
+  font-size: clamp(0.65rem, 0.59vw, 0.74rem);
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form-heading strong {
+  color: #121b2a;
+  font-size: clamp(0.8rem, 0.73vw, 0.9rem);
+  font-weight: 700;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form-heading > button {
+  width: 1.85rem;
+  aspect-ratio: 1;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid #d7e0eb;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #59687d;
+  cursor: pointer;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.62rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form label {
+  display: grid;
+  gap: 0.34rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form label > span {
+  color: #334157;
+  font-size: clamp(0.68rem, 0.62vw, 0.77rem);
+  font-weight: 700;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form input,
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #d3dde9;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #111a29;
+  font: inherit;
+  font-size: clamp(0.72rem, 0.66vw, 0.82rem);
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form input {
+  min-height: 2.48rem;
+  padding: 0 0.72rem;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form textarea {
+  min-height: 5.2rem;
+  padding: 0.66rem 0.72rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form input:focus,
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form textarea:focus {
+  border-color: var(--pdp-primary);
+  box-shadow: 0 0 0 3px rgba(8, 61, 119, 0.09);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form input::placeholder,
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-form textarea::placeholder {
+  color: #99a5b6;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-notice {
+  margin: 0;
+  padding: 0.58rem 0.64rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.42rem;
+  border: 1px solid #c9d9ec;
+  border-radius: 5px;
+  background: #eef5fc;
+  color: #31506f;
+  font-size: clamp(0.68rem, 0.62vw, 0.77rem);
+  line-height: 1.45;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-notice i {
+  margin-top: 0.16rem;
+  color: var(--pdp-primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-submit {
+  width: 100%;
+  min-height: 2.7rem;
+  padding: 0.68rem 0.76rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.52rem;
+  border: 1px solid #168f49;
+  border-radius: 5px;
+  background: #168f49;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: clamp(0.73rem, 0.67vw, 0.83rem);
+  font-weight: 750;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-submit:hover {
+  border-color: #10783d;
+  background: #10783d;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-inquiry-submit > i:last-child {
+  margin-left: auto;
+}
+
+@media (max-width: 420px) {
+  .pro-pdp--sticky-commerce .pro-pdp-sales-assist-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-sales-assist-actions > button {
+    justify-content: flex-start;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-inquiry-toggle .pro-pdp-inquiry-chevron {
+    margin-left: auto;
+  }
+}
+
+/* ================================================================
+   PRODUCT PAGE: SALES ASSISTANCE IN THE MIDDLE INFORMATION COLUMN
+   Keeps checkout focused while placing high-intent contact actions
+   beside product configuration and business-order information.
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-details > .pro-pdp-sales-assist--details {
+  margin-top: clamp(1rem, 1.15vw, 1.35rem);
+  margin-bottom: clamp(0.2rem, 0.35vw, 0.45rem);
+  padding: clamp(0.95rem, 1.1vw, 1.25rem);
+  border-color: #d5e1ed;
+  border-left-width: 4px;
+  box-shadow: 0 9px 24px rgba(15, 35, 65, 0.05);
+}
+
+@media (min-width: 1081px) {
+  .pro-pdp--sticky-commerce .pro-pdp-sales-assist--details {
+    grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.82fr);
+    align-items: center;
+    column-gap: clamp(1rem, 1.4vw, 1.45rem);
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-sales-assist--details .pro-pdp-sales-assist-actions {
+    width: 100%;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-sales-assist--details .pro-pdp-inquiry-form {
+    grid-column: 1 / -1;
+    margin-top: 0.15rem;
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-sales-assist--details .pro-pdp-inquiry-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1080px) {
+  .pro-pdp--sticky-commerce .pro-pdp-details > .pro-pdp-sales-assist--details {
+    margin-top: 0.95rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .pro-pdp--sticky-commerce .pro-pdp-sales-assist--details .pro-pdp-inquiry-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================================
+   PRODUCT PAGE: COMPACT CONTACT ACTIONS AFTER RATINGS
+   ================================================================ */
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact {
+  display: grid;
+  gap: 0.72rem;
+  margin: clamp(0.7rem, 0.85vw, 0.95rem) 0 clamp(1rem, 1.2vw, 1.35rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(0.48rem, 0.58vw, 0.68rem);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions > button {
+  min-height: clamp(2.38rem, 2.55vw, 2.66rem);
+  padding: 0.56rem clamp(0.76rem, 0.92vw, 1rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: clamp(0.71rem, 0.64vw, 0.81rem);
+  font-weight: 750;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions > button:hover {
+  transform: translateY(-1px);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions .pro-pdp-whatsapp-cta {
+  min-width: clamp(7.35rem, 8vw, 8.35rem);
+  border: 1px solid #169b4f;
+  background: #169b4f;
+  color: #ffffff;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions .pro-pdp-whatsapp-cta:hover {
+  border-color: #108441;
+  background: #108441;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions .pro-pdp-whatsapp-cta i {
+  font-size: 1.12em;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions .pro-pdp-inquiry-toggle {
+  min-width: clamp(7.55rem, 8.3vw, 8.65rem);
+  border: 1px solid var(--pdp-primary);
+  background: #ffffff;
+  color: var(--pdp-primary);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions .pro-pdp-inquiry-toggle:hover,
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions .pro-pdp-inquiry-toggle[aria-expanded='true'] {
+  background: rgba(8, 61, 119, 0.055);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions .pro-pdp-inquiry-chevron {
+  margin-left: 0.1rem;
+  font-size: 0.72em;
+  transition: transform 180ms ease;
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions .pro-pdp-inquiry-chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.pro-pdp--sticky-commerce .pro-pdp-quick-contact .pro-pdp-inquiry-form--compact {
+  width: min(100%, 42rem);
+  margin: 0;
+  padding: clamp(0.85rem, 1vw, 1.05rem);
+  border: 1px solid #d8e1ec;
+  border-radius: 7px;
+  background: #f8fafc;
+  box-shadow: none;
+}
+
+@media (min-width: 700px) {
+  .pro-pdp--sticky-commerce .pro-pdp-quick-contact .pro-pdp-inquiry-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pro-pdp--sticky-commerce .pro-pdp-quick-contact-actions > button {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 0.68rem;
   }
 }

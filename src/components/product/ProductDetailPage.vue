@@ -106,6 +106,96 @@
               <span>Item # {{ sku }}</span>
             </div>
 
+            <section
+              class="pro-pdp-quick-contact"
+              :class="{ 'is-open': showInquiryForm }"
+              aria-label="Product assistance"
+            >
+              <div class="pro-pdp-quick-contact-actions">
+                <button class="pro-pdp-whatsapp-cta" type="button" @click="openQuickWhatsApp">
+                  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                  <span>WhatsApp us</span>
+                </button>
+
+                <button
+                  class="pro-pdp-inquiry-toggle"
+                  type="button"
+                  :aria-expanded="showInquiryForm"
+                  aria-controls="pro-pdp-inquiry-form"
+                  @click="toggleInquiryForm"
+                >
+                  <i class="fa-regular fa-message" aria-hidden="true"></i>
+                  <span>Send inquiry</span>
+                  <i
+                    class="fa-solid fa-chevron-down pro-pdp-inquiry-chevron"
+                    :class="{ rotated: showInquiryForm }"
+                    aria-hidden="true"
+                  ></i>
+                </button>
+              </div>
+
+              <form
+                v-if="showInquiryForm"
+                id="pro-pdp-inquiry-form"
+                class="pro-pdp-inquiry-form pro-pdp-inquiry-form--compact"
+                @submit.prevent="submitProductInquiry"
+              >
+                <div class="pro-pdp-inquiry-form-heading">
+                  <div>
+                    <span>Product inquiry</span>
+                    <strong>Tell us what you need to know</strong>
+                  </div>
+                  <button type="button" aria-label="Close inquiry form" @click="showInquiryForm = false">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+
+                <div class="pro-pdp-inquiry-fields">
+                  <label>
+                    <span>Your name</span>
+                    <input
+                      v-model.trim="inquiryName"
+                      type="text"
+                      autocomplete="name"
+                      placeholder="Enter your name"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Phone or email</span>
+                    <input
+                      v-model.trim="inquiryContact"
+                      type="text"
+                      autocomplete="tel"
+                      placeholder="How can we reach you?"
+                      required
+                    />
+                  </label>
+                </div>
+
+                <label class="pro-pdp-inquiry-message">
+                  <span>Your question</span>
+                  <textarea
+                    v-model.trim="inquiryMessage"
+                    rows="3"
+                    placeholder="Ask about this product, delivery, compatibility or a bulk order..."
+                    required
+                  ></textarea>
+                </label>
+
+                <p v-if="inquiryNotice" class="pro-pdp-inquiry-notice">
+                  <i class="fa-solid fa-circle-info"></i>
+                  {{ inquiryNotice }}
+                </p>
+
+                <button class="pro-pdp-inquiry-submit" type="submit">
+                  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                  <span>Send inquiry via WhatsApp</span>
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+              </form>
+            </section>
+
             <div class="pro-pdp-price-snapshot">
               <div>
                 <strong>{{ formatPrice(product.price) }}</strong>
@@ -415,6 +505,110 @@
                 </button>
               </div>
 
+              <section ref="fulfilmentSection" class="pro-pdp-fulfilment" aria-label="Delivery and pickup options">
+                <div class="pro-pdp-fulfilment-heading">
+                  <div>
+                    <span>How would you like to receive it?</span>
+                    <strong>Choose fulfilment</strong>
+                  </div>
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                </div>
+
+                <div class="pro-pdp-fulfilment-methods" role="radiogroup" aria-label="Fulfilment method">
+                  <button
+                    type="button"
+                    role="radio"
+                    :aria-checked="fulfilmentMethod === 'pickup'"
+                    :class="{ active: fulfilmentMethod === 'pickup' }"
+                    @click="selectFulfilmentMethod('pickup')"
+                  >
+                    <i class="fa-solid fa-store"></i>
+                    <span>
+                      <strong>Store pickup</strong>
+                      <small>Free collection</small>
+                    </span>
+                    <i class="fa-solid fa-circle-check pro-pdp-method-check"></i>
+                  </button>
+
+                  <button
+                    type="button"
+                    role="radio"
+                    :aria-checked="fulfilmentMethod === 'delivery'"
+                    :class="{ active: fulfilmentMethod === 'delivery' }"
+                    @click="selectFulfilmentMethod('delivery')"
+                  >
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <span>
+                      <strong>Delivery</strong>
+                      <small>Calculated by city</small>
+                    </span>
+                    <i class="fa-solid fa-circle-check pro-pdp-method-check"></i>
+                  </button>
+                </div>
+
+                <div v-if="fulfilmentMethod === 'pickup'" class="pro-pdp-fulfilment-detail pro-pdp-fulfilment-detail--pickup">
+                  <i class="fa-solid fa-shop"></i>
+                  <div>
+                    <strong>ZappyMart store pickup</strong>
+                    <span>No delivery fee · {{ fulfilmentEstimate }}</span>
+                  </div>
+                </div>
+
+                <div v-else class="pro-pdp-fulfilment-detail pro-pdp-fulfilment-detail--delivery">
+                  <label for="pro-pdp-delivery-city">Delivery city</label>
+                  <div class="pro-pdp-city-select">
+                    <i class="fa-solid fa-city" aria-hidden="true"></i>
+                    <select id="pro-pdp-delivery-city" v-model="selectedDeliveryCity" @change="checkoutNotice = ''">
+                      <option value="" disabled>Select your city</option>
+                      <option v-for="option in deliveryCities" :key="option.city" :value="option.city">
+                        {{ option.city }} · {{ formatPrice(option.fee) }}
+                      </option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  </div>
+                  <p>
+                    <i class="fa-solid fa-clock"></i>
+                    {{ fulfilmentEstimate }}
+                  </p>
+                </div>
+
+                <div class="pro-pdp-checkout-total">
+                  <div>
+                    <span>Product subtotal</span>
+                    <strong>{{ formatPrice(checkoutSubtotal) }}</strong>
+                  </div>
+                  <div>
+                    <span>{{ fulfilmentMethod === 'pickup' ? 'Store pickup' : 'Delivery fee' }}</span>
+                    <strong :class="{ free: fulfilmentMethod === 'pickup' }">
+                      {{ fulfilmentMethod === 'pickup' ? 'FREE' : selectedDeliveryOption ? formatPrice(checkoutDeliveryFee) : 'Select city' }}
+                    </strong>
+                  </div>
+                  <div class="pro-pdp-checkout-total-final">
+                    <span>Final total</span>
+                    <strong>{{ fulfilmentReady ? formatPrice(checkoutTotal) : '—' }}</strong>
+                  </div>
+                  <small v-if="wholesaleEligible">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Wholesale unit pricing is included in this total.
+                  </small>
+                </div>
+
+                <p v-if="checkoutNotice" class="pro-pdp-checkout-notice">
+                  <i class="fa-solid fa-circle-info"></i>
+                  {{ checkoutNotice }}
+                </p>
+
+                <button
+                  class="pro-pdp-proceed-checkout"
+                  type="button"
+                  :disabled="isOutOfStock || !fulfilmentReady"
+                  @click="proceedToCheckout"
+                >
+                  <span>Proceed to checkout</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </section>
+
               <div class="pro-pdp-secure-box">
                 <div>
                   <i class="fa-solid fa-lock"></i>
@@ -695,6 +889,15 @@ const imageHoverOrigin = ref('50% 50%')
 const showWholesale = ref(true)
 const isPdfGenerating = ref(false)
 const pdfDownloadLabel = ref('Download product PDF')
+const fulfilmentSection = ref(null)
+const fulfilmentMethod = ref('pickup')
+const selectedDeliveryCity = ref('')
+const checkoutNotice = ref('')
+const showInquiryForm = ref(false)
+const inquiryName = ref('')
+const inquiryContact = ref('')
+const inquiryMessage = ref('')
+const inquiryNotice = ref('')
 let reviewTimer
 let shareTimer
 let pdfLabelTimer
@@ -759,6 +962,55 @@ const wholesaleSavings = computed(() => Math.max(
   (Number(props.product.price || 0) - wholesaleUnitPrice.value) * wholesaleMinQuantity.value,
 ))
 const wholesaleEligible = computed(() => quantity.value >= wholesaleMinQuantity.value)
+
+const defaultDeliveryCities = [
+  { city: 'Colombo', fee: 450, estimate: '1–2 working days' },
+  { city: 'Gampaha', fee: 550, estimate: '1–3 working days' },
+  { city: 'Kalutara', fee: 550, estimate: '1–3 working days' },
+  { city: 'Kandy', fee: 650, estimate: '2–4 working days' },
+  { city: 'Galle', fee: 650, estimate: '2–4 working days' },
+  { city: 'Matara', fee: 700, estimate: '2–4 working days' },
+  { city: 'Kurunegala', fee: 650, estimate: '2–4 working days' },
+  { city: 'Anuradhapura', fee: 850, estimate: '3–5 working days' },
+  { city: 'Jaffna', fee: 950, estimate: '3–6 working days' },
+  { city: 'Batticaloa', fee: 900, estimate: '3–5 working days' },
+  { city: 'Trincomalee', fee: 900, estimate: '3–5 working days' },
+  { city: 'Other area', fee: 950, estimate: '3–6 working days' },
+]
+
+const deliveryCities = computed(() => {
+  const customRates = props.product.deliveryRates
+  if (!Array.isArray(customRates) || !customRates.length) return defaultDeliveryCities
+
+  return customRates.map((item) => ({
+    city: String(item.city || item.name || item.label || 'Delivery area'),
+    fee: Math.max(0, Number(item.fee || item.price || item.rate || 0)),
+    estimate: String(item.estimate || item.deliveryTime || '2–5 working days'),
+  }))
+})
+
+const selectedDeliveryOption = computed(() =>
+  deliveryCities.value.find((item) => item.city === selectedDeliveryCity.value) || null,
+)
+const checkoutUnitPrice = computed(() =>
+  wholesaleEligible.value ? wholesaleUnitPrice.value : Number(props.product.price || 0),
+)
+const checkoutSubtotal = computed(() => checkoutUnitPrice.value * quantity.value)
+const checkoutDeliveryFee = computed(() => {
+  if (fulfilmentMethod.value === 'pickup') return 0
+  return selectedDeliveryOption.value?.fee ?? 0
+})
+const checkoutTotal = computed(() => checkoutSubtotal.value + checkoutDeliveryFee.value)
+const fulfilmentReady = computed(() =>
+  fulfilmentMethod.value === 'pickup' || Boolean(selectedDeliveryOption.value),
+)
+const fulfilmentEstimate = computed(() => {
+  if (fulfilmentMethod.value === 'pickup') return 'Ready for collection within 1–2 working days'
+  return selectedDeliveryOption.value?.estimate || 'Select your city to view the delivery estimate'
+})
+const configuredWhatsAppNumber = computed(() => String(
+  props.product.whatsappNumber || import.meta.env.VITE_WHATSAPP_NUMBER || '',
+).replace(/\D/g, ''))
 
 const colourChoice = (label, color, extra = {}) => ({ label, value: label, color, ...extra })
 const textChoice = (label, note = '', extra = {}) => ({ label, value: label, note, ...extra })
@@ -1172,6 +1424,14 @@ watch(() => props.product, () => {
   quantity.value = 1
   showZoom.value = false
   showWholesale.value = true
+  fulfilmentMethod.value = 'pickup'
+  selectedDeliveryCity.value = ''
+  checkoutNotice.value = ''
+  showInquiryForm.value = false
+  inquiryName.value = ''
+  inquiryContact.value = ''
+  inquiryMessage.value = ''
+  inquiryNotice.value = ''
   activeGuideGroup.value = null
   resetImageHoverZoom()
 }, { deep: false })
@@ -1221,9 +1481,103 @@ const addSelectedQuantity = () => {
   emit('add-to-cart', selectedPayload())
 }
 
+const focusFulfilmentOptions = async () => {
+  checkoutNotice.value = 'Choose store pickup or delivery to continue.'
+  await nextTick()
+  fulfilmentSection.value?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+}
+
 const buySelectedQuantity = () => {
   if (isOutOfStock.value) return
-  emit('buy-now', selectedPayload())
+  focusFulfilmentOptions()
+}
+
+const openWhatsAppMessage = (message) => {
+  if (typeof window === 'undefined') return
+
+  const encodedMessage = encodeURIComponent(message)
+  const whatsappUrl = configuredWhatsAppNumber.value
+    ? `https://wa.me/${configuredWhatsAppNumber.value}?text=${encodedMessage}`
+    : `https://api.whatsapp.com/send?text=${encodedMessage}`
+
+  const whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
+  if (whatsappWindow) whatsappWindow.opener = null
+}
+
+const quickWhatsAppMessage = () => [
+  'Hello ZappyMart, I am interested in this product:',
+  '',
+  `Product: ${props.product.title}`,
+  `Price: ${formatPrice(checkoutUnitPrice.value)}`,
+  `Quantity: ${quantity.value}`,
+  `Selected options: ${selectedOptionsLabel.value}`,
+  `Product link: ${typeof window !== 'undefined' ? window.location.href : ''}`,
+  '',
+  'Could you please share more details?',
+].join('\n')
+
+const openQuickWhatsApp = () => {
+  inquiryNotice.value = ''
+  openWhatsAppMessage(quickWhatsAppMessage())
+}
+
+const toggleInquiryForm = () => {
+  showInquiryForm.value = !showInquiryForm.value
+  inquiryNotice.value = ''
+}
+
+const submitProductInquiry = () => {
+  if (!inquiryName.value || !inquiryContact.value || !inquiryMessage.value) {
+    inquiryNotice.value = 'Please complete your name, contact details and question.'
+    return
+  }
+
+  const message = [
+    'Hello ZappyMart, I would like to make a product inquiry.',
+    '',
+    `Product: ${props.product.title}`,
+    `Price: ${formatPrice(checkoutUnitPrice.value)}`,
+    `Quantity: ${quantity.value}`,
+    `Selected options: ${selectedOptionsLabel.value}`,
+    `Name: ${inquiryName.value}`,
+    `Contact: ${inquiryContact.value}`,
+    `Question: ${inquiryMessage.value}`,
+    `Product link: ${typeof window !== 'undefined' ? window.location.href : ''}`,
+  ].join('\n')
+
+  inquiryNotice.value = 'Your inquiry is ready. Continue in WhatsApp to send it.'
+  openWhatsAppMessage(message)
+}
+
+const selectFulfilmentMethod = (method) => {
+  fulfilmentMethod.value = method
+  checkoutNotice.value = ''
+  if (method === 'pickup') selectedDeliveryCity.value = ''
+}
+
+const proceedToCheckout = () => {
+  if (isOutOfStock.value || !fulfilmentReady.value) {
+    checkoutNotice.value = 'Please select a delivery city before proceeding.'
+    return
+  }
+
+  const payload = selectedPayload()
+  emit('buy-now', {
+    ...payload,
+    fulfilment: {
+      method: fulfilmentMethod.value,
+      city: fulfilmentMethod.value === 'delivery' ? selectedDeliveryCity.value : '',
+      deliveryFee: checkoutDeliveryFee.value,
+      estimate: fulfilmentEstimate.value,
+    },
+    pricing: {
+      unitPrice: checkoutUnitPrice.value,
+      subtotal: checkoutSubtotal.value,
+      deliveryFee: checkoutDeliveryFee.value,
+      total: checkoutTotal.value,
+      wholesaleApplied: wholesaleEligible.value,
+    },
+  })
 }
 
 const scrollToInformation = (tab) => {
@@ -1511,6 +1865,7 @@ const handleKeydown = (event) => {
   if (event.key !== 'Escape') return
   showZoom.value = false
   showWholesale.value = false
+  showInquiryForm.value = false
   activeGuideGroup.value = null
   showReviewForm.value = false
 }
