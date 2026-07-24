@@ -17,11 +17,12 @@
         :wishlist-count="wishlist.length"
         :categories="categorySidebarItems"
         @open-cart="openCart"
+        @open-profile="openProfile"
         @go-home="goHome"
         @navigate-section="navigateToSection"
       />
 
-      <template v-if="!selectedProduct">
+      <template v-if="activePage === 'store' && !selectedProduct">
         <CategoryStrip :categories="categorySidebarItems" />
         <HeroSection :images="heroImages" />
 
@@ -129,7 +130,7 @@
       </template>
 
       <ProductDetailPage
-        v-else
+        v-else-if="activePage === 'store'"
         :product="selectedProduct"
         :related-products="relatedProducts"
         :wishlist-items="wishlistTitles"
@@ -141,6 +142,17 @@
         @quick-view="openQuickView"
         @view-product="openProductPage"
         @add-wishlist="addToWishlist"
+      />
+
+      <CustomerProfilePage
+        v-else
+        :wishlist-items="wishlist"
+        :cart-items="cart"
+        @go-shopping="goHome"
+        @open-cart="openCart"
+        @view-product="openProductPage"
+        @add-to-cart="addToCart"
+        @remove-wishlist="removeFromWishlist"
       />
 
       <Footer />
@@ -186,6 +198,7 @@ import Header from '@/components/layout/Header.vue'
 import Footer from '@/components/layout/Footer.vue'
 import ProductSection from '@/components/product/ProductSection.vue'
 import ProductDetailPage from '@/components/product/ProductDetailPage.vue'
+import CustomerProfilePage from '@/components/profile/CustomerProfilePage.vue'
 import QuickViewModal from '@/components/product/QuickViewModal.vue'
 import CartToast from '@/components/cart/CartToast.vue'
 import CartDrawer from '@/components/cart/CartDrawer.vue'
@@ -233,6 +246,7 @@ const cart = ref([])
 const wishlist = ref([])
 const quickViewProduct = ref(null)
 const selectedProduct = ref(null)
+const activePage = ref('store')
 const isCartOpen = ref(false)
 const isSidebarExpanded = ref(false)
 const showFloatingCart = ref(false)
@@ -411,11 +425,18 @@ const findProductBySlug = (slug) => allStoreProducts.find(
   (product) => slugifyProduct(product.title) === slug,
 )
 
-const updateBrowserUrl = ({ product = null, hash = '', replace = false } = {}) => {
+const updateBrowserUrl = ({ product = null, hash = '', account = false, replace = false } = {}) => {
   const url = new URL(window.location.href)
 
-  if (product) url.searchParams.set('product', slugifyProduct(product.title))
-  else url.searchParams.delete('product')
+  if (product) {
+    url.searchParams.set('product', slugifyProduct(product.title))
+    url.searchParams.delete('account')
+  } else {
+    url.searchParams.delete('product')
+  }
+
+  if (account) url.searchParams.set('account', 'profile')
+  else if (!product) url.searchParams.delete('account')
 
   url.hash = hash
   const method = replace ? 'replaceState' : 'pushState'
@@ -425,6 +446,7 @@ const updateBrowserUrl = ({ product = null, hash = '', replace = false } = {}) =
 const openProductPage = (product, { replace = false } = {}) => {
   if (!product) return
 
+  activePage.value = 'store'
   selectedProduct.value = product
   quickViewProduct.value = null
   isSidebarExpanded.value = false
@@ -434,15 +456,27 @@ const openProductPage = (product, { replace = false } = {}) => {
 }
 
 const goHome = () => {
-  const wasViewingProduct = Boolean(selectedProduct.value)
+  const wasViewingProduct = Boolean(selectedProduct.value) || activePage.value === 'profile'
+  activePage.value = 'store'
   selectedProduct.value = null
   document.title = 'ZappyMart'
   updateBrowserUrl({ replace: !wasViewingProduct })
   nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
 }
 
+const openProfile = () => {
+  activePage.value = 'profile'
+  selectedProduct.value = null
+  quickViewProduct.value = null
+  isSidebarExpanded.value = false
+  document.title = 'My Account | ZappyMart'
+  updateBrowserUrl({ account: true })
+  nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+}
+
 const navigateToSection = (href = '#deals') => {
   const targetHash = String(href).startsWith('#') ? href : `#${href}`
+  activePage.value = 'store'
   selectedProduct.value = null
   isSidebarExpanded.value = false
   document.title = 'ZappyMart'
@@ -457,13 +491,17 @@ const navigateToSection = (href = '#deals') => {
 const syncProductFromUrl = () => {
   const url = new URL(window.location.href)
   const slug = url.searchParams.get('product')
+  const accountView = url.searchParams.get('account')
   const product = slug ? findProductBySlug(slug) : null
 
-  selectedProduct.value = product || null
-  document.title = product ? `${product.title} | ZappyMart` : 'ZappyMart'
+  activePage.value = accountView === 'profile' ? 'profile' : 'store'
+  selectedProduct.value = activePage.value === 'store' ? (product || null) : null
+  document.title = activePage.value === 'profile'
+    ? 'My Account | ZappyMart'
+    : product ? `${product.title} | ZappyMart` : 'ZappyMart'
 
   nextTick(() => {
-    if (product) {
+    if (product || activePage.value === 'profile') {
       window.scrollTo({ top: 0 })
       return
     }
@@ -545,6 +583,11 @@ const addToWishlist = (product) => {
     wishlist.value.push(product)
     showProductToast(product, 'Added to wishlist successfully.')
   }
+}
+
+const removeFromWishlist = (product) => {
+  wishlist.value = wishlist.value.filter((item) => item.title !== product.title)
+  showProductToast(product, 'Removed from wishlist.')
 }
 
 const isWishlisted = (product) => wishlist.value.some((item) => item.title === product.title)

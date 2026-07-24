@@ -22,7 +22,7 @@
             <span v-if="wishlistCount" class="wishlist-count">{{ wishlistCount }}</span>
           </button>
 
-          <button class="header-icon d-none d-md-grid" type="button">
+          <button class="header-icon" type="button" aria-label="Open customer profile" @click="$emit('open-profile')">
             <i class="fa-regular fa-user"></i>
           </button>
 
@@ -62,7 +62,7 @@ const props = defineProps({
   categories: { type: Array, default: () => [] },
 })
 
-defineEmits(['update:searchTerm', 'open-cart', 'go-home', 'navigate-section'])
+defineEmits(['update:searchTerm', 'open-cart', 'go-home', 'navigate-section', 'open-profile'])
 
 const isScrolled = ref(false)
 let scrollFrame = null

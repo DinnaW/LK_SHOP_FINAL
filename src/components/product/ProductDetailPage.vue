@@ -842,6 +842,64 @@
       Thank you. Your review has been submitted.
     </div>
 
+    <Transition name="pro-pdp-cart-reminder">
+      <aside
+        v-if="showCartReminder"
+        class="pro-pdp-cart-reminder"
+        aria-live="polite"
+        aria-atomic="true"
+        aria-label="Add this product to your cart"
+      >
+        <button
+          class="pro-pdp-cart-reminder-close"
+          type="button"
+          aria-label="Dismiss add to cart reminder"
+          @click="dismissCartReminder"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="pro-pdp-cart-reminder-kicker">
+          <span aria-hidden="true"></span>
+          Still considering it?
+        </div>
+
+        <div class="pro-pdp-cart-reminder-product">
+          <div class="pro-pdp-cart-reminder-image">
+            <img :src="product.img" :alt="product.title" />
+          </div>
+          <div>
+            <strong>{{ product.title }}</strong>
+            <small>{{ selectedOptionsLabel }}</small>
+          </div>
+        </div>
+
+        <div class="pro-pdp-cart-reminder-price">
+          <div>
+            <span>Current price</span>
+            <strong>{{ formatPrice(product.price) }}</strong>
+          </div>
+          <span v-if="discountPercent" class="pro-pdp-cart-reminder-saving">Save {{ discountPercent }}%</span>
+        </div>
+
+        <button
+          class="pro-pdp-cart-reminder-action"
+          type="button"
+          :disabled="isOutOfStock"
+          @click="addSelectedQuantity"
+        >
+          <i class="fa-solid fa-cart-plus"></i>
+          <span>{{ quantity > 1 ? `Add ${quantity} items to cart` : 'Add to cart' }}</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <p>
+          <i class="fa-solid fa-circle-check"></i>
+          Your selected options will be kept.
+        </p>
+      </aside>
+    </Transition>
+
     <div class="pro-pdp-mobile-bar">
       <div><span>{{ formatPrice(product.price) }}</span><small>{{ selectedOptionsLabel }}</small></div>
       <button type="button" :disabled="isOutOfStock" @click="addSelectedQuantity">{{ isOutOfStock ? 'Out of stock' : 'Add to cart' }}</button>
@@ -898,6 +956,9 @@ const inquiryName = ref('')
 const inquiryContact = ref('')
 const inquiryMessage = ref('')
 const inquiryNotice = ref('')
+const showCartReminder = ref(false)
+const cartReminderDismissed = ref(false)
+const cartReminderAdded = ref(false)
 let reviewTimer
 let shareTimer
 let pdfLabelTimer
@@ -919,6 +980,8 @@ const filteredRelatedProducts = computed(() => props.relatedProducts.filter((ite
   !isMegaSaleProduct(item),
 ))
 const isWishlisted = computed(() => props.wishlistItems.includes(props.product.title))
+const currentProductCartQuantity = computed(() => Number(props.cartQuantities?.[props.product.title] || 0))
+const productAlreadyInCart = computed(() => currentProductCartQuantity.value > 0 || cartReminderAdded.value)
 const isOutOfStock = computed(() =>
   props.product.outOfStock ||
   props.product.stock === 'out' ||
@@ -1432,6 +1495,9 @@ watch(() => props.product, () => {
   inquiryContact.value = ''
   inquiryMessage.value = ''
   inquiryNotice.value = ''
+  showCartReminder.value = false
+  cartReminderDismissed.value = false
+  cartReminderAdded.value = false
   activeGuideGroup.value = null
   resetImageHoverZoom()
 }, { deep: false })
@@ -1479,6 +1545,30 @@ const selectedPayload = () => {
 const addSelectedQuantity = () => {
   if (isOutOfStock.value) return
   emit('add-to-cart', selectedPayload())
+  cartReminderAdded.value = true
+  showCartReminder.value = false
+}
+
+const updateCartReminderVisibility = () => {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return
+
+  const documentElement = document.documentElement
+  const scrollableDistance = Math.max(1, documentElement.scrollHeight - window.innerHeight)
+  const currentScroll = Math.max(window.scrollY || 0, documentElement.scrollTop || 0)
+  const scrollProgress = currentScroll / scrollableDistance
+  const canAppear = !isOutOfStock.value
+    && !productAlreadyInCart.value
+    && !cartReminderDismissed.value
+    && !showZoom.value
+    && !showReviewForm.value
+    && !showInquiryForm.value
+
+  showCartReminder.value = canAppear && scrollProgress >= 0.5
+}
+
+const dismissCartReminder = () => {
+  cartReminderDismissed.value = true
+  showCartReminder.value = false
 }
 
 const focusFulfilmentOptions = async () => {
@@ -1868,11 +1958,28 @@ const handleKeydown = (event) => {
   showInquiryForm.value = false
   activeGuideGroup.value = null
   showReviewForm.value = false
+  dismissCartReminder()
 }
 
-onMounted(() => window.addEventListener('keydown', handleKeydown))
+watch(productAlreadyInCart, (inCart) => {
+  if (inCart) showCartReminder.value = false
+  else updateCartReminderVisibility()
+})
+
+watch([showZoom, showReviewForm, showInquiryForm], () => {
+  updateCartReminderVisibility()
+})
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+  window.addEventListener('scroll', updateCartReminderVisibility, { passive: true })
+  window.addEventListener('resize', updateCartReminderVisibility)
+  window.requestAnimationFrame(updateCartReminderVisibility)
+})
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
+  window.removeEventListener('scroll', updateCartReminderVisibility)
+  window.removeEventListener('resize', updateCartReminderVisibility)
   clearTimeout(reviewTimer)
   clearTimeout(shareTimer)
   clearTimeout(pdfLabelTimer)
