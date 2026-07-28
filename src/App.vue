@@ -15,15 +15,17 @@
         v-model:search-term="searchTerm"
         :cart-count="cartCount"
         :wishlist-count="wishlist.length"
-        :categories="categorySidebarItems"
+        :wishlist-open="isWishlistOpen"
+        :active-page="activePage"
         @open-cart="openCart"
+        @open-wishlist="openWishlist"
         @open-profile="openProfile"
+        @open-shop="openShop"
         @go-home="goHome"
         @navigate-section="navigateToSection"
       />
 
       <template v-if="activePage === 'store' && !selectedProduct">
-        <CategoryStrip :categories="categorySidebarItems" />
         <HeroSection :images="heroImages" />
 
         <MegaSaleSection
@@ -144,6 +146,20 @@
         @add-wishlist="addToWishlist"
       />
 
+      <ShopPage
+        v-else-if="activePage === 'shop'"
+        :products="shopProducts"
+        :wishlist-items="wishlistTitles"
+        :cart-quantities="cartQuantities"
+        :search-term="searchTerm"
+        @go-home="goHome"
+        @add-to-cart="addToCart"
+        @update-cart-quantity="updateCartQuantity"
+        @quick-view="openQuickView"
+        @view-product="openProductPage"
+        @add-wishlist="addToWishlist"
+      />
+
       <CustomerProfilePage
         v-else
         :wishlist-items="wishlist"
@@ -165,6 +181,17 @@
       :cart-total="cartTotal"
       @close="closeCart"
       @remove="removeFromCart"
+    />
+
+    <WishlistDrawer
+      :wishlist="wishlist"
+      :is-open="isWishlistOpen"
+      :cart-quantities="cartQuantities"
+      @close="closeWishlist"
+      @remove="removeFromWishlist"
+      @add-to-cart="addWishlistItemToCart"
+      @add-all="addAllWishlistToCart"
+      @view-product="openProductFromWishlist"
     />
 
     <button
@@ -198,12 +225,13 @@ import Header from '@/components/layout/Header.vue'
 import Footer from '@/components/layout/Footer.vue'
 import ProductSection from '@/components/product/ProductSection.vue'
 import ProductDetailPage from '@/components/product/ProductDetailPage.vue'
+import ShopPage from '@/components/product/ShopPage.vue'
 import CustomerProfilePage from '@/components/profile/CustomerProfilePage.vue'
 import QuickViewModal from '@/components/product/QuickViewModal.vue'
 import CartToast from '@/components/cart/CartToast.vue'
 import CartDrawer from '@/components/cart/CartDrawer.vue'
+import WishlistDrawer from '@/components/wishlist/WishlistDrawer.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
-import CategoryStrip from '@/components/sections/CategoryStrip.vue'
 import MegaSaleSection from '@/components/sections/MegaSaleSection.vue'
 import ApplianceBanner from '@/components/sections/ApplianceBanner.vue'
 import FeaturedBanners from '@/components/sections/FeaturedBanners.vue'
@@ -248,6 +276,7 @@ const quickViewProduct = ref(null)
 const selectedProduct = ref(null)
 const activePage = ref('store')
 const isCartOpen = ref(false)
+const isWishlistOpen = ref(false)
 const isSidebarExpanded = ref(false)
 const showFloatingCart = ref(false)
 const activeSidebar = ref('Electronics')
@@ -332,6 +361,18 @@ const allStoreProducts = uniqueProductsByTitle([
   ...Object.values(bestProductTabs).flat(),
   ...skinCareProducts,
 ])
+
+const megaSaleProductTitles = new Set(megaSaleProducts.map((product) => product.title))
+const shopProducts = uniqueProductsByTitle([
+  ...recommendedProducts,
+  ...Object.values(recommendedProductTabs).flat(),
+  ...electronicsProducts,
+  ...Object.values(electronicsProductTabs).flat(),
+  ...homeAccessoryProducts,
+  ...bestProducts,
+  ...Object.values(bestProductTabs).flat(),
+  ...skinCareProducts,
+]).filter((product) => !megaSaleProductTitles.has(product.title))
 
 const relatedProducts = computed(() => {
   if (!selectedProduct.value) return []
@@ -425,7 +466,7 @@ const findProductBySlug = (slug) => allStoreProducts.find(
   (product) => slugifyProduct(product.title) === slug,
 )
 
-const updateBrowserUrl = ({ product = null, hash = '', account = false, replace = false } = {}) => {
+const updateBrowserUrl = ({ product = null, hash = '', account = false, shop = false, replace = false } = {}) => {
   const url = new URL(window.location.href)
 
   if (product) {
@@ -438,6 +479,9 @@ const updateBrowserUrl = ({ product = null, hash = '', account = false, replace 
   if (account) url.searchParams.set('account', 'profile')
   else if (!product) url.searchParams.delete('account')
 
+  if (shop) url.searchParams.set('page', 'shop')
+  else url.searchParams.delete('page')
+
   url.hash = hash
   const method = replace ? 'replaceState' : 'pushState'
   window.history[method]({}, '', `${url.pathname}${url.search}${url.hash}`)
@@ -449,6 +493,7 @@ const openProductPage = (product, { replace = false } = {}) => {
   activePage.value = 'store'
   selectedProduct.value = product
   quickViewProduct.value = null
+  isWishlistOpen.value = false
   isSidebarExpanded.value = false
   updateBrowserUrl({ product, replace })
   document.title = `${product.title} | ZappyMart`
@@ -456,11 +501,23 @@ const openProductPage = (product, { replace = false } = {}) => {
 }
 
 const goHome = () => {
-  const wasViewingProduct = Boolean(selectedProduct.value) || activePage.value === 'profile'
+  const wasViewingProduct = Boolean(selectedProduct.value) || activePage.value === 'profile' || activePage.value === 'shop'
   activePage.value = 'store'
   selectedProduct.value = null
+  isWishlistOpen.value = false
   document.title = 'ZappyMart'
   updateBrowserUrl({ replace: !wasViewingProduct })
+  nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+}
+
+const openShop = () => {
+  activePage.value = 'shop'
+  selectedProduct.value = null
+  quickViewProduct.value = null
+  isWishlistOpen.value = false
+  isSidebarExpanded.value = false
+  document.title = 'Shop All Products | ZappyMart'
+  updateBrowserUrl({ shop: true })
   nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
 }
 
@@ -468,6 +525,7 @@ const openProfile = () => {
   activePage.value = 'profile'
   selectedProduct.value = null
   quickViewProduct.value = null
+  isWishlistOpen.value = false
   isSidebarExpanded.value = false
   document.title = 'My Account | ZappyMart'
   updateBrowserUrl({ account: true })
@@ -478,6 +536,7 @@ const navigateToSection = (href = '#deals') => {
   const targetHash = String(href).startsWith('#') ? href : `#${href}`
   activePage.value = 'store'
   selectedProduct.value = null
+  isWishlistOpen.value = false
   isSidebarExpanded.value = false
   document.title = 'ZappyMart'
   updateBrowserUrl({ hash: targetHash })
@@ -489,19 +548,23 @@ const navigateToSection = (href = '#deals') => {
 }
 
 const syncProductFromUrl = () => {
+  isWishlistOpen.value = false
   const url = new URL(window.location.href)
   const slug = url.searchParams.get('product')
   const accountView = url.searchParams.get('account')
+  const pageView = url.searchParams.get('page')
   const product = slug ? findProductBySlug(slug) : null
 
-  activePage.value = accountView === 'profile' ? 'profile' : 'store'
+  activePage.value = accountView === 'profile' ? 'profile' : pageView === 'shop' ? 'shop' : 'store'
   selectedProduct.value = activePage.value === 'store' ? (product || null) : null
   document.title = activePage.value === 'profile'
     ? 'My Account | ZappyMart'
-    : product ? `${product.title} | ZappyMart` : 'ZappyMart'
+    : activePage.value === 'shop'
+      ? 'Shop All Products | ZappyMart'
+      : product ? `${product.title} | ZappyMart` : 'ZappyMart'
 
   nextTick(() => {
-    if (product || activePage.value === 'profile') {
+    if (product || activePage.value === 'profile' || activePage.value === 'shop') {
       window.scrollTo({ top: 0 })
       return
     }
@@ -590,9 +653,44 @@ const removeFromWishlist = (product) => {
   showProductToast(product, 'Removed from wishlist.')
 }
 
+const isProductOutOfStock = (product) =>
+  Boolean(
+    product?.outOfStock ||
+    product?.stock === 'out' ||
+    product?.stockStatus === 'out' ||
+    String(product?.badge || '').toLowerCase().includes('out of stock'),
+  )
+
+const addWishlistItemToCart = (product) => {
+  if (!product || isProductOutOfStock(product)) return
+  addToCart({ product, quantity: 1 })
+}
+
+const addAllWishlistToCart = () => {
+  const availableProducts = wishlist.value.filter((product) => !isProductOutOfStock(product))
+  if (!availableProducts.length) return
+
+  availableProducts.forEach((product) => {
+    const existingItem = cart.value.find((item) => item.title === product.title)
+    if (existingItem) existingItem.quantity += 1
+    else cart.value.push({ ...product, quantity: 1 })
+  })
+
+  showProductToast(
+    availableProducts[0],
+    `${availableProducts.length} wishlist ${availableProducts.length === 1 ? 'item' : 'items'} added to your cart.`,
+  )
+}
+
+const openProductFromWishlist = (product) => {
+  closeWishlist()
+  openProductPage(product)
+}
+
 const isWishlisted = (product) => wishlist.value.some((item) => item.title === product.title)
 
 const openQuickView = (product) => {
+  isWishlistOpen.value = false
   quickViewProduct.value = product
 }
 
@@ -611,10 +709,21 @@ const removeFromCart = (index) => {
 }
 
 const openCart = () => {
+  isWishlistOpen.value = false
   isCartOpen.value = true
 }
 
 const closeCart = () => {
   isCartOpen.value = false
+}
+
+const openWishlist = () => {
+  isCartOpen.value = false
+  quickViewProduct.value = null
+  isWishlistOpen.value = true
+}
+
+const closeWishlist = () => {
+  isWishlistOpen.value = false
 }
 </script>

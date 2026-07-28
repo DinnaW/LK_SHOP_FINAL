@@ -1,0 +1,28 @@
+ZappyMart / LK Shop - Complete Updated Project
+
+1. Open this project folder in VS Code.
+2. Open the terminal in this folder.
+3. Run:
+
+   npm install
+   npm run dev
+
+Production build:
+
+   npm run build
+
+GitHub push:
+
+   git add .
+   git commit -m "Update shop filtering page"
+   git pull origin main --rebase
+   git push origin main
+
+Main new shop page:
+- src/components/product/ShopPage.vue
+
+Important integrated files:
+- src/App.vue
+- src/components/layout/Header.vue
+- src/components/wishlist/WishlistDrawer.vue
+- src/styles/main.css

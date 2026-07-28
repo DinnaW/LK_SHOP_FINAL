@@ -17,8 +17,14 @@
         </div>
 
         <div class="d-flex align-items-center gap-2 ms-lg-4">
-          <button class="header-icon d-none d-md-grid" type="button" aria-label="Wishlist">
-            <i class="fa-regular fa-heart"></i>
+          <button
+            class="header-icon"
+            type="button"
+            aria-label="Open wishlist"
+            :aria-expanded="wishlistOpen"
+            @click="$emit('open-wishlist')"
+          >
+            <i :class="wishlistCount ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
             <span v-if="wishlistCount" class="wishlist-count">{{ wishlistCount }}</span>
           </button>
 
@@ -26,7 +32,7 @@
             <i class="fa-regular fa-user"></i>
           </button>
 
-          <button class="header-icon" type="button" @click="$emit('open-cart')">
+          <button class="header-icon" type="button" aria-label="Open shopping cart" @click="$emit('open-cart')">
             <i class="fa-solid fa-cart-shopping"></i>
             <span class="cart-count">{{ cartCount }}</span>
           </button>
@@ -34,62 +40,73 @@
       </div>
     </nav>
 
-    <nav
-      class="scroll-header-categories"
-      :class="{ 'is-visible': isScrolled }"
-      aria-label="Header categories"
-    >
-      <a
-        v-for="item in categoryLinks"
-        :key="item.label"
-        :href="item.href"
-        @click.prevent="$emit('navigate-section', item.href)"
-      >
-        {{ item.label }}
-      </a>
+    <nav class="category-strip site-menu-strip header-site-menu" aria-label="Main website menu">
+      <div class="category-track site-menu-track">
+        <a
+          v-for="item in menuItems"
+          :key="item.label"
+          class="site-menu-link"
+          :class="{ 'is-active': isMenuItemActive(item) }"
+          :href="item.href"
+          @click.prevent="handleMenuClick(item)"
+        >
+          <i v-if="item.icon" :class="item.icon" aria-hidden="true"></i>
+          <span>{{ item.label }}</span>
+        </a>
+      </div>
     </nav>
   </header>
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
 import logoUrl from '../../assets/ZappyMart Logo.svg'
 
 const props = defineProps({
   searchTerm: { type: String, required: true },
   cartCount: { type: Number, default: 0 },
   wishlistCount: { type: Number, default: 0 },
-  categories: { type: Array, default: () => [] },
+  wishlistOpen: { type: Boolean, default: false },
+  activePage: { type: String, default: 'store' },
 })
 
-defineEmits(['update:searchTerm', 'open-cart', 'go-home', 'navigate-section', 'open-profile'])
+const emit = defineEmits([
+  'update:searchTerm',
+  'open-cart',
+  'open-wishlist',
+  'go-home',
+  'open-shop',
+  'navigate-section',
+  'open-profile',
+])
 
-const isScrolled = ref(false)
-let scrollFrame = null
+const menuItems = [
+  { label: 'Home', href: '#', action: 'home' },
+  { label: 'Shop', href: '?page=shop', action: 'shop' },
+  { label: 'Mega Sale', href: '#mega-sale', action: 'section' },
+  { label: 'Recommendation', href: '#deals', action: 'section' },
+  { label: 'Electronics', href: '#electronics', action: 'section' },
+  { label: 'Featured Products', href: '#featured-banners', action: 'section' },
+  { label: 'Home Accessories', href: '#home-accessories', action: 'section' },
+  { label: 'Best Deals', href: '#best-week', action: 'section' },
+]
 
-const categoryLinks = computed(() => {
-  const validCategories = props.categories.filter((item) => item?.label && item?.href)
-  const storageIndex = validCategories.findIndex((item) => item.label === 'Storage')
-
-  return storageIndex >= 0 ? validCategories.slice(0, storageIndex + 1) : validCategories
-})
-
-const updateScrollState = () => {
-  if (scrollFrame) return
-
-  scrollFrame = window.requestAnimationFrame(() => {
-    isScrolled.value = window.scrollY > 140
-    scrollFrame = null
-  })
+const isMenuItemActive = (item) => {
+  if (item.action === 'shop') return props.activePage === 'shop'
+  if (item.action === 'home') return props.activePage === 'store'
+  return false
 }
 
-onMounted(() => {
-  updateScrollState()
-  window.addEventListener('scroll', updateScrollState, { passive: true })
-})
+const handleMenuClick = (item) => {
+  if (item.action === 'shop') {
+    emit('open-shop')
+    return
+  }
 
-onUnmounted(() => {
-  window.removeEventListener('scroll', updateScrollState)
-  if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
-})
+  if (item.action === 'home') {
+    emit('go-home')
+    return
+  }
+
+  emit('navigate-section', item.href)
+}
 </script>
