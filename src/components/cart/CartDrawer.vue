@@ -28,7 +28,7 @@
         <span>Total</span>
         <span>{{ formatPrice(cartTotal) }}</span>
       </div>
-      <button class="checkout-btn">Proceed to Checkout</button>
+      <button class="checkout-btn" type="button" :disabled="cart.length === 0" @click="$emit('checkout')">Proceed to Checkout</button>
     </div>
   </aside>
 </template>
@@ -42,5 +42,5 @@ defineProps({
   cartTotal: { type: Number, required: true },
 })
 
-defineEmits(['close', 'remove'])
+defineEmits(['close', 'remove', 'checkout'])
 </script>

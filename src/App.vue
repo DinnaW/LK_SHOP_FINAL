@@ -1,6 +1,7 @@
 <template>
-  <div class="app-shell" :class="{ 'sidebar-expanded': isSidebarExpanded }">
+  <div class="app-shell" :class="{ 'sidebar-expanded': isSidebarExpanded, 'checkout-mode': activePage === 'checkout' }">
     <Sidebar
+      v-if="activePage !== 'checkout'"
       :items="categorySidebarItems"
       :active-sidebar="activeSidebar"
       :is-expanded="isSidebarExpanded"
@@ -10,20 +11,22 @@
     />
 
     <main class="page-wrapper">
-      <TopStrip />
-      <Header
-        v-model:search-term="searchTerm"
-        :cart-count="cartCount"
-        :wishlist-count="wishlist.length"
-        :wishlist-open="isWishlistOpen"
-        :active-page="activePage"
-        @open-cart="openCart"
-        @open-wishlist="openWishlist"
-        @open-profile="openProfile"
-        @open-shop="openShop"
-        @go-home="goHome"
-        @navigate-section="navigateToSection"
-      />
+      <template v-if="activePage !== 'checkout'">
+        <TopStrip />
+        <Header
+          v-model:search-term="searchTerm"
+          :cart-count="cartCount"
+          :wishlist-count="wishlist.length"
+          :wishlist-open="isWishlistOpen"
+          :active-page="activePage"
+          @open-cart="openCart"
+          @open-wishlist="openWishlist"
+          @open-profile="openProfile"
+          @open-shop="openShop"
+          @go-home="goHome"
+          @navigate-section="navigateToSection"
+        />
+      </template>
 
       <template v-if="activePage === 'store' && !selectedProduct">
         <HeroSection :images="heroImages" />
@@ -160,6 +163,17 @@
         @add-wishlist="addToWishlist"
       />
 
+      <CheckoutPage
+        v-else-if="activePage === 'checkout'"
+        :cart="cart"
+        :cart-total="cartTotal"
+        @continue-shopping="openShop"
+        @open-cart="openCart"
+        @update-quantity="updateCartQuantity"
+        @remove-item="removeFromCart"
+        @place-order="completeOrder"
+      />
+
       <CustomerProfilePage
         v-else
         :wishlist-items="wishlist"
@@ -171,7 +185,7 @@
         @remove-wishlist="removeFromWishlist"
       />
 
-      <Footer />
+      <Footer v-if="activePage !== 'checkout'" />
     </main>
 
     <CartToast :toast="toast" />
@@ -181,6 +195,7 @@
       :cart-total="cartTotal"
       @close="closeCart"
       @remove="removeFromCart"
+      @checkout="openCheckout"
     />
 
     <WishlistDrawer
@@ -195,6 +210,7 @@
     />
 
     <button
+      v-if="activePage !== 'checkout'"
       class="floating-cart-button"
       :class="{ 'is-visible': showFloatingCart || Boolean(selectedProduct) }"
       type="button"
@@ -226,6 +242,7 @@ import Footer from '@/components/layout/Footer.vue'
 import ProductSection from '@/components/product/ProductSection.vue'
 import ProductDetailPage from '@/components/product/ProductDetailPage.vue'
 import ShopPage from '@/components/product/ShopPage.vue'
+import CheckoutPage from '@/components/checkout/CheckoutPage.vue'
 import CustomerProfilePage from '@/components/profile/CustomerProfilePage.vue'
 import QuickViewModal from '@/components/product/QuickViewModal.vue'
 import CartToast from '@/components/cart/CartToast.vue'
@@ -466,7 +483,7 @@ const findProductBySlug = (slug) => allStoreProducts.find(
   (product) => slugifyProduct(product.title) === slug,
 )
 
-const updateBrowserUrl = ({ product = null, hash = '', account = false, shop = false, replace = false } = {}) => {
+const updateBrowserUrl = ({ product = null, hash = '', account = false, shop = false, checkout = false, replace = false } = {}) => {
   const url = new URL(window.location.href)
 
   if (product) {
@@ -479,7 +496,8 @@ const updateBrowserUrl = ({ product = null, hash = '', account = false, shop = f
   if (account) url.searchParams.set('account', 'profile')
   else if (!product) url.searchParams.delete('account')
 
-  if (shop) url.searchParams.set('page', 'shop')
+  if (checkout) url.searchParams.set('page', 'checkout')
+  else if (shop) url.searchParams.set('page', 'shop')
   else url.searchParams.delete('page')
 
   url.hash = hash
@@ -501,7 +519,7 @@ const openProductPage = (product, { replace = false } = {}) => {
 }
 
 const goHome = () => {
-  const wasViewingProduct = Boolean(selectedProduct.value) || activePage.value === 'profile' || activePage.value === 'shop'
+  const wasViewingProduct = Boolean(selectedProduct.value) || activePage.value === 'profile' || activePage.value === 'shop' || activePage.value === 'checkout'
   activePage.value = 'store'
   selectedProduct.value = null
   isWishlistOpen.value = false
@@ -519,6 +537,27 @@ const openShop = () => {
   document.title = 'Shop All Products | ZappyMart'
   updateBrowserUrl({ shop: true })
   nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+}
+
+const openCheckout = () => {
+  if (!cart.value.length) {
+    openCart()
+    return
+  }
+
+  activePage.value = 'checkout'
+  selectedProduct.value = null
+  quickViewProduct.value = null
+  isCartOpen.value = false
+  isWishlistOpen.value = false
+  isSidebarExpanded.value = false
+  document.title = 'Secure Checkout | ZappyMart'
+  updateBrowserUrl({ checkout: true })
+  nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+}
+
+const completeOrder = () => {
+  cart.value = []
 }
 
 const openProfile = () => {
@@ -555,16 +594,24 @@ const syncProductFromUrl = () => {
   const pageView = url.searchParams.get('page')
   const product = slug ? findProductBySlug(slug) : null
 
-  activePage.value = accountView === 'profile' ? 'profile' : pageView === 'shop' ? 'shop' : 'store'
+  activePage.value = accountView === 'profile'
+    ? 'profile'
+    : pageView === 'checkout'
+      ? 'checkout'
+      : pageView === 'shop'
+        ? 'shop'
+        : 'store'
   selectedProduct.value = activePage.value === 'store' ? (product || null) : null
   document.title = activePage.value === 'profile'
     ? 'My Account | ZappyMart'
-    : activePage.value === 'shop'
-      ? 'Shop All Products | ZappyMart'
-      : product ? `${product.title} | ZappyMart` : 'ZappyMart'
+    : activePage.value === 'checkout'
+      ? 'Secure Checkout | ZappyMart'
+      : activePage.value === 'shop'
+        ? 'Shop All Products | ZappyMart'
+        : product ? `${product.title} | ZappyMart` : 'ZappyMart'
 
   nextTick(() => {
-    if (product || activePage.value === 'profile' || activePage.value === 'shop') {
+    if (product || activePage.value === 'profile' || activePage.value === 'shop' || activePage.value === 'checkout') {
       window.scrollTo({ top: 0 })
       return
     }
@@ -701,7 +748,7 @@ const closeQuickView = () => {
 const quickCheckout = (product) => {
   addToCart(product)
   closeQuickView()
-  openCart()
+  nextTick(() => openCheckout())
 }
 
 const removeFromCart = (index) => {
