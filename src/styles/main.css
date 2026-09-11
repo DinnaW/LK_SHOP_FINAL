@@ -25082,3 +25082,143 @@ body.wishlist-drawer-open {
     height: 1rem;
   }
 }
+/* =========================================================
+   FINAL SMALLER ZAPPYMART LOGO SIZE
+========================================================= */
+
+.main-header .navbar-custom {
+  min-height: 92px !important;
+  overflow: visible !important;
+}
+
+.main-header .navbar-custom > .container-fluid {
+  display: grid !important;
+
+  grid-template-columns:
+    230px
+    minmax(280px, 1fr)
+    max-content !important;
+
+  align-items: center !important;
+  gap: 22px !important;
+}
+
+
+/* LOGO WRAPPER */
+
+.main-header .navbar-custom .brand {
+  width: 230px !important;
+  min-width: 230px !important;
+  max-width: 230px !important;
+
+  height: auto !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  flex-shrink: 0 !important;
+
+  overflow: visible !important;
+}
+
+
+/* LOGO IMAGE */
+
+.main-header .navbar-custom .brand .brand-logo {
+  display: block !important;
+
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+
+  height: auto !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+  object-position: left center !important;
+}
+
+
+/* LARGE SCREENS */
+
+@media (min-width: 1400px) {
+
+  .main-header .navbar-custom > .container-fluid {
+    grid-template-columns:
+      250px
+      minmax(300px, 1fr)
+      max-content !important;
+  }
+
+  .main-header .navbar-custom .brand {
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+  }
+
+}
+
+
+/* TABLET */
+
+@media (max-width: 991px) {
+
+  .main-header .navbar-custom {
+    min-height: 82px !important;
+  }
+
+  .main-header .navbar-custom > .container-fluid {
+    grid-template-columns:
+      190px
+      max-content !important;
+  }
+
+  .main-header .navbar-custom .brand {
+    width: 190px !important;
+    min-width: 190px !important;
+    max-width: 190px !important;
+  }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 575px) {
+
+  .main-header .navbar-custom {
+    min-height: 74px !important;
+  }
+
+  .main-header .navbar-custom > .container-fluid {
+    grid-template-columns:
+      155px
+      max-content !important;
+  }
+
+  .main-header .navbar-custom .brand {
+    width: 155px !important;
+    min-width: 155px !important;
+    max-width: 155px !important;
+  }
+
+}
+
+
+/* SMALL MOBILE */
+
+@media (max-width: 420px) {
+
+  .main-header .navbar-custom > .container-fluid {
+    grid-template-columns:
+      140px
+      max-content !important;
+  }
+
+  .main-header .navbar-custom .brand {
+    width: 140px !important;
+    min-width: 140px !important;
+    max-width: 140px !important;
+  }
+
+}

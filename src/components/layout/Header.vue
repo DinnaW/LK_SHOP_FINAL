@@ -21,6 +21,7 @@
 
         <!-- SEARCH BAR -->
         <div class="search-box mx-lg-auto">
+
           <i class="fa-solid fa-magnifying-glass"></i>
 
           <input
@@ -29,6 +30,7 @@
             placeholder="Search for products, brands and categories..."
             @input="$emit('update:searchTerm', $event.target.value)"
           />
+
         </div>
 
         <!-- HEADER ICONS -->
@@ -83,14 +85,17 @@
           </button>
 
         </div>
+
       </div>
     </nav>
+
 
     <!-- MAIN WEBSITE MENU -->
     <nav
       class="category-strip site-menu-strip header-site-menu"
       aria-label="Main website menu"
     >
+
       <div class="category-track site-menu-track">
 
         <a
@@ -110,9 +115,11 @@
           <span>
             {{ item.label }}
           </span>
+
         </a>
 
       </div>
+
     </nav>
 
   </header>
@@ -239,7 +246,7 @@ const menuItems = [
 
 
 /* =========================================================
-   ACTIVE MENU
+   ACTIVE MENU ITEM
 ========================================================= */
 
 const isMenuItemActive = (item) => {
@@ -299,7 +306,7 @@ const handleMenuClick = (item) => {
 ========================================================= */
 
 .navbar-custom {
-  min-height: 105px;
+  min-height: 125px !important;
 }
 
 
@@ -308,30 +315,42 @@ const handleMenuClick = (item) => {
 ========================================================= */
 
 .brand {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-shrink: 0;
-  text-decoration: none;
+  display: flex !important;
+
+  align-items: center !important;
+
+  justify-content: flex-start !important;
+
+  flex-shrink: 0 !important;
+
+  width: auto !important;
+
+  min-width: fit-content !important;
+
+  max-width: none !important;
+
+  text-decoration: none !important;
 }
 
 
-/*
-  Bigger ZappyMart logo
-*/
-
 .brand-logo {
-  display: block;
+  display: block !important;
 
-  width: clamp(220px, 18vw, 310px);
+  width: 320px !important;
 
-  height: auto;
+  min-width: 320px !important;
 
-  max-height: 88px;
+  max-width: 320px !important;
 
-  object-fit: contain;
+  height: auto !important;
 
-  object-position: left center;
+  max-height: none !important;
+
+  object-fit: contain !important;
+
+  object-position: left center !important;
+
+  flex-shrink: 0 !important;
 }
 
 
@@ -341,14 +360,24 @@ const handleMenuClick = (item) => {
 
 .search-box {
   max-width: 580px;
+
   width: 100%;
+
   position: relative;
-  margin-left: 35px;
-  margin-right: 35px;
+
+  margin-left: 30px;
+
+  margin-right: 30px;
+
+  flex: 1 1 auto;
+
+  min-width: 200px;
 }
+
 
 .search-box input {
   height: 48px;
+
   width: 100%;
 
   border-radius: 999px;
@@ -358,6 +387,7 @@ const handleMenuClick = (item) => {
   background: #f6f8fb;
 
   padding-left: 52px;
+
   padding-right: 18px;
 
   font-size: 14px;
@@ -369,14 +399,15 @@ const handleMenuClick = (item) => {
   transition: 0.25s ease;
 }
 
+
 .search-box input:focus {
   border-color: #083d77;
 
   background: #ffffff;
 
-  box-shadow:
-    0 0 0 3px rgba(8, 61, 119, 0.08);
+  box-shadow: 0 0 0 3px rgba(8, 61, 119, 0.08);
 }
+
 
 .search-box i {
   position: absolute;
@@ -402,6 +433,8 @@ const handleMenuClick = (item) => {
 
   height: 43px;
 
+  flex-shrink: 0;
+
   border-radius: 50%;
 
   border: 1px solid #e8edf4;
@@ -420,6 +453,7 @@ const handleMenuClick = (item) => {
 
   transition: all 0.25s ease;
 }
+
 
 .header-icon:hover {
   background: #083d77;
@@ -508,6 +542,7 @@ const handleMenuClick = (item) => {
   overflow: hidden;
 }
 
+
 .site-menu-track {
   width: 100%;
 
@@ -521,6 +556,7 @@ const handleMenuClick = (item) => {
 
   padding: 13px 25px;
 }
+
 
 .site-menu-link {
   display: inline-flex;
@@ -548,9 +584,11 @@ const handleMenuClick = (item) => {
   transition: 0.25s ease;
 }
 
+
 .site-menu-link:hover {
   color: #ffffff;
 }
+
 
 .site-menu-link::after {
   content: '';
@@ -572,16 +610,125 @@ const handleMenuClick = (item) => {
   transition: width 0.25s ease;
 }
 
+
 .site-menu-link:hover::after {
   width: 100%;
 }
+
 
 .site-menu-link.is-active {
   color: #ffffff;
 }
 
+
 .site-menu-link.is-active::after {
   width: 100%;
+}
+
+
+/* =========================================================
+   NORMAL DESKTOP
+   992px - 1399px
+========================================================= */
+
+@media (min-width: 992px) and (max-width: 1399px) {
+
+  .brand-logo {
+    width: 320px !important;
+
+    min-width: 320px !important;
+
+    max-width: 320px !important;
+  }
+
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   1400px+
+========================================================= */
+
+@media (min-width: 1400px) {
+
+  .navbar-custom {
+    min-height: 135px !important;
+  }
+
+  .brand-logo {
+    width: 420px !important;
+
+    min-width: 420px !important;
+
+    max-width: 420px !important;
+  }
+
+}
+
+
+/* =========================================================
+   EXTRA LARGE DESKTOP
+   1700px+
+========================================================= */
+
+@media (min-width: 1700px) {
+
+  .navbar-custom {
+    min-height: 145px !important;
+  }
+
+  .brand-logo {
+    width: 460px !important;
+
+    min-width: 460px !important;
+
+    max-width: 460px !important;
+  }
+
+}
+
+
+/* =========================================================
+   ULTRA WIDE DESKTOP
+   2000px+
+========================================================= */
+
+@media (min-width: 2000px) {
+
+  .navbar-custom {
+    min-height: 155px !important;
+  }
+
+  .brand-logo {
+    width: 500px !important;
+
+    min-width: 500px !important;
+
+    max-width: 500px !important;
+  }
+
+}
+
+
+/* =========================================================
+   VERY LARGE SCREEN
+   2400px+
+========================================================= */
+
+@media (min-width: 2400px) {
+
+  .navbar-custom {
+    min-height: 165px !important;
+  }
+
+  .brand-logo {
+    width: 550px !important;
+
+    min-width: 550px !important;
+
+    max-width: 550px !important;
+  }
+
 }
 
 
@@ -592,15 +739,20 @@ const handleMenuClick = (item) => {
 @media (max-width: 991px) {
 
   .navbar-custom {
-    min-height: auto;
-    padding: 18px 0;
+    min-height: auto !important;
+
+    padding: 20px 0;
   }
+
 
   .brand-logo {
-    width: 205px;
+    width: 250px !important;
 
-    max-height: 72px;
+    min-width: 250px !important;
+
+    max-width: 250px !important;
   }
+
 
   .search-box {
     order: 3;
@@ -609,8 +761,11 @@ const handleMenuClick = (item) => {
 
     max-width: 100%;
 
+    min-width: 100%;
+
     margin: 16px 0 0;
   }
+
 
   .site-menu-track {
     justify-content: flex-start;
@@ -619,6 +774,7 @@ const handleMenuClick = (item) => {
 
     scrollbar-width: none;
   }
+
 
   .site-menu-track::-webkit-scrollbar {
     display: none;
@@ -634,14 +790,18 @@ const handleMenuClick = (item) => {
 @media (max-width: 575px) {
 
   .navbar-custom {
-    padding: 14px 0;
+    padding: 15px 0;
   }
+
 
   .brand-logo {
-    width: 170px;
+    width: 200px !important;
 
-    max-height: 60px;
+    min-width: 200px !important;
+
+    max-width: 200px !important;
   }
+
 
   .header-icon {
     width: 39px;
@@ -649,11 +809,13 @@ const handleMenuClick = (item) => {
     height: 39px;
   }
 
+
   .search-box input {
     height: 44px;
 
     font-size: 13px;
   }
+
 
   .site-menu-track {
     gap: 24px;
@@ -661,8 +823,35 @@ const handleMenuClick = (item) => {
     padding: 12px 18px;
   }
 
+
   .site-menu-link {
     font-size: 11px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .brand-logo {
+    width: 170px !important;
+
+    min-width: 170px !important;
+
+    max-width: 170px !important;
+  }
+
+
+  .header-icon {
+    width: 37px;
+
+    height: 37px;
+
+    font-size: 14px;
   }
 
 }
