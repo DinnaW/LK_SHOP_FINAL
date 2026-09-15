@@ -1,103 +1,82 @@
 <template>
-  <header class="main-header">
+  <header class="main-header zm-dual-header">
+    <nav class="zm-topbar" aria-label="Store tools">
+      <div class="zm-header-layout">
+        <!-- TWO LOGOS -->
+        <div class="zm-logo-group">
+          <a
+            class="zm-primary-brand"
+            href="#"
+            aria-label="ZappyMart home"
+            @click.prevent="emit('go-home')"
+          >
+            <img class="zm-primary-logo" :src="logoUrl" alt="ZappyMart" />
+          </a>
+          <div class="zm-secondary-brand">
+            <img
+              class="zm-secondary-logo"
+              :src="secondLogoUrl"
+              :alt="secondLogoAlt"
+            />
+          </div>
+        </div>
 
-    <!-- MAIN HEADER -->
-    <nav class="navbar navbar-expand-lg navbar-custom">
-      <div class="container-fluid px-4 px-lg-5">
-
-        <!-- LOGO -->
-        <a
-          class="brand"
-          href="#"
-          aria-label="ZappyMart home"
-          @click.prevent="$emit('go-home')"
-        >
-          <img
-            class="brand-logo"
-            :src="logoUrl"
-            alt="ZappyMart"
-          />
-        </a>
-
-        <!-- SEARCH BAR -->
-        <div class="search-box mx-lg-auto">
-
-          <i class="fa-solid fa-magnifying-glass"></i>
-
+        <!-- SMALLER SEARCH BAR -->
+        <div class="zm-header-search">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
           <input
             :value="searchTerm"
             type="text"
+            aria-label="Search products"
             placeholder="Search for products, brands and categories..."
-            @input="$emit('update:searchTerm', $event.target.value)"
+            @input="handleSearchInput"
           />
-
         </div>
 
-        <!-- HEADER ICONS -->
-        <div class="d-flex align-items-center gap-2 ms-lg-4">
-
-          <!-- WISHLIST -->
+        <!-- HEADER ACTIONS -->
+        <div class="zm-header-actions">
           <button
-            class="header-icon"
+            class="zm-header-action"
             type="button"
             aria-label="Open wishlist"
             :aria-expanded="wishlistOpen"
-            @click="$emit('open-wishlist')"
+            @click="emit('open-wishlist')"
           >
             <i
-              :class="
-                wishlistCount
-                  ? 'fa-solid fa-heart'
-                  : 'fa-regular fa-heart'
-              "
+              :class="wishlistCount ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"
+              aria-hidden="true"
             ></i>
-
-            <span
-              v-if="wishlistCount"
-              class="wishlist-count"
-            >
+            <span v-if="wishlistCount" class="zm-header-count zm-wishlist-count">
               {{ wishlistCount }}
             </span>
           </button>
-
-          <!-- PROFILE -->
           <button
-            class="header-icon"
+            class="zm-header-action"
             type="button"
             aria-label="Open customer profile"
-            @click="$emit('open-profile')"
+            @click="emit('open-profile')"
           >
-            <i class="fa-regular fa-user"></i>
+            <i class="fa-regular fa-user" aria-hidden="true"></i>
           </button>
-
-          <!-- CART -->
           <button
-            class="header-icon"
+            class="zm-header-action"
             type="button"
             aria-label="Open shopping cart"
-            @click="$emit('open-cart')"
+            @click="emit('open-cart')"
           >
-            <i class="fa-solid fa-cart-shopping"></i>
-
-            <span class="cart-count">
-              {{ cartCount }}
-            </span>
+            <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+            <span class="zm-header-count zm-cart-count">{{ cartCount }}</span>
           </button>
-
         </div>
-
       </div>
     </nav>
 
-
-    <!-- MAIN WEBSITE MENU -->
+    <!-- EXISTING WEBSITE MENU -->
     <nav
       class="category-strip site-menu-strip header-site-menu"
       aria-label="Main website menu"
     >
-
       <div class="category-track site-menu-track">
-
         <a
           v-for="item in menuItems"
           :key="item.label"
@@ -106,754 +85,324 @@
           :href="item.href"
           @click.prevent="handleMenuClick(item)"
         >
-          <i
-            v-if="item.icon"
-            :class="item.icon"
-            aria-hidden="true"
-          ></i>
-
-          <span>
-            {{ item.label }}
-          </span>
-
+          <span>{{ item.label }}</span>
         </a>
-
       </div>
-
     </nav>
-
   </header>
 </template>
 
-
 <script setup>
-
 import logoUrl from '../../assets/ZappyMart-Logo.png'
-
-
-/* =========================================================
-   PROPS
-========================================================= */
+// Replace second-logo.png with your second logo's exact filename.
+import secondLogoUrl from '../../assets/second-logo.png'
 
 const props = defineProps({
-
-  searchTerm: {
-    type: String,
-    required: true,
-  },
-
-  cartCount: {
-    type: Number,
-    default: 0,
-  },
-
-  wishlistCount: {
-    type: Number,
-    default: 0,
-  },
-
-  wishlistOpen: {
-    type: Boolean,
-    default: false,
-  },
-
-  activePage: {
-    type: String,
-    default: 'store',
-  },
-
+  searchTerm: { type: String, required: true },
+  cartCount: { type: Number, default: 0 },
+  wishlistCount: { type: Number, default: 0 },
+  wishlistOpen: { type: Boolean, default: false },
+  activePage: { type: String, default: 'store' },
+  secondLogoAlt: { type: String, default: 'Partner logo' },
 })
 
-
-/* =========================================================
-   EMITS
-========================================================= */
-
 const emit = defineEmits([
-
   'update:searchTerm',
-
   'open-cart',
-
   'open-wishlist',
-
   'go-home',
-
   'open-shop',
-
   'navigate-section',
-
   'open-profile',
-
 ])
 
-
-/* =========================================================
-   MENU ITEMS
-========================================================= */
-
 const menuItems = [
-
-  {
-    label: 'Home',
-    href: '#',
-    action: 'home',
-  },
-
-  {
-    label: 'Shop',
-    href: '?page=shop',
-    action: 'shop',
-  },
-
-  {
-    label: 'Mega Sale',
-    href: '#mega-sale',
-    action: 'section',
-  },
-
-  {
-    label: 'Recommendation',
-    href: '#deals',
-    action: 'section',
-  },
-
-  {
-    label: 'Electronics',
-    href: '#electronics',
-    action: 'section',
-  },
-
-  {
-    label: 'Featured Products',
-    href: '#featured-banners',
-    action: 'section',
-  },
-
-  {
-    label: 'Home Accessories',
-    href: '#home-accessories',
-    action: 'section',
-  },
-
-  {
-    label: 'Best Deals',
-    href: '#best-week',
-    action: 'section',
-  },
-
+  { label: 'Home', href: '#', action: 'home' },
+  { label: 'Shop', href: '?page=shop', action: 'shop' },
+  { label: 'Mega Sale', href: '#mega-sale', action: 'section' },
+  { label: 'Recommendation', href: '#deals', action: 'section' },
+  { label: 'Electronics', href: '#electronics', action: 'section' },
+  { label: 'Featured Products', href: '#featured-banners', action: 'section' },
+  { label: 'Home Accessories', href: '#home-accessories', action: 'section' },
+  { label: 'Best Deals', href: '#best-week', action: 'section' },
 ]
 
-
-/* =========================================================
-   ACTIVE MENU ITEM
-========================================================= */
-
-const isMenuItemActive = (item) => {
-
-  if (item.action === 'shop') {
-    return props.activePage === 'shop'
+function handleSearchInput(event) {
+  if (event.target instanceof HTMLInputElement) {
+    emit('update:searchTerm', event.target.value)
   }
+}
 
-  if (item.action === 'home') {
-    return props.activePage === 'store'
-  }
-
+function isMenuItemActive(item) {
+  if (item.action === 'shop') return props.activePage === 'shop'
+  if (item.action === 'home') return props.activePage === 'store'
   return false
 }
 
-
-/* =========================================================
-   MENU CLICK HANDLER
-========================================================= */
-
-const handleMenuClick = (item) => {
-
+function handleMenuClick(item) {
   if (item.action === 'shop') {
-
     emit('open-shop')
-
     return
   }
-
   if (item.action === 'home') {
-
     emit('go-home')
-
     return
   }
-
   emit('navigate-section', item.href)
 }
-
 </script>
 
-
 <style scoped>
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.main-header {
+/* Dedicated classes avoid the old global header !important overrides. */
+.zm-dual-header {
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
+  background: #fff;
 }
-
-
-/* =========================================================
-   NAVBAR
-========================================================= */
-
-.navbar-custom {
-  min-height: 125px !important;
+.zm-dual-header *,
+.zm-dual-header *::before,
+.zm-dual-header *::after {
+  box-sizing: border-box;
 }
-
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.brand {
-  display: flex !important;
-
-  align-items: center !important;
-
-  justify-content: flex-start !important;
-
-  flex-shrink: 0 !important;
-
-  width: auto !important;
-
-  min-width: fit-content !important;
-
-  max-width: none !important;
-
-  text-decoration: none !important;
-}
-
-
-.brand-logo {
-  display: block !important;
-
-  width: 320px !important;
-
-  min-width: 320px !important;
-
-  max-width: 320px !important;
-
-  height: auto !important;
-
-  max-height: none !important;
-
-  object-fit: contain !important;
-
-  object-position: left center !important;
-
-  flex-shrink: 0 !important;
-}
-
-
-/* =========================================================
-   SEARCH BOX
-========================================================= */
-
-.search-box {
-  max-width: 580px;
-
-  width: 100%;
-
+.zm-topbar {
   position: relative;
-
-  margin-left: 30px;
-
-  margin-right: 30px;
-
-  flex: 1 1 auto;
-
-  min-width: 200px;
+  z-index: 2;
+  padding: 14px 0;
+  background: #fff;
 }
-
-
-.search-box input {
-  height: 48px;
-
+.zm-header-layout {
   width: 100%;
-
-  border-radius: 999px;
-
-  border: 1px solid #e8edf4;
-
-  background: #f6f8fb;
-
-  padding-left: 52px;
-
-  padding-right: 18px;
-
-  font-size: 14px;
-
-  font-weight: 500;
-
-  outline: none;
-
-  transition: 0.25s ease;
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 0 clamp(24px, 3vw, 48px);
 }
-
-
-.search-box input:focus {
+.zm-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+.zm-primary-brand,
+.zm-secondary-brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  text-decoration: none;
+}
+.zm-primary-brand {
+  width: 230px;
+}
+.zm-secondary-brand {
+  width: 330px;
+}
+.zm-primary-logo,
+.zm-secondary-logo {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+.zm-secondary-logo {
+  max-height: 170px;
+  object-position: center;
+}
+.zm-header-search {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  min-width: 0;
+  justify-self: center;
+}
+.zm-header-search input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  padding: 0 18px 0 46px;
+  border: 1px solid #e8edf4;
+  border-radius: 999px;
+  background: #f6f8fb;
+  color: #151922;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+.zm-header-search input:focus {
   border-color: #083d77;
-
-  background: #ffffff;
-
+  background: #fff;
   box-shadow: 0 0 0 3px rgba(8, 61, 119, 0.08);
 }
-
-
-.search-box i {
+.zm-header-search > i {
   position: absolute;
-
   top: 50%;
-
-  left: 20px;
-
+  left: 18px;
   transform: translateY(-50%);
-
   color: #6b7280;
-
-  z-index: 2;
+  pointer-events: none;
 }
-
-
-/* =========================================================
-   HEADER ICONS
-========================================================= */
-
-.header-icon {
-  width: 43px;
-
-  height: 43px;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  border: 1px solid #e8edf4;
-
-  display: grid;
-
-  place-items: center;
-
-  background: #ffffff;
-
-  color: #083d77;
-
+.zm-header-actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 8px;
+}
+.zm-header-action {
   position: relative;
-
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 43px;
+  height: 43px;
+  padding: 0;
+  border: 1px solid #e8edf4;
+  border-radius: 50%;
+  background: #fff;
+  color: #083d77;
+  font-size: 16px;
   cursor: pointer;
-
-  transition: all 0.25s ease;
+  transition: background 0.25s, color 0.25s, transform 0.25s;
 }
-
-
-.header-icon:hover {
-  background: #083d77;
-
-  color: #ffffff;
-
+.zm-header-action:hover {
   border-color: #083d77;
-
+  background: #083d77;
+  color: #fff;
   transform: translateY(-2px);
 }
-
-
-/* =========================================================
-   CART COUNT
-========================================================= */
-
-.cart-count {
-  position: absolute;
-
-  top: -5px;
-
-  right: -5px;
-
-  width: 20px;
-
-  height: 20px;
-
-  border-radius: 50%;
-
-  background: #ff3b30;
-
-  color: #ffffff;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  display: grid;
-
-  place-items: center;
+.zm-header-action:focus-visible,
+.zm-primary-brand:focus-visible {
+  outline: 2px solid #083d77;
+  outline-offset: 4px;
 }
-
-
-/* =========================================================
-   WISHLIST COUNT
-========================================================= */
-
-.wishlist-count {
+.zm-header-count {
   position: absolute;
-
   top: -5px;
-
   right: -5px;
-
-  width: 20px;
-
-  height: 20px;
-
-  border-radius: 50%;
-
-  background: #083d77;
-
-  color: #ffffff;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
   display: grid;
-
   place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
 }
+.zm-cart-count { background: #ff3b30; }
+.zm-wishlist-count { background: #083d77; }
 
-
-/* =========================================================
-   MENU STRIP
-========================================================= */
-
+/* Retain the existing menu's classes and global theme. */
 .category-strip {
   width: 100%;
-
   background: #083d77;
-
-  color: #ffffff;
-
+  color: #fff;
   overflow: hidden;
 }
-
-
 .site-menu-track {
   width: 100%;
-
+  min-width: 0;
   display: flex;
-
   align-items: center;
-
-  justify-content: center;
-
+  justify-content: flex-start;
   gap: clamp(20px, 3vw, 48px);
-
   padding: 13px 25px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
-
-
+.site-menu-track::-webkit-scrollbar { display: none; }
 .site-menu-link {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 7px;
-
-  color: rgba(255, 255, 255, 0.85);
-
-  font-size: 12px;
-
-  font-weight: 600;
-
-  letter-spacing: 0.7px;
-
-  text-transform: uppercase;
-
-  white-space: nowrap;
-
-  text-decoration: none;
-
   position: relative;
-
-  transition: 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.25s;
 }
-
-
-.site-menu-link:hover {
-  color: #ffffff;
-}
-
-
+.site-menu-link:hover,
+.site-menu-link.is-active { color: #fff; }
 .site-menu-link::after {
   content: '';
-
   position: absolute;
-
-  left: 50%;
-
-  bottom: -6px;
-
-  width: 0;
-
+  left: 0;
+  right: 0;
+  bottom: 8px;
   height: 2px;
-
-  background: #ffffff;
-
-  transform: translateX(-50%);
-
-  transition: width 0.25s ease;
+  background: #fff;
+  transform: scaleX(0);
+  transition: transform 0.2s;
 }
-
-
-.site-menu-link:hover::after {
-  width: 100%;
-}
-
-
-.site-menu-link.is-active {
-  color: #ffffff;
-}
-
-
-.site-menu-link.is-active::after {
-  width: 100%;
-}
-
-
-/* =========================================================
-   NORMAL DESKTOP
-   992px - 1399px
-========================================================= */
-
-@media (min-width: 992px) and (max-width: 1399px) {
-
-  .brand-logo {
-    width: 320px !important;
-
-    min-width: 320px !important;
-
-    max-width: 320px !important;
-  }
-
-}
-
-
-/* =========================================================
-   LARGE DESKTOP
-   1400px+
-========================================================= */
+.site-menu-link:hover::after,
+.site-menu-link.is-active::after { transform: scaleX(1); }
 
 @media (min-width: 1400px) {
-
-  .navbar-custom {
-    min-height: 135px !important;
-  }
-
-  .brand-logo {
-    width: 420px !important;
-
-    min-width: 420px !important;
-
-    max-width: 420px !important;
-  }
-
+  .zm-primary-brand { width: 250px; }
+  .zm-secondary-brand { width: 380px; }
 }
-
-
-/* =========================================================
-   EXTRA LARGE DESKTOP
-   1700px+
-========================================================= */
-
-@media (min-width: 1700px) {
-
-  .navbar-custom {
-    min-height: 145px !important;
-  }
-
-  .brand-logo {
-    width: 460px !important;
-
-    min-width: 460px !important;
-
-    max-width: 460px !important;
-  }
-
-}
-
-
-/* =========================================================
-   ULTRA WIDE DESKTOP
-   2000px+
-========================================================= */
-
-@media (min-width: 2000px) {
-
-  .navbar-custom {
-    min-height: 155px !important;
-  }
-
-  .brand-logo {
-    width: 500px !important;
-
-    min-width: 500px !important;
-
-    max-width: 500px !important;
-  }
-
-}
-
-
-/* =========================================================
-   VERY LARGE SCREEN
-   2400px+
-========================================================= */
-
-@media (min-width: 2400px) {
-
-  .navbar-custom {
-    min-height: 165px !important;
-  }
-
-  .brand-logo {
-    width: 550px !important;
-
-    min-width: 550px !important;
-
-    max-width: 550px !important;
-  }
-
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
 @media (max-width: 991px) {
-
-  .navbar-custom {
-    min-height: auto !important;
-
-    padding: 20px 0;
+  .zm-header-layout {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px;
   }
-
-
-  .brand-logo {
-    width: 250px !important;
-
-    min-width: 250px !important;
-
-    max-width: 250px !important;
-  }
-
-
-  .search-box {
-    order: 3;
-
-    flex-basis: 100%;
-
+  .zm-primary-brand { width: 190px; }
+  .zm-secondary-brand { width: 260px; }
+  .zm-logo-group { gap: 16px; }
+  .zm-header-search {
+    grid-column: 1 / -1;
+    grid-row: 2;
     max-width: 100%;
-
-    min-width: 100%;
-
-    margin: 16px 0 0;
   }
-
-
-  .site-menu-track {
-    justify-content: flex-start;
-
-    overflow-x: auto;
-
-    scrollbar-width: none;
+  .zm-header-actions {
+    grid-column: 2;
+    grid-row: 1;
   }
-
-
-  .site-menu-track::-webkit-scrollbar {
-    display: none;
-  }
-
 }
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
 @media (max-width: 575px) {
-
-  .navbar-custom {
-    padding: 15px 0;
+  .zm-topbar { padding: 14px 0; }
+  .zm-header-layout {
+    gap: 14px 12px;
+    padding: 0 18px;
   }
-
-
-  .brand-logo {
-    width: 200px !important;
-
-    min-width: 200px !important;
-
-    max-width: 200px !important;
+  .zm-logo-group {
+    grid-column: 1 / -1;
+    justify-content: space-between;
   }
-
-
-  .header-icon {
-    width: 39px;
-
-    height: 39px;
+  .zm-primary-brand { width: 155px; }
+  .zm-secondary-brand { width: 210px; }
+  .zm-secondary-logo { max-height: 120px; }
+  .zm-header-search {
+    grid-column: 1;
+    grid-row: 2;
   }
-
-
-  .search-box input {
+  .zm-header-search input {
     height: 44px;
-
+    padding-left: 34px;
+    padding-right: 10px;
     font-size: 13px;
   }
-
-
-  .site-menu-track {
-    gap: 24px;
-
-    padding: 12px 18px;
+  .zm-header-search > i { left: 12px; }
+  .zm-header-actions {
+    grid-column: 2;
+    grid-row: 2;
   }
-
-
-  .site-menu-link {
-    font-size: 11px;
-  }
-
+  .zm-header-action { width: 39px; height: 39px; }
+  .site-menu-track { gap: 24px; padding: 12px 18px; }
+  .site-menu-link { font-size: 11px; }
 }
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
 @media (max-width: 420px) {
-
-  .brand-logo {
-    width: 170px !important;
-
-    min-width: 170px !important;
-
-    max-width: 170px !important;
-  }
-
-
-  .header-icon {
-    width: 37px;
-
-    height: 37px;
-
-    font-size: 14px;
-  }
-
+  .zm-primary-brand { width: 140px; }
+  .zm-secondary-brand { width: 185px; }
+  .zm-header-action { width: 37px; height: 37px; font-size: 14px; }
 }
-
 </style>
